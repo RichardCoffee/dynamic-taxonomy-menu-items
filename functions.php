@@ -10,6 +10,25 @@ function dyntaxmi_class_loader( $class ) {
 spl_autoload_register( 'dyntaxmi_class_loader' );
 
 /**
+ *  Returns instance of plugin library.
+ *
+ * @since 20200407
+ * @param  bool    Flag to force a log entry.
+ * @return object  Plugin library instance.
+ */
+function dyntaxmi( $force = false ) {
+	static $library;
+	if ( empty( $library ) ) {
+		$library = new DynTaxMI_Plugin_Library;
+	}
+	//  Force log entry during ajax call.
+	if ( $force ) {
+		$library->logging_force = $force;
+	}
+	return $library;
+}
+
+/**
  *  array_column() introduced in PHP 7.0.0
  *
  * @since 20200315
