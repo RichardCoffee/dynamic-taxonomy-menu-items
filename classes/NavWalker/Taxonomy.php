@@ -50,10 +50,8 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 	public function __construct( $args = array() ) {
 		parent::__construct( $args );
 		$terms = $this->get_terms();
-		if ( is_wp_error( $terms ) ) {  # TODO: log the error
-			if ( property_exists( $this, 'abort__construct' ) ) {
-				static::$abort__construct = $terms;
-			}
+		if ( is_wp_error( $terms ) ) {
+			dyntaxmi(1)->log( $terms );
 		} else {
 			$this->menu     = apply_filters( "dyntaxmi_{$this->type}_menu",     $this->menu, $this->taxonomy );
 			$this->position = apply_filters( "dyntaxmi_{$this->type}_position", $this->position, $this->menu, $this->taxonomy );
