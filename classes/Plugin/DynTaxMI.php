@@ -47,7 +47,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 */
 	public function add_actions() {
 		add_action( 'wp_head',            [ $this, 'wp_head' ] );
-		add_action( 'wp_enqueue_scripts', [ $this. 'wp_enqueue_scripts' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ] );
 		parent::add_actions();
 	}
 
