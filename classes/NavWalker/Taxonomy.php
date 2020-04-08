@@ -84,7 +84,7 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 		$tax_meta = get_taxonomy( $this->type );
 		if ( $tax_meta ) {
 			$title   = ( empty( $this->title ) ) ? $tax_meta->labels->name : $this->title;
-			$pattern = '%1$s ' . dyntaxmi()->get_element( 'span', [ 'class' => [ 'term-count', "{$this->type}-term-count" ] ], '%2$s' );
+			$pattern = '%1$s' . dyntaxmi()->get_element( 'span', [ 'class' => [ 'term-count', "{$this->type}-term-count" ] ], '%2$s' );
 			$pattern = apply_filters( "dyntaxmi_{$this->type}_format", $pattern, $terms );
 			$order   = 1;
 			$this->add_menu_item( $title );

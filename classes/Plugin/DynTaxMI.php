@@ -46,8 +46,8 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 * @since 20180404
 	 */
 	public function add_actions() {
-		add_action( 'wp_head', [ $this, 'add_taxonomy' ] );
-		add_action( 'wp_head', [ $this, 'add_custom_css' ] );
+		add_action( 'wp_head',            [ $this, 'wp_head' ] );
+		add_action( 'wp_enqueue_scripts', [ $this. 'wp_enqueue_scripts' ] );
 		parent::add_actions();
 	}
 
@@ -61,11 +61,21 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	}
 
 	/**
+	 *  Run during 'wp_head' action.
+	 *
+	 * @since 20200407
+	 */
+	public function wp_head() {
+		$this->add_taxonomy();
+		$this->add_custom_css();
+	}
+
+	/**
 	 *  Add a taxonomy to the menu.
 	 *
 	 * @since 20200406
 	 */
-	public function add_taxonomy() {
+	protected function add_taxonomy() {
 		$taxonomy = array(
 			'css_action' => 'dyntaxmi_custom_css',
 			'limit'      => 1,
@@ -74,15 +84,15 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 			'title'      => __( 'Articles', 'dyntaxmi' ),
 			'type'       => 'category',
 		);
-		new DynTaxMI_NavWalker_Taxonomy( $taxonomy );
+		dyntaxmi_tax( $taxonomy );
 	}
 
 	/**
-	 *  Add custom css for taxonomy menu items
+	 *  Add custom css for taxonomy menu items.
 	 *
 	 * @since 20200407
 	 */
-	public function add_custom_css() {
+	protected function add_custom_css() {
 		$attrs = array(
 			'id'   => 'dyntaxmi-custom-css',
 			'type' => 'text/css',
@@ -90,6 +100,15 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 		dyntaxmi()->tag( 'style', $attrs );
 		do_action( 'dyntaxmi_custom_css' );
 		echo '</style>';
+	}
+
+	/**
+	 *  Load style sheet.
+	 *
+	 * @since 20200407
+	 */
+	public function wp_enqueue_scripts() {
+		wp_enqueue_style( 'dyntaxmi-css', $this->paths->get_plugin_file_uri( 'css/dyntaxmi.css' ), null, $this->paths->version );
 	}
 
 

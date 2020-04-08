@@ -29,6 +29,19 @@ function dyntaxmi( $force = false ) {
 }
 
 /**
+ *  Create instance of DynTaxMI_NavWalker_Taxonomy class.
+ *
+ * @since 20200407
+ * @param array $args  Parameters for creating the class
+ * @return DynTaxMI_NavWalker_Taxonomy
+ */
+if ( ! function_exists( 'dyntaxmi_tax' ) ) {
+	function dyntaxmi_tax( $args ) {
+		return new DynTaxMI_NavWalker_Taxonomy( $args );
+	}
+}
+
+/**
  *  array_column() introduced in PHP 7.0.0
  *
  * @since 20200315
