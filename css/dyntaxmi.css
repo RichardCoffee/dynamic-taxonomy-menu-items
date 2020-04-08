@@ -1,12 +1,12 @@
 
 .term-count {
-|  float: right;
+	float: right;
 }
 
 .term-count::before {
-|  content: "(";
+	content: "(";
 }
 
 .term-count::after {
-|  content: ")";
+	content: ")";
 }
