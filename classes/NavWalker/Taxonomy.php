@@ -19,7 +19,7 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 	 * @since 20200408
 	 * @var array  IDs of terms to not display.
 	 */
-	protected $omit = array();
+	protected $exclude = array();
 	/**
 	 * @since 20180816
 	 * @var string  Default order that terms are retrieved in.
@@ -76,6 +76,11 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 			'parent'          => $this->parent, // 0 = show only top-level terms
 			'suppress_filter' => false,
 		);
+		$this->exclude = apply_filters( "dyntaxmi_{$this->type}_exclude", $this->exclude );
+		if ( ! empty( $this->exclude ) ) {
+			$args['exclude'] = $this->exclude;
+		}
+		$args = apply_filters( "dyntaxmi_{$this->type}_term_args", $args );
 		return get_terms( $args );
 	}
 
@@ -97,7 +102,6 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 			foreach( $terms as $term ) {
 				if ( ! ( $this->limit < $term->count ) ) break;
 				if ( $order > $this->maximum ) break;
-				if ( in_array( $term->term_id , $this->omit ) ) continue;
 				$name = sprintf( $pattern, $term->name, $term->count );
 				$link = get_term_link( $term );
 				$this->width = max( $this->width, ( strlen( $term->name . $term->count ) + 3 ) );

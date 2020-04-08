@@ -79,9 +79,9 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	protected function add_taxonomy() {
 		$taxonomy = array(
 			'css_action' => 'dyntaxmi_custom_css',
+			'exclude'    => [ 1 ],
 			'limit'      => 1,
 			'menu'       => 'primary-menu',
-			'omit'       => [ 1 ],
 			'position'   => 1,
 			'title'      => __( 'Articles', 'dyntaxmi' ),
 			'type'       => 'category',
