@@ -12,6 +12,7 @@
  * Plugin Name:       Dynamic Taxonomy Menu Items
  * Plugin URI:        https://github.com/RichardCoffee/dynamic-taxonomy-menu-items
  * Description:       Inserts dynamic submenus of taxonomy items into WordPress menus.
+ * Tags:              menu, taxonomy
  * Version:           1.0.0
  * Requires at least: 4.7.0
  * Tested up to:      5.4.0
