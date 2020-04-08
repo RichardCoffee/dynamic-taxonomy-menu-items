@@ -31,15 +31,10 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 	protected $parent =  0;
 	/**
 	 * @since 20180816
-	 * @var string Default string used as css postfix for menu item.  Also used for filters.
+	 * @var string  Taxonomy requested - Also used used as css postfix, and for filters.
 	 * @see DynTaxMI_NavWalker_Dynamic::$type
 	 */
-	protected $type = 'navtax';
-	/**
-	 * @since 20180816
-	 * @var string  Default taxonomy used for submenu items.  Also used as css postfix for submenu items.
-	 */
-	protected $taxonomy = 'category';
+	protected $type = 'category';
 
 	/**
 	 *  constructor function.
@@ -53,8 +48,8 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 		if ( is_wp_error( $terms ) ) {
 			dyntaxmi(1)->log( $terms );
 		} else {
-			$this->menu     = apply_filters( "dyntaxmi_{$this->type}_menu",     $this->menu, $this->taxonomy );
-			$this->position = apply_filters( "dyntaxmi_{$this->type}_position", $this->position, $this->menu, $this->taxonomy );
+			$this->menu     = apply_filters( "dyntaxmi_{$this->type}_menu",     $this->menu );
+			$this->position = apply_filters( "dyntaxmi_{$this->type}_position", $this->position, $this->menu );
 			$this->add_terms( $terms );
 		}
 	}
@@ -68,7 +63,7 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 	 */
 	public function get_terms() {
 		$args = array(
-			'taxonomy'        => $this->taxonomy,
+			'taxonomy'        => $this->type,
 			'hide_empty'      => true,
 			'order'           => $this->order,
 			'orderby'         => $this->orderby,
@@ -86,7 +81,7 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 	 * @uses DynTacMI_Trait_Attributes::get_element()
 	 */
 	public function add_terms( $terms ) {
-		$tax_meta = get_taxonomy( $this->taxonomy );
+		$tax_meta = get_taxonomy( $this->type );
 		if ( $tax_meta ) {
 			$title   = ( empty( $this->title ) ) ? $tax_meta->labels->name : $this->title;
 			$pattern = '%1$s ' . dyntaxmi()->get_element( 'span', [ 'class' => [ 'term-count', "{$this->type}-term-count" ] ], '%2$s' );
@@ -99,7 +94,7 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 				$name = sprintf( $pattern, $term->name, $term->count );
 				$link = get_term_link( $term );
 				$this->width = max( $this->width, ( strlen( $term->name . $term->count ) + 3 ) );
-				$this->add_sub_menu_item( $name, $link, $order++, $this->taxonomy );
+				$this->add_sub_menu_item( $name, $link, $order++, $this->type );
 			}
 		}
 	}
