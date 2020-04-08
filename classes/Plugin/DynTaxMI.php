@@ -47,6 +47,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 */
 	public function add_actions() {
 		add_action( 'wp_head', [ $this, 'add_taxonomy' ] );
+		add_action( 'wp_head', [ $this, 'add_custom_css' ] );
 		parent::add_actions();
 	}
 
@@ -68,11 +69,26 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 		$taxonomy = array(
 			'limit'    => 1,
 			'menu'     => 'primary-menu',
-			'position' => 2,
-			'slug'     => 'categories',
+			'position' => 1,
 			'title'    => __( 'Articles', 'dyntaxmi' ),
+			'type'     => 'category',
 		);
 		new DynTaxMI_NavWalker_Taxonomy( $taxonomy );
+	}
+
+	/**
+	 *  Add custom css for taxonomy menu items
+	 *
+	 * @since 20200407
+	 */
+	public function add_custom_css() {
+		$attrs = array(
+			'id'   => 'dyntaxmi-custom-css',
+			'type' => 'text/css',
+		);
+		dyntaxmi()->tag( 'style', $attrs );
+		do_action( 'dyntaxmi-custom-css' );
+		echo '</style>';
 	}
 
 
