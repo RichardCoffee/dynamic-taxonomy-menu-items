@@ -12,8 +12,14 @@
  */
 defined( 'ABSPATH' ) || exit;
 
+
 class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 
+	/**
+	 * @since 20200408
+	 * @var array  IDs of terms to not display.
+	 */
+	protected $omit = array();
 	/**
 	 * @since 20180816
 	 * @var string  Default order that terms are retrieved in.
@@ -89,8 +95,9 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 			$order   = 1;
 			$this->add_menu_item( $title );
 			foreach( $terms as $term ) {
-				if ( ! ( $this->limit < $term->count ) ) { break; }
-				if ( $order > $this->maximum ) { break; }
+				if ( ! ( $this->limit < $term->count ) ) break;
+				if ( $order > $this->maximum ) break;
+				if ( in_array( $term->term_id , $this->omit ) ) continue;
 				$name = sprintf( $pattern, $term->name, $term->count );
 				$link = get_term_link( $term );
 				$this->width = max( $this->width, ( strlen( $term->name . $term->count ) + 3 ) );

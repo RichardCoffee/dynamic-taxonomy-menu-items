@@ -11,9 +11,10 @@
  */
 defined( 'ABSPATH' ) || exit;
 /**
- *  Dynamic Taxonomy Menu Insert.
+ *  Dynamic Taxonomy Menu Items.
  *
  * @since 20180404
+ * @link https://github.com/RichardCoffee/dynamic-taxonomy-menu-items/blob/master/classes/Plugin/DynTaxMI.php
  */
 class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 
@@ -80,6 +81,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 			'css_action' => 'dyntaxmi_custom_css',
 			'limit'      => 1,
 			'menu'       => 'primary-menu',
+			'omit'       => [ 1 ],
 			'position'   => 1,
 			'title'      => __( 'Articles', 'dyntaxmi' ),
 			'type'       => 'category',
