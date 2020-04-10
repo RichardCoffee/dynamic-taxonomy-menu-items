@@ -2,7 +2,7 @@
 /**
  *  Display admin option forms - abstract class to provide basic functionality for controlling option screen layouts
  *
- * @package Plugin
+ * @package DynTaxMI
  * @subpackage Forms
  * @since 20170505
  * @author Richard Coffee <richard.coffee@rtcenterprises.net>
@@ -12,7 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 
 
-abstract class TCC_Options_Options {
+abstract class DynTaxMI_Options_Options {
 
 
 	/**
