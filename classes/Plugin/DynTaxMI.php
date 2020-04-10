@@ -20,6 +20,14 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 
 
 	/**
+	 *
+	 * @since 20200410
+	 * @var string  Path to plugin options page, used on the WP Dashboard Plugins page
+	 */
+	protected $setting = 'themes.php?page=dyntaxmi';
+
+
+	/**
 	 * @since 20200201
 	 * @link https://github.com/RichardCoffee/custom-post-type/blob/master/classes/Trait/Singleton.php
 	 */
