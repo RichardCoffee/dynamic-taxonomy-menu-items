@@ -39,6 +39,9 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 		register_uninstall_hook(    $this->paths->file, [ 'DynTaxMI_Register_Plugin', 'uninstall'  ] );
 		$this->add_actions();
 		$this->add_filters();
+		if ( is_admin() ) {
+			new DynTaxMI_Form_DynTaxMI;
+		}
 	}
 
 	/**
