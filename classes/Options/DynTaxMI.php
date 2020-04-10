@@ -86,7 +86,7 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 		$menus = wp_get_nav_menus( [ 'hide_empty' => true ] );
 		$select = array();
 		foreach( $menus as $key => $object ) {
-			$select[ $slug ] = $name;
+			$select[ $object->slug ] = $object->name;
 		}
 		return $select;
 	}
