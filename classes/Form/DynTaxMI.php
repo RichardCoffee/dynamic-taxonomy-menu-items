@@ -30,7 +30,7 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 		$this->tab = $this->slug;
 		add_action( 'admin_menu',              [ $this, 'add_menu_option'    ] );
 #		add_action( 'admin_enqueue_scripts',   [ $this, 'enqueue_theme_scripts' ] );
-		add_filter( "form_text_{$this->slug}", [ $this, 'form_trans_text' ], 10, 2 );
+#		add_filter( "form_text_{$this->slug}", [ $this, 'form_text_filter' ], 10, 2 );
 		parent::__construct();
 	}
 
