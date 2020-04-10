@@ -59,8 +59,17 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	 */
 	protected function options_layout() {
 		return array(
+			'menu' => array(
+				'default' => 'primary-menu',
+				'label'   => __( 'Menu', 'dyntaxmi' ),
+				'text'    => __( 'Choose the menu', 'dyntaxmi' ),
+				'render'  => 'select',
+				'source'  => $this->get_menus(),
+			),
 			'type' => array(
 				'default' => 'category',
+				'label'   => __( 'Taxonomy', 'dyntaxmi' ),
+				'text'    => __( 'Choose the taxonomy', 'dyntaxmi' ),
 				'render'  => 'select',
 				'source'  => $this->get_taxonomies(),
 			),
@@ -68,13 +77,28 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	}
 
 	/**
-	 *  Returns an array suitable for use with select.
+	 *  Return an array of menus suitable for use with select.
+	 *
+	 * @since 20200410
+	 * @return array
+	 */
+	private function get_menus() {
+		$menus = wp_get_nav_menus( [ 'hide_empty' => true ] );
+		$select = array();
+		foreach( $menus as $key => $object ) {
+			$select[ $slug ] = $name;
+		}
+		return $select;
+	}
+
+	/**
+	 *  Returns an array of taxonomies suitable for use with select.
 	 *
 	 * @since 20200409
 	 * @return array
 	 */
 	private function get_taxonomies() {
-		$taxes  = get_taxonomies( [ 'public' => 'true' ], 'name' );
+		$taxes  = get_taxonomies( [ 'public' => true ], 'name' );
 		$select = array();
 		foreach( $taxes as $key => $object ) {
 			$select[ $key ] = $object->label;
