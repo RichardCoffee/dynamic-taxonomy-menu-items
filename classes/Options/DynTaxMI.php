@@ -84,8 +84,8 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 				'text'    => __( 'Position in the menu. Starts at 0.  You may need to experiment with this to make it show up where you want.', 'dyntaxmi' ),
 				'render'  => 'spinner',
 				'attrs'   => array(
-					'min' => 0,
-					'max' => $this->max_count, // FIXME:  get a top level count. use js to match chosen menu.
+					'min' => '0',
+					'max' => "{$this->max_count}", // FIXME:  get a top level count. use js to match chosen menu.
 				),
 			),
 		);
