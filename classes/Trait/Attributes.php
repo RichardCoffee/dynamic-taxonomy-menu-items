@@ -117,7 +117,7 @@ trait DynTaxMI_Trait_Attributes {
 		//  Array for attributes that do not require a value.
 /*		static $is_allowed_no_value = null;
 		if ( empty( $is_allowed_no_value ) ) {
-			$is_allowed_no_value = apply_filters( 'fluid_attr_is_allowed_no_value', [ 'itemscope', 'multiple', 'required', 'sandbox', 'value' ] );
+			$is_allowed_no_value = apply_filters( 'dyntaxmi_attr_is_allowed_no_value', [ 'itemscope', 'multiple', 'required', 'sandbox', 'value' ] );
 		} //*/
 		$is_allowed_no_value = array( 'itemscope', 'multiple', 'value', 'required', 'sandbox' );
 		if ( ! empty( static::$attr_javascript_nonce ) ) {
@@ -170,7 +170,7 @@ trait DynTaxMI_Trait_Attributes {
 	private function attr_nonce_check( $attrs ) {
 		static $nonce_required = array();
 		if ( empty( $nonce_required ) ) {
-			$nonce_required = apply_filters( 'fluid_attr_nonce_required', [ 'onchange', 'onclick' ] );
+			$nonce_required = apply_filters( 'dyntaxmi_attr_nonce_required', [ 'onchange', 'onclick' ] );
 		}
 		if ( ! array_key_exists( 'nonce', $attrs ) ) {
 			foreach( $nonce_required as $required ) {
@@ -225,7 +225,7 @@ trait DynTaxMI_Trait_Attributes {
 		static $self_closing;
 		if ( ! $self_closing ) {
 			$self_closing = array( 'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr' );
-			$self_closing = apply_filters( 'fluid_is_tag_self_closing', $self_closing );
+			$self_closing = apply_filters( 'dyntaxmi_is_tag_self_closing', $self_closing );
 		}
 		return in_array( $tag, $self_closing, true );
 	}
@@ -254,7 +254,7 @@ trait DynTaxMI_Trait_Attributes {
 				$attrs['nonce'] = static::$attr_javascript_nonce;
 			}
 		}
-		// return apply_filters( 'fluid_filter_attributes_by_tag', $attrs, $tag );
+		// return apply_filters( 'dyntaxmi_filter_attributes_by_tag', $attrs, $tag );
 		return $attrs;
 	}
 
