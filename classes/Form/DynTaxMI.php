@@ -15,11 +15,6 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 
 
 	/**
-	 * @since 20200410
-	 * @var string  Database option slug prefix
-	 */
-	protected $prefix = 'dyntaxmi_';
-	/**
 	 * @since 20170310
 	 * @var string  Form slug.
 	 */
