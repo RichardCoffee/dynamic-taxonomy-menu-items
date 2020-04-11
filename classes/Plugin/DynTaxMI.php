@@ -88,7 +88,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 * @since 20200406
 	 */
 	protected function add_taxonomy() {
-		$options = get_option( 'tcc_option_dyntaxmi', array() );
+		$options = get_option( 'tcc_options_dyntaxmi', array() );
 		$defaults = $this->get_taxonomy_defaults();
 		$taxonomy = array_merge( $defaults, $options );
 		dyntaxmi_tax( $taxonomy );
