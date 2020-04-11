@@ -98,12 +98,18 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 					'max' => '12',  // FIXME:  get a tax count, use js to match chosen menu.
 				),
 			),
+			'count' => array(
+				'default' => true,
+				'label'   => __( 'Show Count', 'dyntaxmi' ),
+				'text'    => __( 'Checking this box indicates you wish to show the post count on sub-menu items.', 'dyntaxmi' ),
+				'render'  => 'checkbox',
+			),
 			'limit' => array(
 				'default' => 0,
 				'label'   => __( 'Count Limit', 'dyntaxmi' ),
-				'text'    => __( 'Set this if you wish to filter the sub-menu items by term count.', 'dyntaxmi' ),
+				'text'    => __( 'Set this if you wish to filter the sub-menu items by post count.', 'dyntaxmi' ),
 				'render'  => 'spinner',
-				'attrs'   => [ 'min' => 0 ],
+				'attrs'   => [ 'min' => '0' ],
 			),
 		);
 	}

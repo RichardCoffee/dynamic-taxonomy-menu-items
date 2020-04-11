@@ -15,6 +15,12 @@ defined( 'ABSPATH' ) || exit;
 
 class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 
+
+	/**
+	 * @since 20200411
+	 * @var bool  Show post count on sub-men items.
+	 */
+	protected $count = true;
 	/**
 	 * @since 20200408
 	 * @var array  IDs of terms to not display.
@@ -38,7 +44,6 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 	/**
 	 * @since 20180816
 	 * @var string  Taxonomy requested - Also used used as css postfix, and for filters.
-	 * @see DynTaxMI_NavWalker_Dynamic::$type
 	 */
 	protected $type = 'category';
 
@@ -89,13 +94,12 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 	 *
 	 * @since 20180916
 	 * @param array $terms
-	 * @uses DynTacMI_Trait_Attributes::get_element()
 	 */
 	public function add_terms( $terms ) {
 		$tax_meta = get_taxonomy( $this->type );
 		if ( $tax_meta ) {
 			$title   = ( empty( $this->title ) ) ? $tax_meta->labels->name : $this->title;
-			$pattern = '%1$s' . dyntaxmi()->get_element( 'span', [ 'class' => [ 'term-count', "{$this->type}-term-count" ] ], '%2$s' );
+			$pattern = '%1$s' . ( ( $this->count ) ? dyntaxmi()->get_element( 'span', [ 'class' => [ 'term-count', "{$this->type}-term-count" ] ], '%2$s' ) : '' );
 			$pattern = apply_filters( "dyntaxmi_{$this->type}_format", $pattern, $terms );
 			$order   = 1;
 			$this->add_menu_item( $title );
@@ -104,7 +108,7 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 				if ( $order > $this->maximum ) break;
 				$name = sprintf( $pattern, $term->name, $term->count );
 				$link = get_term_link( $term );
-				$this->width = max( $this->width, ( strlen( $term->name . $term->count ) + 3 ) );
+				$this->width = max( $this->width, ( strlen( $term->name . ( ( $this->count ) ? $term->count : '' ) ) + 2 ) );
 				$this->add_sub_menu_item( $name, $link, $order++, $this->type );
 			}
 		}

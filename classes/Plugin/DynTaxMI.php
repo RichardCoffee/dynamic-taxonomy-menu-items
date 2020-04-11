@@ -103,6 +103,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	protected function get_taxonomy_defaults() {
 		return array(
 			'css_action' => 'dyntaxmi_custom_css',
+			'count'      => true,
 			'exclude'    => [ 1 ], //  Uncategorized
 			'limit'      => 0,
 			'maximum'    => 7,
