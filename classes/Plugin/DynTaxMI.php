@@ -88,16 +88,28 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 * @since 20200406
 	 */
 	protected function add_taxonomy() {
-		$taxonomy = array(
+		$options = get_option( 'tcc_option_dyntaxmi', array() );
+		$defaults = $this->get_taxonomy_defaults();
+		$taxonomy = array_merge( $defaults, $options );
+		dyntaxmi_tax( $taxonomy );
+	}
+
+	/**
+	 *  Provides taxonomy default values.
+	 *
+	 * @since 20200411
+	 * @return array
+	 */
+	protected function get_taxonomy_defaults() {
+		return array(
 			'css_action' => 'dyntaxmi_custom_css',
-			'exclude'    => [ 1 ],
-			'limit'      => 1,
+			'exclude'    => [ 1 ], //  Uncategorized
+			'limit'      => 0,
 			'menu'       => 'primary-menu',
 			'position'   => 1,
 			'title'      => __( 'Articles', 'dyntaxmi' ),
 			'type'       => 'category',
 		);
-		dyntaxmi_tax( $taxonomy );
 	}
 
 	/**
