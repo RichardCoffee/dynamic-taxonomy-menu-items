@@ -88,6 +88,16 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 					'max' => "{$this->max_count}", // FIXME:  get a top level count. use js to match chosen menu.
 				),
 			),
+			'maximum' => array(
+				'default' => 6,
+				'label'   => __( 'Maximum Items', 'dyntaxmi' ),
+				'text'    => __( 'Set the maximum number of items to appear on the sub-menu.', 'dyntaxmi' ),
+				'render'  => 'spinner',
+				'attrs'   => array(
+					'min' => '1',
+					'max' => '12',  // FIXME:  get a tax count, use js to match chosen menu.
+				),
+			),
 		);
 	}
 
@@ -116,8 +126,10 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	private function get_taxonomies() {
 		$taxes  = get_taxonomies( [ 'public' => true ], 'name' );
 		$select = array();
+//		$count  = array();
 		foreach( $taxes as $key => $object ) {
 			$select[ $key ] = $object->label;
+//			$count[  $key ] = $object->count;
 		}
 		return $select;
 	}

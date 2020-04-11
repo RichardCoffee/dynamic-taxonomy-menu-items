@@ -105,6 +105,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 			'css_action' => 'dyntaxmi_custom_css',
 			'exclude'    => [ 1 ], //  Uncategorized
 			'limit'      => 0,
+			'maximum'    => 7,
 			'menu'       => 'primary-menu',
 			'position'   => 1,
 			'title'      => __( 'Articles', 'dyntaxmi' ),
