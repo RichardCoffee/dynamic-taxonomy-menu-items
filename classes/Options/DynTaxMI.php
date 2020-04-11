@@ -16,6 +16,11 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	 */
 	protected $base = 'dyntaxmi';
 	/**
+	 * @since 20200410
+	 * @var int  Maximum menu item count.
+	 */
+	private $max_count = 0;
+	/**
 	 * @since 20200408
 	 * @var int
 	 */
@@ -73,6 +78,16 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 				'render'  => 'select',
 				'source'  => $this->get_taxonomies(),
 			),
+			'position' => array(
+				'default' => 1,
+				'label'   => __( 'Position', 'dyntaxmi' ),
+				'text'    => __( 'Position in the menu. Starts at 0.  You may need to experiment with this to make it show up where you want.', 'dyntaxmi' ),
+				'render'  => 'spinner',
+				'attrs'   => array(
+					'min' => 0,
+					'max' => $this->max_count, // FIXME:  get a top level count. use js to match chosen menu.
+				),
+			),
 		);
 	}
 
@@ -87,6 +102,7 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 		$select = array();
 		foreach( $menus as $key => $object ) {
 			$select[ $object->slug ] = $object->name;
+			$this->max_count = max( $this->max_count, $object->count );
 		}
 		return $select;
 	}
