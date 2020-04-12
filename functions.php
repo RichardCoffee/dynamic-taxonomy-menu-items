@@ -146,7 +146,7 @@ if ( ! function_exists( 'array_key_replace' ) ) {
 		if ( ! array_key_exists( $old, $arr ) ) return $array;
 		$keys = array_keys( $arr );
 		$pos  = array_search( $old, $keys );
-		if ( in_array( $pos, [ false ], true ) return $arr;
+		if ( in_array( $pos, [ false ], true ) ) return $arr;
 		$keys[ $pos ] = $new;
 		return array_combine( $keys, $arr );
 	}
