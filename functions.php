@@ -1,13 +1,16 @@
 <?php
+defined('ABSPATH') || exit;
 
-function dyntaxmi_class_loader( $class ) {
-	if ( substr( $class, 0, 9 ) === 'DynTaxMI_' ) {
-		$load = str_replace( '_', '/', substr( $class, ( strpos( $class, '_' ) + 1 ) ) );
-		$file = DYNTAXMI_PLUGIN_DIR . "/classes/{$load}.php";
-		if ( is_readable( $file ) ) include $file;
+if ( defined( 'DYNTAXMI_PLUGIN_DIR' ) ) {
+	function dyntaxmi_class_loader( $class ) {
+		if ( in_array( substr( $class, 0, 9 ), [ 'dyntaxmi_', 'DynTaxMI_', 'DYNTAXMI_' ] ) ) {
+			$load = str_replace( '_', '/', substr( $class, ( strpos( $class, '_' ) + 1 ) ) );
+			$file = DYNTAXMI_PLUGIN_DIR . "/classes/{$load}.php";
+			if ( is_readable( $file ) ) include $file;
+		}
 	}
+	spl_autoload_register( 'dyntaxmi_class_loader' );
 }
-spl_autoload_register( 'dyntaxmi_class_loader' );
 
 /**
  *  Returns instance of plugin library.
@@ -16,16 +19,16 @@ spl_autoload_register( 'dyntaxmi_class_loader' );
  * @param  bool    Flag to force a log entry.
  * @return object  Plugin library instance.
  */
-function dyntaxmi( $force = false ) {
-	static $library;
-	if ( empty( $library ) ) {
-		$library = new DynTaxMI_Plugin_Library;
-	}
-	//  Force log entry during ajax call.
-	if ( $force ) {
+if ( ! function_exists( 'dyntaxmi' ) ) {
+	function dyntaxmi( $force = false ) {
+		static $library;
+		if ( empty( $library ) ) {
+			$library = new DynTaxMI_Plugin_Library;
+		}
+		//  Force log entry during ajax call.
 		$library->logging_force = $force;
+		return $library;
 	}
-	return $library;
 }
 
 /**
@@ -104,7 +107,7 @@ if ( ! function_exists( 'array_key_next' ) ) {
 		if ( ! is_array( $search ) ) return false;
 		$keys = array_keys( $search );
 		$spot = array_search( $needle, $keys, $strict );
-		if ( $spot === false ) return false;
+		if ( in_array( $spot, [ false ], true ) return false;
 		$spot = ( $spot + 1 === count( $keys ) ) ? 0 : $spot + 1;
 		return $keys[ $spot ];
 	}
@@ -121,7 +124,7 @@ if ( ! function_exists( 'array_key_next' ) ) {
 if ( ! function_exists( 'array_remove_value' ) ) {
 	function array_remove_value( $needle, $haystack ) {
 		if ( $needle && is_string( $needle ) && $haystack && is_array( $haystack ) ) {
-			if( ( $key = array_search( $needle, $haystack ) ) !== false ) {
+			if ( ( $key = array_search( $needle, $haystack ) ) !== false ) {
 				unset( $haystack[ $key ] );
 			}
 		}
@@ -143,7 +146,7 @@ if ( ! function_exists( 'array_key_replace' ) ) {
 		if ( ! array_key_exists( $old, $arr ) ) return $array;
 		$keys = array_keys( $arr );
 		$pos  = array_search( $old, $keys );
-		if ( $pos === false ) return $arr;
+		if ( in_array( $pos, [ false ], true ) return $arr;
 		$keys[ $pos ] = $new;
 		return array_combine( $keys, $arr );
 	}
