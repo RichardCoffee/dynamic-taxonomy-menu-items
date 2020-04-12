@@ -101,7 +101,7 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 			'count' => array(
 				'default' => true,
 				'label'   => __( 'Show Count', 'dyntaxmi' ),
-				'text'    => __( 'Checking this box indicates you wish to show the post count on sub-menu items.', 'dyntaxmi' ),
+				'text'    => __( 'Show the post count on sub-menu items.', 'dyntaxmi' ),
 				'render'  => 'checkbox',
 			),
 			'limit' => array(
