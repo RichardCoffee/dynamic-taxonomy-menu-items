@@ -30,7 +30,7 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 		$this->tab = $this->slug;
 		add_action( 'admin_menu',              [ $this, 'add_menu_option'    ] );
 #		add_action( 'admin_enqueue_scripts',   [ $this, 'enqueue_theme_scripts' ] );
-#		add_filter( "form_text_{$this->slug}", [ $this, 'form_text_filter' ], 10, 2 );
+		add_filter( "form_text_{$this->slug}", [ $this, 'form_text_filter' ], 10, 2 );
 		parent::__construct();
 	}
 
@@ -61,6 +61,18 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 		$form    = $options->default_form_layout();
 		$form['title'] = __( 'Dynamic Taxonomy Menu Items', 'dyntaxmi' );
 		return $form;
+	}
+
+	/**
+	 *  Filter the standard form text.
+	 *
+	 * @since 20200412
+	 * @param  array $text  The form text.
+	 * @return array        The filtered text.
+	 */
+	public function form_text_filter( $text ) {
+		$text['submit']['object'] = __( 'Taxonomy', 'dyntaxmi' );
+		return $text;
 	}
 
 
