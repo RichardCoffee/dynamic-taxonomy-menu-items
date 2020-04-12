@@ -107,7 +107,7 @@ if ( ! function_exists( 'array_key_next' ) ) {
 		if ( ! is_array( $search ) ) return false;
 		$keys = array_keys( $search );
 		$spot = array_search( $needle, $keys, $strict );
-		if ( in_array( $spot, [ false ], true ) return false;
+		if ( in_array( $spot, [ false ], true ) ) return false;
 		$spot = ( $spot + 1 === count( $keys ) ) ? 0 : $spot + 1;
 		return $keys[ $spot ];
 	}
