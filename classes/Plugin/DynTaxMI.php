@@ -120,13 +120,16 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 * @since 20200407
 	 */
 	protected function add_custom_css() {
-		$attrs = array(
-			'id'   => 'dyntaxmi-custom-css',
-			'type' => 'text/css',
-		);
-		dyntaxmi()->tag( 'style', $attrs );
+		ob_start();
 		do_action( 'dyntaxmi_custom_css' );
-		echo '</style>';
+		$css = ob_get_clean();
+		if ( $css ) {
+			$attrs = array(
+				'id'   => 'dyntaxmi-custom-css',
+				'type' => 'text/css',
+			);
+			dyntaxmi()->element( 'style', $attrs, $css, true );
+		}
 	}
 
 	/**
