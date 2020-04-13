@@ -88,6 +88,13 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 					'max' => "{$this->max_count}", // FIXME:  get a top level count. use js to match chosen menu.
 				),
 			),
+			'title' => array(
+				'default' => __( 'Articles', 'dyntaxmi' ),
+				'label'   => __( 'Sub-Menu Title', 'dyntaxmi' ),
+				'place'   => __( 'Sub-Menu Title', 'dyntaxmi' ),
+				'text'    => __( 'This will be the text, for the taxonomy, that appears on the menu.', 'dyntaxmi' ),
+				'render'  => 'text',
+			),
 			'maximum' => array(
 				'default' => 6,
 				'label'   => __( 'Maximum Items', 'dyntaxmi' ),
