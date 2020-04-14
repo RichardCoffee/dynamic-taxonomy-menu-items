@@ -77,16 +77,12 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 				'text'    => __( 'Choose the taxonomy', 'dyntaxmi' ),
 				'render'  => 'select',
 				'source'  => $this->get_taxonomies(),
-			),
-			'position' => array(
-				'default' => 1,
-				'label'   => __( 'Position', 'dyntaxmi' ),
-				'text'    => __( 'Position in the menu. Starts at 0.  You may need to experiment with this to make it show up where you want.', 'dyntaxmi' ),
-				'render'  => 'spinner',
-				'attrs'   => array(
-					'min' => '0',
-					'max' => "{$this->max_count}", // FIXME:  get a top level count. use js to match chosen menu.
-				),
+				'divcss'  => 'dyntaxmi-type',
+				'showhide' => array(
+					'origin' => 'dyntaxmi-type',
+					'target' => 'dyntaxmi-exclude',
+					'show'   => 'category',
+				)
 			),
 			'title' => array(
 				'default' => __( 'Articles', 'dyntaxmi' ),
@@ -95,6 +91,16 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 				'text'    => __( 'This will be the text, for the taxonomy, that appears on the menu.', 'dyntaxmi' ),
 				'render'  => 'text',
 			),
+			'position' => array(
+				'default' => 1,
+				'label'   => __( 'Position', 'dyntaxmi' ),
+				'text'    => __( 'Position in the menu. Starts at 0.  You may need to experiment with this to make it show up where you want.', 'dyntaxmi' ),
+				'render'  => 'spinner',
+				'attrs'   => array(
+					'min' => '0',
+					'max' => "{$this->max_count}", // TODO:  get a top level count. use js to match chosen menu.
+				),
+			),
 			'maximum' => array(
 				'default' => 6,
 				'label'   => __( 'Maximum Items', 'dyntaxmi' ),
@@ -102,8 +108,16 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 				'render'  => 'spinner',
 				'attrs'   => array(
 					'min' => '1',
-					'max' => '12',  // FIXME:  get a tax count, use js to match chosen menu.
+					'max' => '12',  // TODO:  get a tax count, use js to match chosen menu.
 				),
+			),
+			'exclude' => array(
+				'default' => [ 1 ],
+				'label'   => __( 'Exclude Terms', 'dyntaxmi' ),
+				'text'    => __( 'You can exclude category terms using this pull-down.', 'dyntaxmi' ),
+				'render'  => 'select',
+				'source'  => $this->get_terms(),
+				'divcss'  => 'dyntaxmi-exclude',
 			),
 			'count' => array(
 				'default' => true,
@@ -129,12 +143,10 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	 */
 	private function get_menus() {
 		$menus = wp_get_nav_menus( [ 'hide_empty' => true ] );
-		$select = array();
 		foreach( $menus as $key => $object ) {
-			$select[ $object->slug ] = $object->name;
 			$this->max_count = max( $this->max_count, $object->count );
 		}
-		return $select;
+		return wp_list_pluck( $menus, 'name', 'slug' );
 	}
 
 	/**
@@ -144,14 +156,24 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	 * @return array
 	 */
 	private function get_taxonomies() {
-		$taxes  = get_taxonomies( [ 'public' => true ], 'name' );
-		$select = array();
-//		$count  = array();
-		foreach( $taxes as $key => $object ) {
-			$select[ $key ] = $object->label;
-//			$count[  $key ] = $object->count;
-		}
-		return $select;
+		$taxes = get_taxonomies( [ 'public' => true ], 'name' );
+		return wp_list_pluck( $taxes, 'label', 'name' );
+	}
+
+	/**
+	 *  Returns an array of taxonomy terms suitable for use with select.
+	 *
+	 * @since 20200414
+	 * @return array
+	 */
+	private function get_terms() {
+		$args = array(
+			'taxonomy' => 'category',
+			'order'    => 'ASC',
+			'orderby'  => 'name',
+		);
+		$terms = get_terms( $args );
+		return wp_list_pluck( $terms, 'name', 'slug' );
 	}
 
 
