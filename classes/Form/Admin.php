@@ -252,7 +252,13 @@ abstract class DynTaxMI_Form_Admin {
 				'delete'    => __( 'Unassign Image', 'dyntaxmi' )
 			)
 		);
-		$this->form_text = apply_filters( 'form_text_' . $this->slug, $text, $text );
+		$this->form_text = apply_filters( "form_text_{$this->slug}", $text, $text );
+		add_filter(
+			'tcc_form_admin_options_localization',
+			function( $options ) {
+				return array_merge( $this->form_text, $options );
+			}
+		);
 	}
 
 

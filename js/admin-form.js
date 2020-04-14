@@ -12,13 +12,13 @@ jQuery( document ).ready( function() {
 		});
 	}
 //	showhideElements( jQuery( '.showhide' ) );
-	jQuery( '.form-colorpicker'  ).wpColorPicker();
-	jQuery( '.form-image'        ).click( function( e ) { imageUploader( this, e ); });
-	jQuery( '.form-image-delete' ).click( function( e ) { imageDelete( this ); });
+//	jQuery( '.form-colorpicker'  ).wpColorPicker();
+//	jQuery( '.form-image'        ).click( function( e ) { imageUploader( this, e ); });
+//	jQuery( '.form-image-delete' ).click( function( e ) { imageDelete( this ); });
 });
 
 function imageDelete( el ) {
-	let ans = confirm( 'Remove this image?' ); // FIXME: localize this
+	let ans = confirm( tcc_admin_options.media['delete'] );
 	if ( ans ) {
 		let iuField = jQuery( el.parentNode ).data( 'field' );
 		let iuInput = document.getElementById( iuField + '_input' );
