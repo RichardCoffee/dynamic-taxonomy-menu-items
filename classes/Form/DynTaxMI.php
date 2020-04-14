@@ -58,7 +58,7 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 		$paths = DynTaxMI_Plugin_Paths::instance();
 		wp_enqueue_style(  'dyntaxmi-form.css', $paths->get_plugin_file_uri( 'css/admin-form.css' ), null, $paths->version );
 		wp_enqueue_script( 'dyntaxmi-form.js',  $paths->get_plugin_file_uri( 'js/admin-form.js' ), array( 'jquery' ), $paths->version, true );
-		$this->add_localization_object( 'dyntaxmi-form.js', 'tcc_admin_form' );
+		$this->add_localization_object( 'dyntaxmi-form.js' );
 	}
 
 	/**
