@@ -29,7 +29,6 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 	public function __construct() {
 		$this->tab = $this->slug;
 		add_action( 'admin_menu',              [ $this, 'add_menu_option'    ] );
-#		add_action( 'admin_enqueue_scripts',   [ $this, 'enqueue_theme_scripts' ] );
 		add_filter( "form_text_{$this->slug}", [ $this, 'form_text_filter' ], 10, 2 );
 		parent::__construct();
 	}
@@ -47,6 +46,19 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 			$func = array( $this, $this->render );
 			$this->hook_suffix = add_theme_page( $page, $menu, $cap, $this->slug, $func );
 		}
+	}
+
+	/**
+	 *  Enqueue required script and style files.
+	 *
+	 * @since 20200414
+	 * @param string $hook  Suffix for action hook - not used here.
+	 */
+	public function admin_enqueue_scripts( $hook ) {
+		$paths = DynTaxMI_Plugin_Paths::instance();
+		wp_enqueue_style(  'dyntaxmi-form.css', $paths->get_plugin_file_uri( 'css/admin-form.css' ), null, $paths->version );
+		wp_enqueue_script( 'dyntaxmi-form.js',  $paths->get_plugin_file_uri( 'js/admin-form.js' ), array( 'jquery' ), $paths->version, true );
+		$this->add_localization_object( 'dyntaxmi-form.js', 'tcc_admin_form' );
 	}
 
 	/**
