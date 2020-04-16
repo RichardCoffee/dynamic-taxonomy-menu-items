@@ -1,6 +1,7 @@
 
 .term-count {
 	float: right;
+	padding-left: 0.5rem;
 }
 
 .term-count::before {
