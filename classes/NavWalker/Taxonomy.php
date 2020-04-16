@@ -76,7 +76,7 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 		$args = array(
 			'taxonomy'        => $this->type,
 			'hide_empty'      => true,
-			'order'           => $this->order,
+			'order'           => strtoupper( $this->order ),
 			'orderby'         => $this->orderby,
 			'parent'          => $this->parent, // 0 = show only top-level terms
 			'suppress_filter' => false,

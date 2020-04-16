@@ -113,12 +113,12 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 				),
 			),
 			'order' => array(
-				'default' => 'DESC',
+				'default' => 'desc',
 				'label'   => 'Order Direction',
 				'render'  => 'radio',
 				'source'  => array(
-					'DESC' => __( 'Descending order, recommended for Post Count order.', 'dyntaxmi' ),
-					'ASC'  => __( 'Ascending order, recommended for Term Name order', 'dyntaxmi' ),
+					'desc' => __( 'Descending order, recommended for Post Count order.', 'dyntaxmi' ),
+					'asc'  => __( 'Ascending order, recommended for Term Name order', 'dyntaxmi' ),
 				),
 			),
 			'maximum' => array(
