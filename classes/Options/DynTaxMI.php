@@ -135,7 +135,7 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 				'default' => [ ],
 				'label'   => __( 'Exclude Terms', 'dyntaxmi' ),
 				'text'    => __( 'You can exclude category terms using this pull-down.', 'dyntaxmi' ),
-				'help'    => __( "Utilize the 'ctrl+click' combo to choose exclude terms.", 'dyntaxmi' ),
+				'help'    => __( "Utilize the 'ctrl+click' combo to choose multiple exclude terms.", 'dyntaxmi' ),
 				'render'  => 'select_multiple',
 				'source'  => $this->get_terms(), // TODO:  get terms from all taxes, use js to match chosen taxonomy.
 				'divcss'  => 'dyntaxmi-exclude',
