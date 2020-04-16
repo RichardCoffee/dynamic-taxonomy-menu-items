@@ -105,11 +105,20 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 				'default' => 'count',
 				'label'   => __( 'Order By', 'dyntaxmi' ),
 				'text'    => __( 'Control what order the sub-menu items appear', 'dyntaxmi' ),
-				'render'  => 'select',
+				'render'  => 'radio',
 				'source'  => array(
-					'count' => __( 'Count', 'dyntaxmi' ),
+					'count' => __( 'Post Count (default)', 'dyntaxmi' ),
 					'name'  => __( 'Term Name', 'dyntaxmi' ),
-					'term_taxonomy_id' => __( 'Term ID', 'dyntaxmi' ),
+					'term_taxonomy_id' => __( 'Term ID, although why?', 'dyntaxmi' ),
+				),
+			),
+			'order' => array(
+				'default' => 'DESC',
+				'label'   => 'Order Direction',
+				'render'  => 'radio',
+				'source'  => array(
+					'DESC' => __( 'Descending order, recommended for Post Count order.', 'dyntaxmi' ),
+					'ASC'  => __( 'Ascending order, recommended for Term Name order', 'dyntaxmi' ),
 				),
 			),
 			'maximum' => array(
