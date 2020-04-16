@@ -101,8 +101,19 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 					'max' => "{$this->max_count}", // TODO:  get a top level count. use js to match chosen menu.
 				),
 			),
+			'orderby' => array(
+				'default' => 'count',
+				'label'   => __( 'Order By', 'dyntaxmi' ),
+				'text'    => __( 'Control what order the sub-menu items appear', 'dyntaxmi' ),
+				'render'  => 'select',
+				'source'  => array(
+					'count' => __( 'Count', 'dyntaxmi' ),
+					'name'  => __( 'Term Name', 'dyntaxmi' ),
+					'term_taxonomy_id' => __( 'Term ID', 'dyntaxmi' ),
+				),
+			),
 			'maximum' => array(
-				'default' => 6,
+				'default' => 7,
 				'label'   => __( 'Maximum Items', 'dyntaxmi' ),
 				'text'    => __( 'Set the maximum number of items to appear on the sub-menu.', 'dyntaxmi' ),
 				'render'  => 'spinner',
@@ -112,7 +123,7 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 				),
 			),
 			'exclude' => array(
-				'default' => [ 1 ],
+				'default' => [ ],
 				'label'   => __( 'Exclude Terms', 'dyntaxmi' ),
 				'text'    => __( 'You can exclude category terms using this pull-down.', 'dyntaxmi' ),
 				'help'    => __( "Utilize the 'ctrl+click' combo to choose exclude terms.", 'dyntaxmi' ),
@@ -174,7 +185,7 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 			'orderby'  => 'name',
 		);
 		$terms = get_terms( $args );
-		return wp_list_pluck( $terms, 'name', 'slug' );
+		return wp_list_pluck( $terms, 'name', 'term_id' );
 	}
 
 
