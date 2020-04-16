@@ -83,7 +83,7 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 		);
 		$this->exclude = apply_filters( "dyntaxmi_{$this->type}_exclude", $this->exclude );
 		if ( ! empty( $this->exclude ) ) {
-			$args['exclude'] = $this->exclude;
+			$args['exclude'] = array_map( 'intval', $this->exclude );
 		}
 		$args = apply_filters( "dyntaxmi_{$this->type}_term_args", $args );
 		return get_terms( $args );
