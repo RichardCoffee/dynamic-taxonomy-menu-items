@@ -88,7 +88,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 * @since 20200406
 	 */
 	protected function add_taxonomy() {
-		$options = get_option( 'tcc_options_dyntaxmi', array() );
+		$options  = get_option( 'tcc_options_dyntaxmi', array() );
 		$defaults = $this->get_taxonomy_defaults();
 		$taxonomy = array_merge( $defaults, $options );
 		// TODO:  allow excludes for all taxonomies, requires a js solution
@@ -112,8 +112,8 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 			'limit'      => 0,
 			'maximum'    => 7,
 			'menu'       => 'primary-menu',
-			'order'      => 'count',
-			'orderby'    => 'desc',
+			'order'      => 'desc',
+			'orderby'    => 'count',
 			'position'   => 1,
 			'title'      => __( 'Articles', 'dyntaxmi' ),
 			'type'       => 'category',
