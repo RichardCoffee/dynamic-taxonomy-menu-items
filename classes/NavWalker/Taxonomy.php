@@ -104,7 +104,7 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 			$order   = 1;
 			$this->add_menu_item( $title );
 			foreach( $terms as $term ) {
-				if ( ! ( $this->limit < $term->count ) ) break;
+				if ( ! ( $this->limit < $term->count ) ) continue;
 				if ( $order > $this->maximum ) break;
 				$name = sprintf( $pattern, $term->name, $term->count );
 				$link = get_term_link( $term );
