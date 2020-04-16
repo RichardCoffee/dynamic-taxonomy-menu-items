@@ -67,14 +67,14 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 			'menu' => array(
 				'default' => 'primary-menu',
 				'label'   => __( 'Menu', 'dyntaxmi' ),
-				'text'    => __( 'Choose the menu', 'dyntaxmi' ),
+				'text'    => __( 'Choose the menu to add the sub-menu to, default is the Primary Menu.', 'dyntaxmi' ),
 				'render'  => 'select',
 				'source'  => $this->get_menus(),
 			),
 			'type' => array(
 				'default' => 'category',
 				'label'   => __( 'Taxonomy', 'dyntaxmi' ),
-				'text'    => __( 'Choose the taxonomy', 'dyntaxmi' ),
+				'text'    => __( 'Choose the taxonomy to use, default is Categories.', 'dyntaxmi' ),
 				'render'  => 'select',
 				'source'  => $this->get_taxonomies(),
 				'divcss'  => 'dyntaxmi-type',
@@ -94,7 +94,8 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 			'position' => array(
 				'default' => 1,
 				'label'   => __( 'Position', 'dyntaxmi' ),
-				'text'    => __( 'Position in the menu. Starts at 0.  You may need to experiment with this to make it show up where you want.', 'dyntaxmi' ),
+				'text'    => __( 'Position in the menu. Starts at 0, defaults to 1.', 'dyntaxmi' ),
+				'help'    => __( 'You may need to experiment with this number to get the sub-menu show up where you want it to.', 'dyntaxmi' ),
 				'render'  => 'spinner',
 				'attrs'   => array(
 					'min' => '0',
@@ -104,7 +105,7 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 			'orderby' => array(
 				'default' => 'count',
 				'label'   => __( 'Order By', 'dyntaxmi' ),
-				'text'    => __( 'Control what order the sub-menu items appear', 'dyntaxmi' ),
+				'text'    => __( 'Control the order in which the sub-menu items are displayed.', 'dyntaxmi' ),
 				'render'  => 'radio',
 				'source'  => array(
 					'count' => __( 'Post Count (default)', 'dyntaxmi' ),
@@ -117,14 +118,15 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 				'label'   => 'Order Direction',
 				'render'  => 'radio',
 				'source'  => array(
-					'desc' => __( 'Descending order, recommended for Post Count order.', 'dyntaxmi' ),
-					'asc'  => __( 'Ascending order, recommended for Term Name order', 'dyntaxmi' ),
+					'desc' => __( 'Descending order, recommended for Post Count order. (default)', 'dyntaxmi' ),
+					'asc'  => __( 'Ascending order,  recommended for Term Name order.', 'dyntaxmi' ),
 				),
 			),
 			'maximum' => array(
 				'default' => 7,
 				'label'   => __( 'Maximum Items', 'dyntaxmi' ),
-				'text'    => __( 'Set the maximum number of items to appear on the sub-menu.', 'dyntaxmi' ),
+				'text'    => __( 'Set the maximum number of items to appear on the sub-menu, default is 7.', 'dyntaxmi' ),
+				'help'    => __( 'Maximum value for this field is 12.  This is an arbitary value, and does not reflect on your website.', '' ),
 				'render'  => 'spinner',
 				'attrs'   => array(
 					'min' => '1',
@@ -134,7 +136,7 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 			'exclude' => array(
 				'default' => [ ],
 				'label'   => __( 'Exclude Terms', 'dyntaxmi' ),
-				'text'    => __( 'You can exclude category terms using this pull-down.', 'dyntaxmi' ),
+				'text'    => __( 'You can exclude category terms using this list.', 'dyntaxmi' ),
 				'help'    => __( "Utilize the 'ctrl+click' combo to choose multiple exclude terms.", 'dyntaxmi' ),
 				'render'  => 'select_multiple',
 				'source'  => $this->get_terms(), // TODO:  get terms from all taxes, use js to match chosen taxonomy.
@@ -143,13 +145,13 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 			'count' => array(
 				'default' => true,
 				'label'   => __( 'Show Count', 'dyntaxmi' ),
-				'text'    => __( 'Show the post count on sub-menu items.', 'dyntaxmi' ),
+				'text'    => __( 'Show the post count on sub-menu items, default is yes.', 'dyntaxmi' ),
 				'render'  => 'checkbox',
 			),
 			'limit' => array(
 				'default' => 0,
 				'label'   => __( 'Count Limit', 'dyntaxmi' ),
-				'text'    => __( 'Set this if you wish to filter the sub-menu items by post count.', 'dyntaxmi' ),
+				'text'    => __( 'Set this if you wish to filter the sub-menu items by post count, default is 0, which does not impose any limits.', 'dyntaxmi' ),
 				'render'  => 'spinner',
 				'attrs'   => [ 'min' => '0' ],
 			),
