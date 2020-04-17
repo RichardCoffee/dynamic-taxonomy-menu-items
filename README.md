@@ -19,9 +19,22 @@ Caution is indicated if trying to use it with a theme, or menu plugin, that make
 
 ## Installation
 
-Install it via your site's admin dashboard->Add Plugins page, as usual.
+### Install from WordPress repository
 
-If you want to install the plugin in another fashion, then I trust you know what you're doing.
+Note: Not yet submitted to WordPress, use manual instructions for now.
+1. In your admin dashboard, navigate to __Plugins->Add New__.
+2. In the Search type __Dynamic Taxonomy__.
+3. Locate this plugin in the list, and install it.
+4. Activate the plugin via the prompt. A message should show confirming activation was successful.
+
+### Upload
+
+1. Download the zip file, either from wordpress.org or [github.com](https://github.com/RichardCoffee/dynamic-taxonomy-menu-items).
+1. In your admin dashboard, navigate to __Plugins->Add New__.
+2. Select the Upload option and hit "Choose File."
+3. When the pop-up appears select the downloaded file.
+4. Follow the on-screen instructions and upload the zip file.
+5. Activate the plugin. A message should show confirming activation was successful.
 
 ## Setup
 
