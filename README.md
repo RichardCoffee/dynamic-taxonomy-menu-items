@@ -27,9 +27,9 @@ Note: Not yet submitted to WordPress, use manual instructions for now.
 3. Locate this plugin in the list, and install it.
 4. Activate the plugin via the prompt. A message should show confirming activation was successful.
 
-### Upload
+### Manual Upload
 
-1. Download the zip file, either from wordpress.org or [github.com](https://github.com/RichardCoffee/dynamic-taxonomy-menu-items).
+1. Download the zip file from [github.com](https://github.com/RichardCoffee/dynamic-taxonomy-menu-items).
 1. In your admin dashboard, navigate to __Plugins->Add New__.
 2. Select the Upload option and hit "Choose File."
 3. When the pop-up appears select the downloaded file.
