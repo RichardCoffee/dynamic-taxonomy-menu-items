@@ -2,7 +2,7 @@
 # Dynamic Taxonomy Menu Items
 
 **Contributors:** Richard
-**Tags:** menu, taxonomy
+**Tags:** menu, menubar, taxonomy
 **Stable tag:** 1.0.0
 **Requires at least:** 4.7.0
 **Tested up to:** 5.4
@@ -42,6 +42,8 @@ The settings screen will enable you to control things like:
 ## Development
 
 If you wish to contribute, this plugin is can be found on [Github](https://github.com/RichardCoffee/dynamic-taxonomy-menu-items).
+
+If you have an issue or question, the author can contacted on the WordPress support forum(insert url here) or via [opening an issue on GitHub](https://github.com/RichardCoffee/dynamic-taxonomy-menu-items/issues).
 
 ## Changelog
 
