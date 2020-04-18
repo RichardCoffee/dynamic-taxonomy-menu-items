@@ -1,13 +1,21 @@
 
 # Dynamic Taxonomy Menu Items
 
+
 **Contributors:** Richard
+
 **Tags:** menu, menubar, taxonomy
+
 **Stable tag:** 1.0.0
+
 **Requires at least:** 4.7.0
+
 **Tested up to:** 5.4
+
 **Requires PHP:** 5.3.6
+
 **License:** GPLv3
+
 **License URI:** http://www.gnu.org/licenses/gpl-3.0.html
 
 Add a dynamic taxonomy list to your WordPress menus.
