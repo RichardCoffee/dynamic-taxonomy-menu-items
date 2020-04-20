@@ -1,0 +1,4 @@
+*exclude.lst
+*.git*
+*README.md
+*version.txt

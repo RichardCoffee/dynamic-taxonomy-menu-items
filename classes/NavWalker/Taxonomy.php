@@ -98,15 +98,15 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 	public function add_terms( $terms ) {
 		$tax_meta = get_taxonomy( $this->type );
 		if ( $tax_meta ) {
-			$title   = ( empty( $this->title ) ) ? $tax_meta->labels->name : $this->title;
-			$pattern = '%1$s' . ( ( $this->count ) ? dyntaxmi()->get_element( 'span', [ 'class' => [ 'term-count', "{$this->type}-term-count" ] ], '%2$s' ) : '' );
-			$pattern = apply_filters( "dyntaxmi_{$this->type}_format", $pattern, $terms );
-			$order   = 1;
+			$title  = ( empty( $this->title ) ) ? $tax_meta->labels->name : $this->title;
+			$format = '%1$s' . ( ( $this->count ) ? dyntaxmi()->get_element( 'span', [ 'class' => [ 'term-count', "{$this->type}-term-count" ] ], '%2$s' ) : '' );
+			$format = apply_filters( "dyntaxmi_{$this->type}_format", $form, $terms );
+			$order  = 1;
 			$this->add_menu_item( $title );
 			foreach( $terms as $term ) {
 				if ( ! ( $this->limit < $term->count ) ) continue;
 				if ( $order > $this->maximum ) break;
-				$name = sprintf( $pattern, $term->name, $term->count );
+				$name = sprintf( $format, $term->name, $term->count );
 				$link = get_term_link( $term );
 				$this->width = max( $this->width, ( mb_strlen( $term->name . ( ( $this->count ) ? $term->count : '' ) ) + 2 ) );
 				$this->add_sub_menu_item( $name, $link, $order++, $this->type );
