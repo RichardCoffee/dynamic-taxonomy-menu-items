@@ -3,7 +3,7 @@
 
 Contributors: Richard
 Tags: menu, menubar, taxonomy
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Requires at least: 4.7.0
 Tested up to: 5.4
 Requires PHP: 5.3.6
@@ -58,6 +58,9 @@ If you wish to contribute, this plugin is can be found on [Github](https://githu
 If you have an issue or question, the author can contacted on the WordPress support forum(insert url here) or via [opening an issue on GitHub](https://github.com/RichardCoffee/dynamic-taxonomy-menu-items/issues).
 
 == Changelog ==
+
+= 1.0.1 =
+* Minor:  Some code cleanup.
 
 = 1.0.0 =
 * Initial release
