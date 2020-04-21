@@ -48,7 +48,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 		$this->add_actions();
 		$this->add_filters();
 		if ( is_admin() ) {
-			new DynTaxMI_Form_DynTaxMI;
+			new DynTaxMI_Form_DynTaxMI();
 		}
 	}
 
@@ -108,7 +108,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 		return array(
 			'css_action' => 'dyntaxmi_custom_css',
 			'count'      => true,
-			'exclude'    => [ ],
+			'exclude'    => [],
 			'limit'      => 0,
 			'maximum'    => 7,
 			'menu'       => 'primary-menu',

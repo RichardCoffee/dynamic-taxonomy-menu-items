@@ -40,7 +40,7 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 	 * @since 20180816
 	 * @var int  Default parent id.
 	 */
-	protected $parent =  0;
+	protected $parent = 0;
 	/**
 	 * @since 20180816
 	 * @var string  Taxonomy requested - Also used used as css postfix, and for filters.
@@ -57,7 +57,7 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 		parent::__construct( $args );
 		$terms = $this->get_terms();
 		if ( is_wp_error( $terms ) ) {
-			dyntaxmi(1)->log( $terms );
+			dyntaxmi(1)->logg( $terms );
 		} else {
 			$this->menu     = apply_filters( "dyntaxmi_{$this->type}_menu",     $this->menu );
 			$this->position = apply_filters( "dyntaxmi_{$this->type}_position", $this->position, $this->menu );
