@@ -171,7 +171,7 @@ abstract class DynTaxMI_NavWalker_Dynamic {
 			if ( ! ( $this->limit < $item['count'] ) ) { break; }
 			if ( $order > $this->maximum ) { break; }
 			$name = sprintf( $pattern, $item['name'], $item['count'] );
-			$this->width = max( $this->width, ( strlen( $item['name'] . $item['count'] ) + 3 ) );
+			$this->width = max( $this->width, ( mb_strlen( $item['name'] . $item['count'] ) + 3 ) );
 			$this->add_sub_menu_item( $name, $item['path'], $order++, $this->type );
 		}
 	} //*/

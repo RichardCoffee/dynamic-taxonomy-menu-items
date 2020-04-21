@@ -94,7 +94,7 @@ class DynTaxMI_NavWalker_Forums extends DynTaxMI_NavWalker_Dynamic {
 			$name = sprintf( $pattern, $forum->post_title, $forum->topic_count );
 			$path = bbp_get_forum_permalink( $forum->ID );
 			$this->add_sub_menu_item( $name, $path, $order++, 'forum' );
-			$this->width = max( $this->width, ( strlen( $forum->post_title . $forum->topic_count ) + 3 ) );
+			$this->width = max( $this->width, ( mb_strlen( $forum->post_title . $forum->topic_count ) + 3 ) );
 		}
 	}
 
