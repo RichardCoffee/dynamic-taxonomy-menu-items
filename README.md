@@ -2,7 +2,7 @@
 # Dynamic Taxonomy Menu Items
 
 
-     Contributors: Richard
+     Contributors: richard.coffee
              Tags: menu, menubar, taxonomy
        Stable tag: 1.0.1
 Requires at least: 4.7.0
@@ -29,7 +29,7 @@ Caution is indicated if trying to use it with a theme, or menu plugin, that make
 
 ### Manual Upload
 
-1. Download the zip file from [github.com](https://github.com/RichardCoffee/dynamic-taxonomy-menu-items).
+1. Download the zip file from [WordPress](https://wordpress.org/plugins/dynamic-taxonomy-menu-items) or the plugin's [GitHub repository](https://github.com/RichardCoffee/dynamic-taxonomy-menu-items).
 1. In your admin dashboard, navigate to __Plugins->Add New__.
 2. Select the Upload option and hit "Choose File."
 3. When the pop-up appears select the downloaded file.
@@ -56,7 +56,7 @@ The settings screen will enable you to control things like:
 
 If you wish to contribute, this plugin is can be found on [Github](https://github.com/RichardCoffee/dynamic-taxonomy-menu-items).
 
-If you have an issue or question, the author can contacted on the WordPress support forum(insert url here) or via [opening an issue on GitHub](https://github.com/RichardCoffee/dynamic-taxonomy-menu-items/issues).
+If you have an issue or question, the author can contacted via [opening an issue](https://github.com/RichardCoffee/dynamic-taxonomy-menu-items/issues) here on GitHub, or on the [WordPress support forum](https://wordpress.org/plugins/dynamic-taxonomy-menu-items).
 
 ## Changelog
 
