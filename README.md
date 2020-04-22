@@ -3,7 +3,7 @@
 
 
      Contributors: richard.coffee
-             Tags: menu, menubar, taxonomy
+             Tags: menu, dynamic menu, menubar, taxonomy, dynamic taxonomy
        Stable tag: 1.0.1
 Requires at least: 4.7.0
      Tested up to: 5.4
@@ -64,5 +64,5 @@ If you have an issue or question, the author can contacted via [opening an issue
 * Minor:  Some code cleanup.
 
 ### 1.0.0
-* Initial release
+* Initial release.
 
