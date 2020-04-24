@@ -100,7 +100,7 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 		if ( $tax_meta ) {
 			$title  = ( empty( $this->title ) ) ? $tax_meta->labels->name : $this->title;
 			$format = '%1$s' . ( ( $this->count ) ? dyntaxmi()->get_element( 'span', [ 'class' => [ 'term-count', "{$this->type}-term-count" ] ], '%2$s' ) : '' );
-			$format = apply_filters( "dyntaxmi_{$this->type}_format", $form, $terms );
+			$format = apply_filters( "dyntaxmi_{$this->type}_format", $format, $terms );
 			$order  = 1;
 			$this->add_menu_item( $title );
 			foreach( $terms as $term ) {
