@@ -4,7 +4,7 @@
  *
  * @since 20200408
  */
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 
 class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
@@ -82,7 +82,7 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 					'origin' => 'dyntaxmi-type',
 					'target' => 'dyntaxmi-exclude',
 					'show'   => 'category',
-				)
+				),
 			),
 			'title' => array(
 				'default' => __( 'Articles', 'dyntaxmi' ),
@@ -134,7 +134,7 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 				),
 			),
 			'exclude' => array(
-				'default' => [ ],
+				'default' => [],
 				'label'   => __( 'Exclude Terms', 'dyntaxmi' ),
 				'text'    => __( 'You can exclude category terms using this list.', 'dyntaxmi' ),
 				'help'    => __( "Utilize the 'ctrl+click' combo to choose multiple exclude terms.", 'dyntaxmi' ),

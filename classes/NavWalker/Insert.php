@@ -8,7 +8,7 @@
  * @link https://github.com/RichardCoffee/fluidity-theme/blob/master/classes/NavWalker/Insert.php
  * @link https://github.com/daggerhart/wp-custom-menu-items
  */
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 
 class DynTaxMI_NavWalker_Insert {

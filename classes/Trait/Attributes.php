@@ -196,7 +196,7 @@ trait DynTaxMI_Trait_Attributes {
 				'onclick',
 				'onfocus',
 				'onkeydown',
-				'onkeyup'
+				'onkeyup',
 			);
 			$nonce_required = apply_filters( 'dyntaxmi_attr_nonce_required', $nonce_required );
 		}
@@ -286,7 +286,7 @@ trait DynTaxMI_Trait_Attributes {
 				if ( apply_filters( 'dyntaxmi_filter_input_attributes', true, $attrs ) ) {
 					if ( array_key_exists( 'type', $attrs ) ) {
 						//  Effects keyboard shown on mobile platforms
-						if ( in_array( $attrs['type'], [ 'number' ] ) ) {
+						if ( in_array( $attrs['type'], [ 'number' ] ) && ! array_key_exists( 'step', $attrs ) 
 							$attrs['type'] = 'text';
 							$attrs['inputmode'] = 'decimal';
 						}
@@ -442,7 +442,7 @@ trait DynTaxMI_Trait_Attributes {
 	 * @param  string $nonce  New value to set.
 	 * @return string         Current value of the nonce.
 	 */
-	public function set_attr_javascript_nonce( $nonce  = '' ) {
+	public function set_attr_javascript_nonce( $nonce = '' ) {
 		if ( empty( static::$attr_javascript_nonce ) ) {
 			if ( $nonce && is_string( $nonce ) ) {
 				static::$attr_javascript_nonce = $nonce;

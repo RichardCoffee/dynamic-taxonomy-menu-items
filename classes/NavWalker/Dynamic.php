@@ -90,7 +90,7 @@ abstract class DynTaxMI_NavWalker_Dynamic {
 	public function __construct( $args = array() ) {
 		$this->insert  = DynTaxMI_NavWalker_Insert::instance();
 		$this->link    = home_url( '/' );
-		$this->top_id += mt_rand( 1, $this->top_id );
+		$this->top_id += wp_rand( 1, $this->top_id );
 		$this->parse_args( $args );
 		$this->limit   = apply_filters( "dyntaxmi_{$this->type}_limit",   $this->limit );
 		$this->maximum = apply_filters( "dyntaxmi_{$this->type}_maximum", $this->maximum );
@@ -233,7 +233,7 @@ abstract class DynTaxMI_NavWalker_Dynamic {
 	 * @since 20180906
 	 *//*
 	public function nav_menu_css_class( $classes, $item, $args, $depth ) {
-#		dyntaxmi()->log( $classes, $item, $args, $depth );
+		#dyntaxmi()->log( $classes, $item, $args, $depth );
 		return $classes;
 	} //*/
 

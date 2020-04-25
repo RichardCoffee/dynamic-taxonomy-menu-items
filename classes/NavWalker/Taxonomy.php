@@ -40,7 +40,7 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 	 * @since 20180816
 	 * @var int  Default parent id.
 	 */
-	protected $parent =  0;
+	protected $parent = 0;
 	/**
 	 * @since 20180816
 	 * @var string  Taxonomy requested - Also used used as css postfix, and for filters.
@@ -57,7 +57,7 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 		parent::__construct( $args );
 		$terms = $this->get_terms();
 		if ( is_wp_error( $terms ) ) {
-			dyntaxmi(1)->log( $terms );
+			dyntaxmi(1)->logg( $terms );
 		} else {
 			$this->menu     = apply_filters( "dyntaxmi_{$this->type}_menu",     $this->menu );
 			$this->position = apply_filters( "dyntaxmi_{$this->type}_position", $this->position, $this->menu );
@@ -100,7 +100,7 @@ class DynTaxMI_NavWalker_Taxonomy extends DynTaxMI_NavWalker_Dynamic {
 		if ( $tax_meta ) {
 			$title  = ( empty( $this->title ) ) ? $tax_meta->labels->name : $this->title;
 			$format = '%1$s' . ( ( $this->count ) ? dyntaxmi()->get_element( 'span', [ 'class' => [ 'term-count', "{$this->type}-term-count" ] ], '%2$s' ) : '' );
-			$format = apply_filters( "dyntaxmi_{$this->type}_format", $form, $terms );
+			$format = apply_filters( "dyntaxmi_{$this->type}_format", $format, $terms );
 			$order  = 1;
 			$this->add_menu_item( $title );
 			foreach( $terms as $term ) {

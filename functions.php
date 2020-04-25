@@ -1,6 +1,18 @@
 <?php
-defined('ABSPATH') || exit;
+/**
+ *  General functions file.
+ *
+ * @package DynTaxMI
+ * @since 2020402
+ */
+defined( 'ABSPATH' ) || exit;
 
+/**
+ *  Class autoload function.
+ *
+ * @since 20200402
+ * @param sting $class  Class to load.
+ */
 if ( defined( 'DYNTAXMI_PLUGIN_DIR' ) ) {
 	function dyntaxmi_class_loader( $class ) {
 		if ( in_array( substr( $class, 0, 9 ), [ 'dyntaxmi_', 'DynTaxMI_', 'DYNTAXMI_' ] ) ) {
@@ -23,7 +35,7 @@ if ( ! function_exists( 'dyntaxmi' ) ) {
 	function dyntaxmi( $force = false ) {
 		static $library;
 		if ( empty( $library ) ) {
-			$library = new DynTaxMI_Plugin_Library;
+			$library = new DynTaxMI_Plugin_Library();
 		}
 		//  Force log entry during ajax call.
 		$library->logging_force = $force;
@@ -102,8 +114,8 @@ if ( ! function_exists( 'array_key_last' ) ) {
  */
 if ( ! function_exists( 'array_key_next' ) ) {
 	function array_key_next( $needle, $search, $strict = false ) {
-		if ( empty( $needle ) ) return false;
-		if ( empty( $search ) ) return false;
+		if ( empty( $needle ) )      return false;
+		if ( empty( $search ) )      return false;
 		if ( ! is_array( $search ) ) return false;
 		$keys = array_keys( $search );
 		$spot = array_search( $needle, $keys, $strict );
@@ -124,7 +136,7 @@ if ( ! function_exists( 'array_key_next' ) ) {
 if ( ! function_exists( 'array_remove_value' ) ) {
 	function array_remove_value( $needle, $haystack ) {
 		if ( $needle && is_string( $needle ) && $haystack && is_array( $haystack ) ) {
-			if ( ( $key = array_search( $needle, $haystack ) ) !== false ) {
+			if ( ! ( ( $key = array_search( $needle, $haystack ) ) === false ) ) {
 				unset( $haystack[ $key ] );
 			}
 		}

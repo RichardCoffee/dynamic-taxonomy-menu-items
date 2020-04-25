@@ -86,7 +86,7 @@ class DynTaxMI_NavWalker_Forums extends DynTaxMI_NavWalker_Dynamic {
 	 */
 	protected function add_forums( $forums ) {
 		$title   = ( empty( $this->title ) ) ? $this->get_forums_title() : $this->title;
-		$pattern = '%1$s ' . dyntaxmi()->get_element( 'span', [ 'class' => [ 'term-count', "{$this->type}-term-count" ], '%2$s' ] );
+		$pattern = '%1$s ' . dyntaxmi()->get_element( 'span', [ 'class' => [ 'term-count', "{$this->type}-term-count" ] ], '%2$s' );
 		$pattern = apply_filters( "dyntaxmi_{$this->type}_format", $pattern, $forums );
 		$order   = 1;
 		$this->add_menu_item( $title );

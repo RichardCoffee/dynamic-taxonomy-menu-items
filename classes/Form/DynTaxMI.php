@@ -28,7 +28,7 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 	 */
 	public function __construct() {
 		$this->tab = $this->slug;
-		add_action( 'admin_menu',              [ $this, 'add_menu_option'    ] );
+		add_action( 'admin_menu', [ $this, 'add_menu_option' ] );
 		add_filter( "form_text_{$this->slug}", [ $this, 'form_text_filter' ], 10, 2 );
 		parent::__construct();
 	}
@@ -69,7 +69,7 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 	 * @return array        Form layout
 	 */
 	protected function form_layout( $form = array() ) {
-		$options = new DynTaxMI_Options_DynTaxMI;
+		$options = new DynTaxMI_Options_DynTaxMI();
 		$form    = $options->default_form_layout();
 		$form['title'] = __( 'Dynamic Taxonomy Menu Items', 'dyntaxmi' );
 		return $form;

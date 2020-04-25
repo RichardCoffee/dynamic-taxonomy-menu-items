@@ -9,7 +9,7 @@
  * @copyright Copyright (c) 2020, Richard Coffee
  * @link https://github.com/RichardCoffee/custom-post-type/blob/master/classes/Register/Plugin.php
  */
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 
 class DynTaxMI_Register_Plugin extends DynTaxMI_Register_Register {
@@ -34,7 +34,7 @@ class DynTaxMI_Register_Plugin extends DynTaxMI_Register_Register {
 	 * @since 20200204
 	 * @var array  Version information.
 	 */
-	private static $versions =  array();
+	private static $versions = array();
 
 	/**
 	 *  Runs plugin activation tasks.
