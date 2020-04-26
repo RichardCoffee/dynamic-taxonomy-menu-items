@@ -67,7 +67,7 @@ class DynTaxMI_Options_Forums extends DynTaxMI_Options_Options {
 			'active' => array(
 				'default' => 0,
 				'label'   => __( 'Usage', 'dyntaxmi' ),
-				'text'    => __( 'Check here for a bbPress submenu.', 'dyntaxmi' ),
+				'text'    => __( 'Check here to add a submenu of bbPress forums.', 'dyntaxmi' ),
 				'render'  => 'checkbox',
 			),
 			'menu' => array(
@@ -96,6 +96,19 @@ class DynTaxMI_Options_Forums extends DynTaxMI_Options_Options {
 				),
 			),
 		);
+	}
+
+	/**
+	 *  Filter the standard form text.
+	 *
+	 * @since 20200426
+	 * @param  array $text  The form text.
+	 * @return array        The filtered text.
+	 */
+	public function form_text_filter( $text ) {
+		$text['submit']['object']  = __( 'Forums', 'dyntaxmi' );
+		$text['submit']['subject'] = __( 'Forums', 'dyntaxmi' );
+		return $text;
 	}
 
 
