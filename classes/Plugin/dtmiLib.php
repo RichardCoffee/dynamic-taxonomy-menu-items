@@ -19,7 +19,7 @@ class DynTaxMI_Plugin_dtmiLib extends DynTaxMI_Plugin_Library {
 	 * @since 20200410
 	 * @return array
 	 */
-	private function get_menus() {
+	public function get_menus() {
 		$menus = wp_get_nav_menus( [ 'hide_empty' => true ] );
 		foreach( $menus as $key => $object ) {
 			$this->max_count = max( $this->max_count, $object->count );
