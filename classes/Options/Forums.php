@@ -34,7 +34,7 @@ class DynTaxMI_Options_Forums extends DynTaxMI_Options_Options {
 	 * @return string
 	 */
 	protected function form_title() {
-		return __( 'Dynamic Taxonomy Menu Items for bbPress Forums', 'dyntaxmi' );
+		return __( 'bbPress Forums', 'dyntaxmi' );
 	}
 
 	/**

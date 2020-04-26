@@ -29,7 +29,7 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	 * @return string
 	 */
 	protected function form_title() {
-		return __( 'Dynamic Taxonomy Menu Items', 'dyntaxmi' );
+		return __( 'Taxonomy', 'dyntaxmi' );
 	}
 
 	/**
