@@ -21,9 +21,9 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 	protected $classes = array();
 	/**
 	 * @since 20200424
-	 * @var string  Form prefix.
+	 * @var string  Prefix for database option name field.
 	 */
-	protected $prefix = 'dyntaxmi';
+#	protected $prefix = 'dyntaxmi';
 	/**
 	 * @since 20200408
 	 * @var string  Form slug.
@@ -108,8 +108,8 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 	 * @return array        The filtered text.
 	 */
 	public function form_text_filter( $text ) {
-		$text['submit']['object']  = __( 'Taxonomy', 'dyntaxmi' );
-		$text['submit']['subject'] = __( 'Taxonomy', 'dyntaxmi' );
+		$text['submit']['object']  = __( 'Dynamic', 'dyntaxmi' );
+		$text['submit']['subject'] = __( 'Dynamic', 'dyntaxmi' );
 		return $text;
 	}
 

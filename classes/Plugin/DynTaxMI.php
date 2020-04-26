@@ -92,7 +92,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 * @since 20200406
 	 */
 	protected function add_taxonomy() {
-		$options  = $this->get_option( 'taxonomy' );
+		$options  = $this->get_option( 'dyntaxmi' );
 		$defaults = $this->get_taxonomy_defaults();
 		$taxonomy = array_merge( $defaults, $options );
 		if ( $taxonomy['active'] ) {
@@ -189,11 +189,11 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 * @since 20200424
 	 */
 	protected function get_option( $slug ) {
-		if ( in_array( $slug, [ 'taxonomy' ] ) ) {
-			$option = get_option( 'tcc_options_dyntaxmi', array() );
+		if ( in_array( $slug, [ 'bbpress', 'dyntaxmi' ] ) ) {
+			$option = get_option( "tcc_options_$slug", array() );
 			if ( $option ) return $option;
 		}
-		$option = get_option( "dyntaxmi_$slug" );
+		$option = get_option( "dyntaxmi_$slug", array() );
 		return $option;
 	}
 

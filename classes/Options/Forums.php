@@ -17,7 +17,7 @@ class DynTaxMI_Options_Forums extends DynTaxMI_Options_Options {
 
 	/**
 	 * @since 20200408
-	 * @var string
+	 * @var string  Used as suffix for database option name field.
 	 */
 	protected $base = 'bbpress';
 	/**
