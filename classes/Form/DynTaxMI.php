@@ -82,7 +82,7 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 	 *
 	 * @since 20200425
 	 */
-	protected function initialize_options() {
+	public function initialize_options() {
 		$this->classes[ 'taxonomy' ] = new DynTaxMI_Options_DynTaxMI();
 		$this->classes[ 'bbpress' ]  = new DynTaxMI_Options_Forums();
 	}
