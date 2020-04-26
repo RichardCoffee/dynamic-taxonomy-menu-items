@@ -14,6 +14,13 @@ class DynTaxMI_Plugin_dtmiLib extends DynTaxMI_Plugin_Library {
 
 
 	/**
+	 * @since 20200410
+	 * @var int  Maximum menu item count.
+	 */
+	public $max_count = 0;
+
+
+	/**
 	 *  Return an array of menus suitable for use with select.
 	 *
 	 * @since 20200410

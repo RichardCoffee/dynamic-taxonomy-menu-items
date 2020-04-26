@@ -16,11 +16,6 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	 */
 	protected $base = 'dyntaxmi';
 	/**
-	 * @since 20200410
-	 * @var int  Maximum menu item count.
-	 */
-	private $max_count = 0;
-	/**
 	 * @since 20200408
 	 * @var int  Controls order on tabbed screen.
 	 */
@@ -105,7 +100,7 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 				'render'  => 'spinner',
 				'attrs'   => array(
 					'min' => '0',
-					'max' => "{$this->max_count}", // TODO:  get a top level count. use js to match chosen menu.
+					'max' => dyntaxmi()->max_count, // TODO:  get a top level count. use js to match chosen menu.
 				),
 			),
 			'orderby' => array(
@@ -162,20 +157,6 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 				'attrs'   => [ 'min' => '0' ],
 			),
 		);
-	}
-
-	/**
-	 *  Return an array of menus suitable for use with select.
-	 *
-	 * @since 20200410
-	 * @return array
-	 */
-	private function get_menus() {
-		$menus = wp_get_nav_menus( [ 'hide_empty' => true ] );
-		foreach( $menus as $key => $object ) {
-			$this->max_count = max( $this->max_count, $object->count );
-		}
-		return wp_list_pluck( $menus, 'name', 'slug' );
 	}
 
 	/**

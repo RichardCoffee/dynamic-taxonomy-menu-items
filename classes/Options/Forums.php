@@ -92,7 +92,7 @@ class DynTaxMI_Options_Forums extends DynTaxMI_Options_Options {
 				'render'  => 'spinner',
 				'attrs'   => array(
 					'min' => '0',
-					'max' => "{$this->max_count}", // TODO:  get a top level count. use js to match chosen menu.
+					'max' => dyntaxmi()->max_count, // TODO:  get a top level count. use js to match chosen menu.
 				),
 			),
 		);
