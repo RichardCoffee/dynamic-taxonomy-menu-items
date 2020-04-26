@@ -15,28 +15,44 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 
 
 	/**
-	 * @since 20170310
+	 * @since 20200425
+	 * @var array  Screen options.
+	 */
+	protected $classes = array();
+	/**
+	 * @since 20200424
+	 * @var string  Form prefix.
+	 */
+	protected $prefix = 'dyntaxmi';
+	/**
+	 * @since 20200408
 	 * @var string  Form slug.
 	 */
 	protected $slug = 'dyntaxmi';
+	/**
+	 * @since 20200424
+	 * @var string  Form type.
+	 */
+	protected $type = 'tabbed';
 
 
 	/**
 	 *  Constructor method.
 	 *
-	 * @since 20170222
+	 * @since 20200408
 	 */
 	public function __construct() {
 		$this->tab = $this->slug;
-		add_action( 'admin_menu', [ $this, 'add_menu_option' ] );
-		add_filter( "form_text_{$this->slug}", [ $this, 'form_text_filter' ], 10, 2 );
+		add_action( 'admin_menu',              [ $this, 'add_menu_option' ] );
+		add_action( 'admin_menu',              [ $this, 'initialize_options' ], 11 );
+		add_filter( "form_text_{$this->slug}", [ $this, 'form_text_filter' ],   10, 2 );
 		parent::__construct();
 	}
 
 	/**
 	 *  Add the form to the Appearence menu.
 	 *
-	 * @since 20170222
+	 * @since 20200408
 	 */
 	public function add_menu_option() {
 		$cap = 'activate_plugins';
@@ -62,17 +78,26 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 	}
 
 	/**
-	 *  Get the privacy options layout
+	 *  Initialize the form options.
 	 *
-	 * @since 20170222
-	 * @param  array $form  Passed if tabbed layout
-	 * @return array        Form layout
+	 * @since 20200425
 	 */
-	protected function form_layout( $form = array() ) {
-		$options = new DynTaxMI_Options_DynTaxMI();
-		$form    = $options->default_form_layout();
+	protected function initialize_options() {
+		$this->classes[ 'taxonomy' ] = new DynTaxMI_Options_DynTaxMI();
+		$this->classes[ 'bbpress' ]  = new DynTaxMI_Options_Forums();
+	}
+
+	/**
+	 *  Get the options layout.
+	 *
+	 * @since 20200408
+	 * @param  string $section  Passed if tabbed layout, layout section to return.
+	 * @return array            Form layout, entire form or requested section.
+	 */
+	protected function form_layout( $section = '' ) {
 		$form['title'] = __( 'Dynamic Taxonomy Menu Items', 'dyntaxmi' );
-		return $form;
+		$form = apply_filters( 'fluidity_options_form_layout', $form );
+		return ( empty( $section ) ) ? $form : $form[ $section ];
 	}
 
 	/**
@@ -83,7 +108,8 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 	 * @return array        The filtered text.
 	 */
 	public function form_text_filter( $text ) {
-		$text['submit']['object'] = __( 'Taxonomy', 'dyntaxmi' );
+		$text['submit']['object']  = __( 'Taxonomy', 'dyntaxmi' );
+		$text['submit']['subject'] = __( 'Taxonomy', 'dyntaxmi' );
 		return $text;
 	}
 

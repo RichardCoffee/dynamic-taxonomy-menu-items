@@ -23,6 +23,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 *
 	 * @since 20200410
 	 * @var string  Path to plugin options page, used on the WP Dashboard Plugins page
+	 * @todo:  Is there a way to derive this value instead of having to set it manually?
 	 */
 	protected $setting = 'themes.php?page=dyntaxmi';
 
@@ -79,6 +80,9 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 */
 	public function wp_head() {
 		$this->add_taxonomy();
+		if ( is_callable( 'bbpress' ) ) {
+			$this->add_forums();
+		}
 		$this->add_custom_css();
 	}
 
@@ -88,14 +92,16 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 * @since 20200406
 	 */
 	protected function add_taxonomy() {
-		$options  = get_option( 'tcc_options_dyntaxmi', array() );
+		$options  = $this->get_option( 'taxonomy' );
 		$defaults = $this->get_taxonomy_defaults();
 		$taxonomy = array_merge( $defaults, $options );
-		// TODO:  allow excludes for all taxonomies, requires a js solution
-		if ( ! in_array( $taxonomy['type'], [ 'category' ] ) ) {
-			$taxonomy['exclude'] = [];
+		if ( $taxonomy['active'] ) {
+			// TODO:  allow excludes for all taxonomies, will require javascript solution.
+			if ( ! in_array( $taxonomy['type'], [ 'category' ] ) ) {
+				$taxonomy['exclude'] = [];
+			}
+			dyntaxmi_tax( $taxonomy );
 		}
-		dyntaxmi_tax( $taxonomy );
 	}
 
 	/**
@@ -106,6 +112,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 */
 	protected function get_taxonomy_defaults() {
 		return array(
+			'active'     => false,
 			'css_action' => 'dyntaxmi_custom_css',
 			'count'      => true,
 			'exclude'    => [],
@@ -117,6 +124,35 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 			'position'   => 1,
 			'title'      => __( 'Articles', 'dyntaxmi' ),
 			'type'       => 'category',
+		);
+	}
+
+	/**
+	 *  Add bbpress forums to a menu.
+	 *
+	 * @since 20200424
+	 */
+	protected function add_forums() {
+		$options  = $this->get_option( 'bbpress', array() );
+		$defaults = $this->get_bbpress_defaults();
+		$forums   = array_merge( $defaults, $options );
+		if ( $forums['active'] ) {
+			dyntaxmi_forums( $forums );
+		}
+	}
+
+	/**
+	 *  Provides bbpress forums defaults.
+	 *
+	 * @since 20200424
+	 * @return array  Defaults for bbpress forums.
+	 */
+	protected function get_bbpress_defaults() {
+		return array(
+			'active'   => false,
+			'menu'     => 'primary-menu',
+			'position' => 2,
+			'title'    => __( 'Forums', 'dyntaxmi' ),
 		);
 	}
 
@@ -145,6 +181,20 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 */
 	public function wp_enqueue_scripts() {
 		wp_enqueue_style( 'dyntaxmi-css', $this->paths->get_plugin_file_uri( 'css/dyntaxmi.css' ), null, $this->paths->version );
+	}
+
+	/**
+	 *  Get options for a submenu.
+	 *
+	 * @since 20200424
+	 */
+	protected function get_option( $slug ) {
+		if ( in_array( $slug, [ 'taxonomy' ] ) ) {
+			$option = get_option( 'tcc_options_dyntaxmi', array() );
+			if ( $option ) return $option;
+		}
+		$option = get_option( "dyntaxmi_$slug" );
+		return $option;
 	}
 
 

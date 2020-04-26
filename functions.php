@@ -35,7 +35,7 @@ if ( ! function_exists( 'dyntaxmi' ) ) {
 	function dyntaxmi( $force = false ) {
 		static $library;
 		if ( empty( $library ) ) {
-			$library = new DynTaxMI_Plugin_Library();
+			$library = new DynTaxMI_Plugin_dtmiLib();
 		}
 		//  Force log entry during ajax call.
 		$library->logging_force = $force;
@@ -53,6 +53,19 @@ if ( ! function_exists( 'dyntaxmi' ) ) {
 if ( ! function_exists( 'dyntaxmi_tax' ) ) {
 	function dyntaxmi_tax( $args ) {
 		return new DynTaxMI_NavWalker_Taxonomy( $args );
+	}
+}
+
+/**
+ *  Create instance of DynTaxMI_NavWalker_Forum class.
+ *
+ * @since 20200424
+ * @param array $args  Parameters for creating the class
+ * @return DynTaxMI_NavWalker_Forum
+ */
+if ( ! function_exists( 'dyntaxmi_forums' ) ) {
+	function dyntaxmi_forums( $args ) {
+		return new DynTaxMI_NavWalker_Forums( $args );
 	}
 }
 

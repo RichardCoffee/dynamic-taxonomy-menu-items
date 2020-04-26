@@ -14,15 +14,15 @@ Add a dynamic taxonomy list to your WordPress menus.
 
 == Description ==
 
-This is a lightweight plugin to add a dynamic submenu of taxonomy items into a WordPress menu.  It is known to work with [Nav Menu Roles](https://www.kathyisawesome.com/nav-menu-roles/).
-Caution is indicated if trying to use it with a theme, or menu plugin, that makes significant changes to the default WordPress menu.
+This is a lightweight plugin to add a dynamic submenus to a WordPress menu.  It is known to work with [Nav Menu Roles](https://www.kathyisawesome.com/nav-menu-roles/).
+Caution is indicated if trying to use it with a theme, or menu plugin, that makes significant changes to the default WordPress menu.  It can insert taxonomies, such as catagories or tags, and will also work with bbPress forums.
 
 == Installation ==
 
 = Install from WordPress repository =
 
 1. In your admin dashboard, navigate to 'Plugins->Add New'.
-2. In the Search type 'Dynamic Taxonomy'.
+2. In the Search type 'Dynamic Taxonomy'.  It showed up on page 3 last time I performed this search.
 3. Locate this plugin in the list, and install it.
 4. Activate the plugin via the prompt. A message should show confirming activation was successful.
 
@@ -33,11 +33,11 @@ Caution is indicated if trying to use it with a theme, or menu plugin, that make
 2. Select the Upload option and hit "Choose File."
 3. When the pop-up appears select the downloaded file.
 4. Follow the on-screen instructions and upload the zip file.
-5. Activate the plugin. A message should show confirming activation was successful.
+5. Activate the plugin. WordPress should show an alert confirming activation was successful.
 
 == Setup ==
 
-Simply activating the plugin will, by default, add a category sub-menu to your primary menu.  The settings screen can be reached either via the settings link on the _Installed Plugins_ page, or via the _Dynamic Taxonomy_ option on the _Appearence_ menu.
+The settings screen can be reached either via the settings link on the 'Installed Plugins' page, or via the 'Dynamic Taxonomy' option on the 'Appearence' menu.
 
 The settings screen will enable you to control things like:
 
@@ -51,13 +51,23 @@ The settings screen will enable you to control things like:
 * Whether to include an item count on the sub-menu, default is yes.
 * Items can also be limited by the count, ie: nothing with a count of less then N.  Default is 0.
 
-== Development ==
+The plugin also allows you to show bbPress forums, although those options are limited to:
 
-If you wish to contribute, this plugin is can be found on [Github](https://github.com/RichardCoffee/dynamic-taxonomy-menu-items).
+* Which menu to add the forum list to.
+* What position in the menu to take, default is the third menu item.
+* What text to use as the menu option, default is 'Forums'.
+
+== Development ==
 
 If you have an issue or question, the author can contacted on the [WordPress support forum](https://wordpress.org/support/plugin/dynamic-taxonomy-menu-items/) or via [opening an issue on GitHub](https://github.com/RichardCoffee/dynamic-taxonomy-menu-items/issues).
 
+If you wish to contribute, development is done on [Github](https://github.com/RichardCoffee/dynamic-taxonomy-menu-items).
+
 == Changelog ==
+
+= Next Release =
+* Enhancement:  Add bbPress forums.
+* Upgrade:  Updated core files.
 
 = 1.0.1 =
 * Minor:  Some code cleanup.

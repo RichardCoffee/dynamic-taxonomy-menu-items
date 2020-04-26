@@ -22,7 +22,7 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	private $max_count = 0;
 	/**
 	 * @since 20200408
-	 * @var int
+	 * @var int  Controls order on tabbed screen.
 	 */
 	protected $priority = 800;
 
@@ -60,16 +60,22 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	 *  Returns the layout for the settings screen.
 	 *
 	 * @since 20200409
-	 * @return array
+	 * @return array  Form layout.
 	 */
 	protected function options_layout() {
 		return array(
+			'active' => array(
+				'default' => 0,
+				'label'   => __( 'Usage', 'dyntaxmi' ),
+				'text'    => __( 'Check here to activate the taxonomy submenu.', 'dyntaxmi' ),
+				'render'  => 'checkbox',
+			),
 			'menu' => array(
 				'default' => 'primary-menu',
 				'label'   => __( 'Menu', 'dyntaxmi' ),
 				'text'    => __( 'Choose the menu to add the sub-menu to, default is the Primary Menu.', 'dyntaxmi' ),
 				'render'  => 'select',
-				'source'  => $this->get_menus(),
+				'source'  => dyntaxmi()->get_menus(),
 			),
 			'type' => array(
 				'default' => 'category',
