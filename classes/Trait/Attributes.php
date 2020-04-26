@@ -247,7 +247,7 @@ trait DynTaxMI_Trait_Attributes {
 	 *
 	 * @since 20170507
 	 * @param  string $tag  Tag for the HTML element.
-	 * @return bool
+	 * @return bool         Is the passed tag self-closing?
 	 */
 	protected function is_tag_self_closing( $tag ) {
 		static $self_closing;
@@ -286,7 +286,7 @@ trait DynTaxMI_Trait_Attributes {
 				if ( apply_filters( 'dyntaxmi_filter_input_attributes', true, $attrs ) ) {
 					if ( array_key_exists( 'type', $attrs ) ) {
 						//  Effects keyboard shown on mobile platforms
-						if ( in_array( $attrs['type'], [ 'number' ] ) && ! array_key_exists( 'step', $attrs ) 
+						if ( in_array( $attrs['type'], [ 'number' ] ) && ! array_key_exists( 'step', $attrs ) ) {
 							$attrs['type'] = 'text';
 							$attrs['inputmode'] = 'decimal';
 						}
