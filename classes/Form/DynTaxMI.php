@@ -15,11 +15,6 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 
 
 	/**
-	 * @since 20200425
-	 * @var array  Screen options.
-	 */
-	protected $classes = array();
-	/**
 	 * @since 20200424
 	 * @var string  Prefix for database option name field.
 	 */
@@ -83,8 +78,8 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 	 * @since 20200425
 	 */
 	public function initialize_options() {
-		$this->classes[ 'taxonomy' ] = new DynTaxMI_Options_DynTaxMI();
-		$this->classes[ 'bbpress' ]  = new DynTaxMI_Options_Forums();
+		new DynTaxMI_Options_DynTaxMI();
+		new DynTaxMI_Options_Forums();
 	}
 
 	/**
