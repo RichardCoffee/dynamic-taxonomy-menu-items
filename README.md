@@ -4,7 +4,7 @@
 
       Contributors: richard.coffee
               Tags: menu, dynamic menu, menubar, taxonomy, dynamic taxonomy
-        Stable tag: 1.0.1
+        Stable tag: 1.0.2
  Requires at least: 4.7.0
       Tested up to: 5.4
       Requires PHP: 5.3.6
@@ -69,6 +69,9 @@ If you have an issue or question, the author can contacted via [opening an issue
 ### Next Release.
 * Enhancement:  Add bbPress forums.
 * Upgrade:  Updated core files.
+
+### 1.0.2
+* Bugfix:  Settings screen spinners were not working properly.
 
 ### 1.0.1
 * Minor:  Some code cleanup.
