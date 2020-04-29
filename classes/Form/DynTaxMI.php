@@ -39,7 +39,6 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 	public function __construct() {
 		$this->tab = $this->slug;
 		add_action( 'admin_menu',              [ $this, 'add_menu_option' ] );
-		add_action( 'admin_menu',              [ $this, 'initialize_options' ], 11 );
 		add_filter( "form_text_{$this->slug}", [ $this, 'form_text_filter' ],   10, 2 );
 		parent::__construct();
 	}
@@ -90,6 +89,7 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 	 * @return array            Form layout, entire form or requested section.
 	 */
 	protected function form_layout( $section = '' ) {
+		$this->initialize_options();
 		$form['title'] = __( 'Dynamic Taxonomy Menu Items', 'dyntaxmi' );
 		$form = apply_filters( 'fluidity_options_form_layout', $form );
 		return ( empty( $section ) ) ? $form : $form[ $section ];
