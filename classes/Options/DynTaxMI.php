@@ -58,6 +58,8 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	 * @return array  Form layout.
 	 */
 	protected function options_layout() {
+		$terms = $this->get_terms();
+		$size  = min( count( $terms ), 10 );
 		return array(
 			'active' => array(
 				'default' => 0,
@@ -140,7 +142,8 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 				'text'    => __( 'You can exclude category terms using this list.', 'dyntaxmi' ),
 				'help'    => __( "Utilize the 'ctrl+click' combo to choose multiple exclude terms.", 'dyntaxmi' ),
 				'render'  => 'select_multiple',
-				'source'  => $this->get_terms(), // TODO:  get terms from all taxes, use js to match chosen taxonomy.
+				'attrs'   => [ 'size' => "$size" ],
+				'source'  => $terms, // TODO:  get terms from all taxes, use js to match chosen taxonomy.
 				'divcss'  => 'dyntaxmi-exclude',
 			),
 			'count' => array(
