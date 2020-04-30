@@ -105,7 +105,21 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 					'max' => dyntaxmi()->max_count, // TODO:  get a top level count. use js to match chosen menu.
 				),
 			),
-			'orderby' => array(
+			'ordering' => array(
+				'default' => 'count-desc',
+				'label'   => __( 'Item Order', 'dyntaxmi' ),
+				'text'    => __( 'Choose the order of the sub-menu items.', 'dyntaxmi' ),
+				'render'  => 'radio',
+				'source'  => array(
+					'count-desc' => __( 'Post Count, highest count first (default).', 'dyntaxmi' ),
+					'count-asc'  => __( 'Post Count, lowest count first.', 'dyntaxmi' ),
+					'name-asc'   => __( 'Term Name, alphabetical order', 'dyntaxmi' ),
+					'name-desc'  => __( 'Term Name, alphabetical, reversed.', 'dyntaxmi' ),
+					'term-asc'   => __( 'Term ID, oldest to newest, sort of.', 'dyntaxmi' ),
+					'term-desc'  => __( 'Term ID, newest to oldest, again - sort of.', 'dyntaxmi' ),
+				),
+			),
+/*			'orderby' => array(
 				'default' => 'count',
 				'label'   => __( 'Order By', 'dyntaxmi' ),
 				'text'    => __( 'Control the order in which the sub-menu items are displayed.', 'dyntaxmi' ),
@@ -124,7 +138,7 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 					'desc' => __( 'Descending order, recommended for Post Count order. (default)', 'dyntaxmi' ),
 					'asc'  => __( 'Ascending order,  recommended for Term Name order.', 'dyntaxmi' ),
 				),
-			),
+			),*/
 			'maximum' => array(
 				'default' => 7,
 				'label'   => __( 'Maximum Items', 'dyntaxmi' ),

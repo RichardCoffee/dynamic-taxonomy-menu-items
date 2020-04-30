@@ -3,7 +3,7 @@
  *  Main plugin class file.
  *
  * @package DynTaxMI
- * @subpackage Plugin_Core
+ * @subpackage Core
  * @since 20170111
  * @author Richard Coffee <richard.coffee@rtcenterprises.net>
  * @copyright Copyright (c) 2017, Richard Coffee
@@ -96,6 +96,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 		$defaults = $this->get_taxonomy_defaults();
 		$taxonomy = array_merge( $defaults, $options );
 		if ( $taxonomy['active'] ) {
+			$taxonomy = $this->ordering_check( $taxonomy );
 			// TODO:  allow excludes for all taxonomies, will require javascript solution.
 			if ( ! in_array( $taxonomy['type'], [ 'category' ] ) ) {
 				$taxonomy['exclude'] = [];
@@ -125,6 +126,15 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 			'title'      => __( 'Articles', 'dyntaxmi' ),
 			'type'       => 'category',
 		);
+	}
+
+	protected function ordering_check( $opts ) {
+		//  Exists in version 1.1.0 and above
+		if ( array_key_exists( 'ordering', $opts ) ) {
+			list( $opts['orderby'], $opts['order'] ) = explode( '-', $opts['ordering'] );
+			$opts['orderby'] = ( $opts['orderby'] === 'term' ) ? 'term_taxonomy_id' : $opts['orderby'];
+		}
+		return $opts;
 	}
 
 	/**

@@ -108,5 +108,21 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 		return $text;
 	}
 
+	/**
+	 *
+	 *
+	 * @since 20200430
+	 */
+	protected function get_form_options() {
+		parent::get_form_options();
+		if ( ! array_key_exists( 'ordering', $this->form_opts ) ) {
+$this->log(
+"current: {$this->current}",
+"   slug: {$this->slug}",
+$this->form_opts
+);
+		}
+	}
+
 
 }
