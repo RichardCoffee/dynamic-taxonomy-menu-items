@@ -93,7 +93,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 */
 	protected function add_taxonomy() {
 		$options  = $this->get_option( 'dyntaxmi' );
-		$options  = $this->ordering_check( $taxonomy );
+		$options  = $this->ordering_check( $options );
 		$defaults = $this->get_taxonomy_defaults();
 		$taxonomy = array_merge( $defaults, $options );
 		if ( $taxonomy['active'] ) {
