@@ -15,7 +15,7 @@ Add a dynamic taxonomy list to your WordPress menus.
 == Description ==
 
 This is a lightweight plugin to add a dynamic submenus to a WordPress menu.  It is known to work with [Nav Menu Roles](https://www.kathyisawesome.com/nav-menu-roles/).
-Caution is indicated if trying to use it with a theme, or menu plugin, that makes significant changes to the default WordPress menu.  It can insert taxonomies, such as catagories or tags, and will also work with bbPress forums.
+Caution is indicated if trying to use it with a theme, or menu plugin, that makes significant changes to how WordPress menu is handled.  It can insert taxonomies, such as catagories or tags, and will also work with bbPress forums.
 
 == Installation ==
 
@@ -47,7 +47,7 @@ The settings screen will enable you to control things like:
 * The position in the menu, default is to appear as the second menu item.
 * The maximum number of items on the submenu, default is 7.
 * Listing order of the sub-menu items, available is Term Name, Post Count (default), and Term ID.
-* Which terms to exclude from the list, default is none.
+* Which terms to exclude from the list, default is none, works for Category only (for now).
 * Whether to include an item count on the sub-menu, default is yes.
 * Items can also be limited by the count, ie: nothing with a count of less then N.  Default is 0.
 
@@ -63,10 +63,13 @@ If you have an issue or question, the author can contacted on the [WordPress sup
 
 If you wish to contribute, development is done on [Github](https://github.com/RichardCoffee/dynamic-taxonomy-menu-items).
 
+Adding WooCommerce support is on the todo list.  Any help with this would be greatly appreciated.
+
 == Changelog ==
 
 = Next Release =
 * Enhancement:  Add bbPress forums.
+* Enhancement:  Combined options 'Order By' and 'Order Direction' into new option 'Item Order'.
 * Upgrade:  Updated core files.
 
 = 1.0.2 =
