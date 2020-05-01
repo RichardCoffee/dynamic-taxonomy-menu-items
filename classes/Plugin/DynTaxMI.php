@@ -93,10 +93,10 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 */
 	protected function add_taxonomy() {
 		$options  = $this->get_option( 'dyntaxmi' );
+		$options  = $this->ordering_check( $taxonomy );
 		$defaults = $this->get_taxonomy_defaults();
 		$taxonomy = array_merge( $defaults, $options );
 		if ( $taxonomy['active'] ) {
-			$taxonomy = $this->ordering_check( $taxonomy );
 			// TODO:  allow excludes for all taxonomies, will require javascript solution.
 			if ( ! in_array( $taxonomy['type'], [ 'category' ] ) ) {
 				$taxonomy['exclude'] = [];
@@ -120,8 +120,9 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 			'limit'      => 0,
 			'maximum'    => 7,
 			'menu'       => 'primary-menu',
-			'order'      => 'desc',
-			'orderby'    => 'count',
+#			'order'      => 'desc',
+#			'orderby'    => 'count',
+			'ordering'   => 'count-desc',
 			'position'   => 1,
 			'title'      => __( 'Articles', 'dyntaxmi' ),
 			'type'       => 'category',

@@ -115,12 +115,10 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 	 */
 	protected function get_form_options() {
 		parent::get_form_options();
-		if ( ! array_key_exists( 'ordering', $this->form_opts ) ) {
-$this->log(
-"current: {$this->current}",
-"   slug: {$this->slug}",
-$this->form_opts
-);
+		$base = array_pop( explode( '_', $this->current ) );
+		if ( ( $base === $this->slug ) && ! array_key_exists( 'ordering', $this->form_opts ) ) {
+			$prefix = ( $this->form_opts['orderby'] === 'term_taxonomy_id' ) ? 'term' : $this->form_opts['orderby'];
+			$this->form_opts['ordering'] = "{$prefix}-{$this->form_opts['order']}";
 		}
 	}
 
