@@ -78,7 +78,12 @@ class DynTaxMI_Form_DynTaxMI extends DynTaxMI_Form_Admin {
 	 */
 	public function initialize_options() {
 		new DynTaxMI_Options_DynTaxMI();
-		new DynTaxMI_Options_Forums();
+		if ( is_callable( 'bbpress' ) ) {
+			new DynTaxMI_Options_Forums();
+			if ( bbp_allow_topic_tags() ) {
+#				new DynTaxMI_Options_TopicTags();
+			}
+		}
 	}
 
 	/**

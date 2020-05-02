@@ -82,6 +82,9 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 		$this->add_taxonomy();
 		if ( is_callable( 'bbpress' ) ) {
 			$this->add_forums();
+			if ( bbp_allow_topic_tags() ) {
+#				$this->add_topic_tags();
+			}
 		}
 		$this->add_custom_css();
 	}

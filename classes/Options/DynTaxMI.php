@@ -201,8 +201,13 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	 * @return array
 	 */
 	private function get_taxonomies() {
+		$exclude = array(
+			'topic-tag' => 'placeholder',
+		);
 		$taxes = get_taxonomies( [ 'public' => true ], 'name' );
-		return wp_list_pluck( $taxes, 'label', 'name' );
+		$list  = wp_list_pluck( $taxes, 'label', 'name' );
+		$diff  = array_diff_key( $list, $exclude );
+		return apply_filters( 'dyntaxmi_get_taxonomies', $diff );
 	}
 
 	/**
