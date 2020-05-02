@@ -44,7 +44,7 @@ class DynTaxMI_Options_Forums extends DynTaxMI_Options_Options {
 	 * @return string
 	 */
 	protected function form_icon() {
-		return 'dashicons-before';
+		return 'dashicons-buddicons-forums';
 	}
 
 	/**
