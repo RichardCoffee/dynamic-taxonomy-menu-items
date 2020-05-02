@@ -34,7 +34,7 @@ class DynTaxMI_Options_Forums extends DynTaxMI_Options_Options {
 	 * @return string
 	 */
 	protected function form_title() {
-		return __( 'bbPress Forums', 'dyntaxmi' );
+		return __( 'Forums', 'dyntaxmi' );
 	}
 
 	/**
@@ -93,6 +93,18 @@ class DynTaxMI_Options_Forums extends DynTaxMI_Options_Options {
 				'attrs'   => array(
 					'min' => '0',
 					'max' => dyntaxmi()->max_count, // TODO:  get a top level count. use js to match chosen menu.
+				),
+			),
+			'ordering' => array(
+				'default' => 'count-desc',
+				'label'   => __( 'Item Order', 'dyntaxmi' ),
+				'text'    => __( 'Choose the order of the sub-menu items.', 'dyntaxmi' ),
+				'render'  => 'radio',
+				'source'  => array(
+					'count-desc' => __( 'Topic Count, highest count first (default).', 'dyntaxmi' ),
+					'count-asc'  => __( 'Topic Count, lowest count first.', 'dyntaxmi' ),
+					'name-asc'   => __( 'Forum Name, alphabetical order', 'dyntaxmi' ),
+					'name-desc'  => __( 'Forum Name, alphabetical, reversed.', 'dyntaxmi' ),
 				),
 			),
 		);

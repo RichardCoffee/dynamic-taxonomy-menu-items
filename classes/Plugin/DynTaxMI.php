@@ -96,9 +96,10 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 */
 	protected function add_taxonomy() {
 		$options  = $this->get_option( 'dyntaxmi' );
-		$options  = $this->ordering_check( $options );
+		$options  = $this->parse_ordering( $options );
 		$defaults = $this->get_taxonomy_defaults();
 		$taxonomy = array_merge( $defaults, $options );
+		$taxonomy = $this->parse_ordering( $taxonomy );
 		if ( $taxonomy['active'] ) {
 			// TODO:  allow excludes for all taxonomies, will require javascript solution.
 			if ( ! in_array( $taxonomy['type'], [ 'category' ] ) ) {
@@ -132,15 +133,6 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 		);
 	}
 
-	protected function ordering_check( $opts ) {
-		//  Exists in version 1.1.0 and above
-		if ( array_key_exists( 'ordering', $opts ) ) {
-			list( $opts['orderby'], $opts['order'] ) = explode( '-', $opts['ordering'] );
-			$opts['orderby'] = ( $opts['orderby'] === 'term' ) ? 'term_taxonomy_id' : $opts['orderby'];
-		}
-		return $opts;
-	}
-
 	/**
 	 *  Add bbpress forums to a menu.
 	 *
@@ -150,6 +142,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 		$options  = $this->get_option( 'bbpress', array() );
 		$defaults = $this->get_bbpress_defaults();
 		$forums   = array_merge( $defaults, $options );
+		$forums   = $this->parse_ordering( $forums );
 		if ( $forums['active'] ) {
 			dyntaxmi_forums( $forums );
 		}
@@ -165,9 +158,27 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 		return array(
 			'active'   => false,
 			'menu'     => 'primary-menu',
+			'ordering' => 'count-desc',
 			'position' => 2,
 			'title'    => __( 'Forums', 'dyntaxmi' ),
 		);
+	}
+
+	/**
+	 *  Parse out order and orderby parameters
+	 *
+	 * @since 20200430
+	 * @param  array $opts  Options array to parse.
+	 * @return array        Parsed options.
+	 */
+	protected function parse_ordering( $opts ) {
+		//  Introduced in version 1.1.0
+		if ( array_key_exists( 'ordering', $opts ) ) {
+			list( $opts['orderby'], $opts['order'] ) = explode( '-', $opts['ordering'] );
+			$opts['orderby'] = ( $opts['orderby'] === 'term' ) ? 'term_taxonomy_id' : $opts['orderby'];
+			unset( $opts['ordering'] );
+		}
+		return $opts;
 	}
 
 	/**

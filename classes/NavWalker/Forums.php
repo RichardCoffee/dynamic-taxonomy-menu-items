@@ -15,6 +15,16 @@ defined( 'ABSPATH' ) || exit;
 class DynTaxMI_NavWalker_Forums extends DynTaxMI_NavWalker_Dynamic {
 
 	/**
+	 * @since 20200502
+	 * @var string  Default order that terms are retrieved in.
+	 */
+	protected $order = 'DESC';
+	/**
+	 * @since 20200502
+	 * @var string  Default field used to order terms.
+	 */
+	protected $orderby = 'count';
+	/**
 	 *  string used as postfix for css selector.
 	 *
 	 * @since 20180905
@@ -52,10 +62,13 @@ class DynTaxMI_NavWalker_Forums extends DynTaxMI_NavWalker_Dynamic {
 	 */
 	protected function get_forums() {
 		$args = array(
+			'numberposts'         => -1,
 			'post_type'           => bbp_get_forum_post_type(),
 			'post_status'         => bbp_get_public_status_id(),
 			'ignore_sticky_posts' => true,
-			'orderby'             => 'menu_order title',
+#			'orderby'             => 'menu_order title',
+			'orderby'             => $this->orderby,
+			'order'               => $this->order,
 			'hide_empty'          => false,
 		);
 		return get_posts( $args );
