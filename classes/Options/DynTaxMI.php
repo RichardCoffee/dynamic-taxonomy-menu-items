@@ -58,8 +58,16 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	 * @return array  Form layout.
 	 */
 	protected function options_layout() {
-		$terms = $this->get_terms();
-		$size  = min( count( $terms ), 10 );
+		$terms = array(
+			'cats' => $this->get_terms('category'),
+			'tags' => $this->get_terms('post_tag'),
+			'form' => $this->get_terms('post_format'),
+		);
+		$sizes = array(
+			'cats' => min( count( $terms['cats'] ), 10 ),
+			'tags' => min( count( $terms['tags'] ), 10 ),
+			'form' => min( count( $terms['form'] ), 10 ),
+		);
 		return array(
 			'active' => array(
 				'default' => 0,
@@ -77,14 +85,26 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 			'type' => array(
 				'default' => 'category',
 				'label'   => __( 'Taxonomy', 'dyntaxmi' ),
-				'text'    => __( 'Choose the taxonomy to use, default is Categories.', 'dyntaxmi' ),
+				'text'    => __( 'Choose the taxonomy to use, default is Categories.  This is only guaranteed to work with Categories, Tags, and Formats.', 'dyntaxmi' ),
 				'render'  => 'select',
 				'source'  => $this->get_taxonomies(),
 				'divcss'  => 'dyntaxmi-type',
 				'showhide' => array(
-					'origin' => 'dyntaxmi-type',
-					'target' => 'dyntaxmi-exclude',
-					'show'   => 'category',
+					array(
+						'origin' => 'dyntaxmi-type',
+						'target' => 'dyntaxmi-exclude',
+						'show'   => 'category',
+					),
+					array(
+						'origin' => 'dyntaxmi-type',
+						'target' => 'exclude-tags',
+						'show'   => 'post_tag',
+					),
+					array(
+						'origin' => 'dyntaxmi-type',
+						'target' => 'exclude-formats',
+						'show'   => 'post_format',
+					),
 				),
 			),
 			'title' => array(
@@ -119,26 +139,6 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 					'term-desc'  => __( 'Term ID, newest to oldest, again - sort of.', 'dyntaxmi' ),
 				),
 			),
-/*			'orderby' => array(
-				'default' => 'count',
-				'label'   => __( 'Order By', 'dyntaxmi' ),
-				'text'    => __( 'Control the order in which the sub-menu items are displayed.', 'dyntaxmi' ),
-				'render'  => 'radio',
-				'source'  => array(
-					'count' => __( 'Post Count (default)', 'dyntaxmi' ),
-					'name'  => __( 'Term Name', 'dyntaxmi' ),
-					'term_taxonomy_id' => __( 'Term ID, although why?', 'dyntaxmi' ),
-				),
-			),
-			'order' => array(
-				'default' => 'desc',
-				'label'   => 'Order Direction',
-				'render'  => 'radio',
-				'source'  => array(
-					'desc' => __( 'Descending order, recommended for Post Count order. (default)', 'dyntaxmi' ),
-					'asc'  => __( 'Ascending order,  recommended for Term Name order.', 'dyntaxmi' ),
-				),
-			),*/
 			'maximum' => array(
 				'default' => 7,
 				'label'   => __( 'Maximum Items', 'dyntaxmi' ),
@@ -156,9 +156,27 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 				'text'    => __( 'You can exclude category terms using this list.', 'dyntaxmi' ),
 				'help'    => __( "Utilize the 'ctrl+click' combo to choose multiple exclude terms.", 'dyntaxmi' ),
 				'render'  => 'select_multiple',
-				'attrs'   => [ 'size' => "$size" ],
-				'source'  => $terms, // TODO:  get terms from all taxes, use js to match chosen taxonomy.
+				'attrs'   => [ 'size' => "{$sizes['cats']}" ],
+				'source'  => $terms['cats'],
 				'divcss'  => 'dyntaxmi-exclude',
+			),
+			'exclude-tag' => array(
+				'default' => [],
+				'label'   => __( 'Exclude Tags', 'dyntaxmi' ),
+				'text'    => __( 'You can exclude tags using this list.', 'dyntaxmi' ),
+				'render'  => 'select_multiple',
+				'attrs'   => [ 'size' => "{$sizes['tags']}" ],
+				'source'  => $terms['tags'],
+				'divcss'  => 'exclude-tags',
+			),
+			'exclude-formats' => array(
+				'default' => [],
+				'label'   => __( 'Exclude Formats', 'dyntaxmi' ),
+				'text'    => __( 'You can exclude formats using this list.', 'dyntaxmi' ),
+				'render'  => 'select_multiple',
+				'attrs'   => [ 'size' => "{$sizes['form']}" ],
+				'source'  => $terms['form'],
+				'divcss'  => 'exclude-formats',
 			),
 			'count' => array(
 				'default' => true,
@@ -193,9 +211,9 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	 * @since 20200414
 	 * @return array
 	 */
-	private function get_terms() {
+	private function get_terms( $taxonomy = 'category' ) {
 		$args = array(
-			'taxonomy' => 'category',
+			'taxonomy' => $taxonomy,
 			'order'    => 'ASC',
 			'orderby'  => 'name',
 		);
