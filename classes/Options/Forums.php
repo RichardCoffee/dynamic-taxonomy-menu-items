@@ -53,7 +53,7 @@ class DynTaxMI_Options_Forums extends DynTaxMI_Options_Options {
 	 * @since 20200425
 	 */
 	public function describe_options() {
-		esc_html_e( 'These options control the settings for the bbPress forums menu.', 'dyntaxmi' );
+		esc_html_e( 'These options control settings for a bbPress forums sub-menu.', 'dyntaxmi' );
 	}
 
 	/**
@@ -67,7 +67,7 @@ class DynTaxMI_Options_Forums extends DynTaxMI_Options_Options {
 			'active' => array(
 				'default' => 0,
 				'label'   => __( 'Usage', 'dyntaxmi' ),
-				'text'    => __( 'Check here to add a submenu of bbPress forums.', 'dyntaxmi' ),
+				'text'    => __( 'Check here to activate the sub-menu.', 'dyntaxmi' ),
 				'render'  => 'checkbox',
 			),
 			'menu' => array(
