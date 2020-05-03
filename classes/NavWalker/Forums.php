@@ -139,7 +139,7 @@ class DynTaxMI_NavWalker_Forums extends DynTaxMI_NavWalker_Dynamic {
 			default:
 				$value = $a->topic_count - $b->topic_count;
 		}
-#		$value = ( strtolower( $this->order ) === 'asc' ) ? -$value : $value;
+		$value = ( strtolower( $this->order ) === 'desc' ) ? -$value : $value;
 		return $value;
 	}
 
