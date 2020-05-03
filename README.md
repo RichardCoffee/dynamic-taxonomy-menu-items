@@ -4,9 +4,9 @@
 
       Contributors: richard.coffee
               Tags: menu, dynamic menu, menubar, taxonomy, dynamic taxonomy
-        Stable tag: 1.0.2
+        Stable tag: 1.1.0
  Requires at least: 4.7.0
-      Tested up to: 5.4
+      Tested up to: 5.4.1
       Requires PHP: 5.3.6
            License: GPLv3
        License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -68,10 +68,11 @@ Adding WooCommerce support is on the <kbd>todo</kbd> list.  Any help with this w
 
 ## Changelog
 
-### Next Release.
-* Enhancement:  Add bbPress forums.
+### 1.1.0
+* Certify:      Works with WordPress 5.4.1
+* Enhancement:  Add bbPress Forums.
 * Enhancement:  Combined options 'Order By' and 'Order Direction' into new option 'Item Order'.
-* Upgrade:  Updated core files.
+* Upgrade:      Updated core files.
 
 ### 1.0.2
 * Bugfix:  Settings screen spinners were not working properly.
