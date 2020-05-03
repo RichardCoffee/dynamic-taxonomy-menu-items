@@ -126,7 +126,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 			'menu'       => 'primary-menu',
 #			'order'      => 'desc',
 #			'orderby'    => 'count',
-			'ordering'   => 'count-desc',
+			'ordering'   => 'topic_count-desc',
 			'position'   => 1,
 			'title'      => __( 'Articles', 'dyntaxmi' ),
 			'type'       => 'category',
@@ -178,6 +178,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 			$opts['orderby'] = ( $opts['orderby'] === 'term' ) ? 'term_taxonomy_id' : $opts['orderby'];
 			unset( $opts['ordering'] );
 		}
+		$opts['order'] = strtoupper( $opts['order'] );
 		return $opts;
 	}
 

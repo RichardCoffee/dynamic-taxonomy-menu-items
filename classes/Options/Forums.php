@@ -96,15 +96,15 @@ class DynTaxMI_Options_Forums extends DynTaxMI_Options_Options {
 				),
 			),
 			'ordering' => array(
-				'default' => 'count-desc',
+				'default' => 'topic_count-desc',
 				'label'   => __( 'Item Order', 'dyntaxmi' ),
 				'text'    => __( 'Choose the order of the sub-menu items.', 'dyntaxmi' ),
 				'render'  => 'radio',
 				'source'  => array(
-					'count-desc' => __( 'Topic Count, highest count first (default).', 'dyntaxmi' ),
-					'count-asc'  => __( 'Topic Count, lowest count first.', 'dyntaxmi' ),
-					'name-asc'   => __( 'Forum Name, alphabetical order', 'dyntaxmi' ),
-					'name-desc'  => __( 'Forum Name, alphabetical, reversed.', 'dyntaxmi' ),
+					'topic_count-desc' => __( 'Topic Count, highest count first (default).', 'dyntaxmi' ),
+					'topic_count-asc'  => __( 'Topic Count, lowest count first.', 'dyntaxmi' ),
+					'post_title-asc'   => __( 'Forum Name, alphabetical order', 'dyntaxmi' ),
+					'post_title-desc'  => __( 'Forum Name, alphabetical, reversed.', 'dyntaxmi' ),
 				),
 			),
 		);
