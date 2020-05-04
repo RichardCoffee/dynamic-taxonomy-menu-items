@@ -19,7 +19,7 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	 * @since 20200408
 	 * @var int  Controls order on tabbed screen.
 	 */
-	protected $priority = 800;
+	protected $priority = 150;
 
 
 	/**
