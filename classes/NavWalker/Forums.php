@@ -48,9 +48,11 @@ class DynTaxMI_NavWalker_Forums extends DynTaxMI_NavWalker_Dynamic {
 		if ( ! is_callable( 'bbpress' ) ) { return; }
 		$this->link .= $this->bbp_get_form_option( '_bbp_root_slug', 'forum', true );
 		$forums = $this->get_forums();
-		$this->get_forum_counts( $forums );
-		$this->add_forums( $forums );
-		$this->check_queried_object();
+		if ( $forums ) {
+			$this->get_forum_counts( $forums );
+			$this->add_forums( $forums );
+			$this->check_queried_object();
+		}
 	}
 
 	/**
