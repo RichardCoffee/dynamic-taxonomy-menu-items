@@ -3,7 +3,7 @@
  *  Main plugin class file.
  *
  * @package DynTaxMI
- * @subpackage Plugin_Core
+ * @subpackage Core
  * @since 20170111
  * @author Richard Coffee <richard.coffee@rtcenterprises.net>
  * @copyright Copyright (c) 2017, Richard Coffee
@@ -23,6 +23,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 *
 	 * @since 20200410
 	 * @var string  Path to plugin options page, used on the WP Dashboard Plugins page
+	 * @todo:  Is there a way to derive this value instead of having to set it manually?
 	 */
 	protected $setting = 'themes.php?page=dyntaxmi';
 
@@ -79,6 +80,12 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 */
 	public function wp_head() {
 		$this->add_taxonomy();
+		if ( is_callable( 'bbpress' ) ) {
+			$this->add_forums();
+			if ( bbp_allow_topic_tags() ) {
+#				$this->add_topic_tags();
+			}
+		}
 		$this->add_custom_css();
 	}
 
@@ -88,14 +95,18 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 * @since 20200406
 	 */
 	protected function add_taxonomy() {
-		$options  = get_option( 'tcc_options_dyntaxmi', array() );
+		$options  = $this->get_option( 'dyntaxmi' );
+		$options  = $this->parse_ordering( $options );
 		$defaults = $this->get_taxonomy_defaults();
 		$taxonomy = array_merge( $defaults, $options );
-		// TODO:  allow excludes for all taxonomies, requires a js solution
-		if ( ! in_array( $taxonomy['type'], [ 'category' ] ) ) {
-			$taxonomy['exclude'] = [];
+		$taxonomy = $this->parse_ordering( $taxonomy );
+		if ( $taxonomy['active'] ) {
+			// TODO:  allow excludes for all taxonomies, will require javascript solution.
+			if ( ! in_array( $taxonomy['type'], [ 'category' ] ) ) {
+				$taxonomy['exclude'] = [];
+			}
+			dyntaxmi_tax( $taxonomy );
 		}
-		dyntaxmi_tax( $taxonomy );
 	}
 
 	/**
@@ -106,18 +117,69 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 */
 	protected function get_taxonomy_defaults() {
 		return array(
+			'active'     => false,
 			'css_action' => 'dyntaxmi_custom_css',
 			'count'      => true,
 			'exclude'    => [],
 			'limit'      => 0,
 			'maximum'    => 7,
 			'menu'       => 'primary-menu',
-			'order'      => 'desc',
-			'orderby'    => 'count',
+#			'order'      => 'desc',
+#			'orderby'    => 'count',
+			'ordering'   => 'topic_count-desc',
 			'position'   => 1,
 			'title'      => __( 'Articles', 'dyntaxmi' ),
 			'type'       => 'category',
 		);
+	}
+
+	/**
+	 *  Add bbpress forums to a menu.
+	 *
+	 * @since 20200424
+	 */
+	protected function add_forums() {
+		$options  = $this->get_option( 'bbpress', array() );
+		$defaults = $this->get_bbpress_defaults();
+		$forums   = array_merge( $defaults, $options );
+		$forums   = $this->parse_ordering( $forums );
+		if ( $forums['active'] ) {
+			dyntaxmi_forums( $forums );
+		}
+	}
+
+	/**
+	 *  Provides bbpress forums defaults.
+	 *
+	 * @since 20200424
+	 * @return array  Defaults for bbpress forums.
+	 */
+	protected function get_bbpress_defaults() {
+		return array(
+			'active'   => false,
+			'menu'     => 'primary-menu',
+			'ordering' => 'count-desc',
+			'position' => 2,
+			'title'    => __( 'Forums', 'dyntaxmi' ),
+		);
+	}
+
+	/**
+	 *  Parse out order and orderby parameters
+	 *
+	 * @since 20200430
+	 * @param  array $opts  Options array to parse.
+	 * @return array        Parsed options.
+	 */
+	protected function parse_ordering( $opts ) {
+		//  Introduced in version 1.1.0
+		if ( array_key_exists( 'ordering', $opts ) ) {
+			list( $opts['orderby'], $opts['order'] ) = explode( '-', $opts['ordering'] );
+			$opts['orderby'] = ( $opts['orderby'] === 'term' ) ? 'term_taxonomy_id' : $opts['orderby'];
+			unset( $opts['ordering'] );
+		}
+		$opts['order'] = strtoupper( $opts['order'] );
+		return $opts;
 	}
 
 	/**
@@ -145,6 +207,20 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 	 */
 	public function wp_enqueue_scripts() {
 		wp_enqueue_style( 'dyntaxmi-css', $this->paths->get_plugin_file_uri( 'css/dyntaxmi.css' ), null, $this->paths->version );
+	}
+
+	/**
+	 *  Get options for a submenu.
+	 *
+	 * @since 20200424
+	 */
+	protected function get_option( $slug ) {
+		if ( in_array( $slug, [ 'bbpress', 'dyntaxmi' ] ) ) {
+			$option = get_option( "tcc_options_$slug", array() );
+			if ( $option ) return $option;
+		}
+		$option = get_option( "dyntaxmi_$slug", array() );
+		return $option;
 	}
 
 

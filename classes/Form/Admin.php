@@ -258,7 +258,10 @@ abstract class DynTaxMI_Form_Admin {
 				'delete'    => __( 'Unassign Image', 'dyntaxmi' ),
 			),
 		);
+		// Changes based on page slug.
 		$this->form_text = apply_filters( "form_text_{$this->slug}", $text, $text );
+		// Changes based on the tab.
+		$this->form_text = apply_filters( "fluidity_text_filter_{$this->tab}", $this->form_text, $text );
 		add_filter( 'tcc_form_admin_options_localization', [ $this, 'add_form_text_localization' ] );
 	}
 
@@ -469,7 +472,7 @@ abstract class DynTaxMI_Form_Admin {
 	 *
 	 * @since 20150323
 	 */
-	private function get_form_options() {
+	protected function get_form_options() {
 		$database = get_option( $this->current, array() );
 		$option   = explode( '_', $this->current );
 		$defaults = $this->get_defaults( array_pop( $option ) );
@@ -492,13 +495,13 @@ abstract class DynTaxMI_Form_Admin {
 			//  Start the form
 			$this->tag( 'form', [ 'method' => 'post', 'action' => 'options.php' ] );
 				//  Do actions at start of form.
-				do_action( "fluid_form_admin_pre_display_{$this->current}" );
+				do_action( "dyntaxmi_form_admin_pre_display_{$this->current}" );
 				//  Establish the form section.
 				settings_fields( $this->current );
 				//  Show the form section.
 				do_settings_sections( $this->current );
 				//  Do actions at end of form.
-				do_action( "fluid_form_admin_post_display_{$this->current}" );
+				do_action( "dyntaxmi_form_admin_post_display_{$this->current}" );
 				//  Show the form buttons.
 				$this->submit_buttons();
 		//  Close the form and wrapping div.
@@ -546,13 +549,13 @@ abstract class DynTaxMI_Form_Admin {
 				//  Derive the current section.
 				$current = ( array_key_exists( 'option', $this->form[ $this->tab ] ) ) ? $this->form[ $this->tab ]['option'] : $this->prefix . $this->tab;
 				//  Do actions at start of form.
-				do_action( "fluid_form_admin_pre_display_{$this->tab}" );
+				do_action( "dyntaxmi_form_admin_pre_display_{$this->tab}" );
 				//  Establish the form section.
 				settings_fields( $current );
 				//  Show the form section.
 				do_settings_sections( $current );
 				//  Do actions at end of form.
-				do_action( "fluid_form_admin_post_display_{$this->tab}" );
+				do_action( "dyntaxmi_form_admin_post_display_{$this->tab}" );
 				//  Show the form buttons.
 				$this->submit_buttons( $this->form[ $this->tab ]['title'] );
 		//  Close the form and wrapping div.
@@ -582,8 +585,8 @@ abstract class DynTaxMI_Form_Admin {
 	 * @since 20150323
 	 * @param array $args
 	 */
-	public function render_single_options( $args ) {
-		extract( $args );  #  array( 'key' => $key, 'item' => $item, 'num' => $i );
+	public function render_single_options( $in ) {
+		extract( $in );  //  $data array( 'key' => $key, 'item' => $item, 'num' => $i );
 		$data   = $this->form_opts;
 		$layout = $this->form['layout'];
 		$this->tag( 'div', $this->render_attributes( $layout[ $item ] ) );
@@ -599,18 +602,19 @@ abstract class DynTaxMI_Form_Admin {
 					$value = ( array_key_exists( $num, $data[ $item ] ) ) ? $data[ $item ][ $num ] : '';
 				}
 				$field = str_replace( array( '[', ']' ), array( '_', '' ), $name );
-				$fargs = array(
+				$args = array(
 					'ID'     => $field,
 					'value'  => $value,
 					'layout' => $layout[ $item ],
 					'name'   => $name,
 				);
+				add_filter( "dyntaxmi_form_layout_attributes_$item", [ $this, 'render_layout_attributes' ], 5, 2 );
 				if ( method_exists( $this, $func ) ) {
-					$this->$func( $fargs );
+					$this->$func( $args );
 				} else if ( function_exists( $func ) ) {
-					$func( $fargs );
+					$func( $args );
 				} else {
-					$this->logg( sprintf( $this->form_text['error']['render'], $func ) );
+					$this->logg( sprintf( $this->form_text['error']['render'], $func ), $args );
 				}
 			}
 		echo '</div>';
@@ -620,10 +624,10 @@ abstract class DynTaxMI_Form_Admin {
 	 *  Display fields on tabbed screens
 	 *
 	 * @since 20150323
-	 * @param array $args  Field identificatin information
+	 * @param array $args  Field identificatin information.
 	 */
-	public function render_tabbed_options( $args ) {
-		extract( $args );  //  $args array( 'key' => {group-slug}, 'item' => {item-slug} )
+	public function render_tabbed_options( $in ) {
+		extract( $in );  //  $in array( 'key' => {group-slug}, 'item' => {item-slug} )
 		$data   = $this->form_opts;
 		$layout = $this->form[ $key ]['layout'];
 		$this->tag( 'div', $this->render_attributes( $layout[ $item ] ) );
@@ -641,6 +645,7 @@ abstract class DynTaxMI_Form_Admin {
 				'layout' => $layout[ $item ],
 				'name'   => $name,
 			);
+			add_filter( "dyntaxmi_form_layout_attributes_$item", [ $this, 'render_layout_attributes' ], 5, 2 );
 			if ( method_exists( $this, $func ) ) {
 				$this->$func( $args );
 			} elseif ( function_exists( $func ) ) {
@@ -649,7 +654,7 @@ abstract class DynTaxMI_Form_Admin {
 				$this->logg( sprintf( $this->form_text['error']['render'], $func ) );
 			}
 		}
-		echo '</div>'; //*/
+		echo '</div>';
 	}
 
 	/**
@@ -672,11 +677,19 @@ abstract class DynTaxMI_Form_Admin {
 		$attrs = array();
 		$attrs['class'] = ( array_key_exists( 'divcss', $layout ) ) ? $layout['divcss'] : '';
 		$attrs['title'] = ( array_key_exists( 'help',   $layout ) ) ? $layout['help']   : '';
+/*  This code is obsolete, but kept for reference purposes.
 		if ( array_key_exists( 'showhide', $layout ) ) {
 			$state = array_merge( [ 'show' => null, 'hide' => null ], $layout['showhide'] );
 			$attrs['data-item'] = ( array_key_exists( 'item', $state ) ) ? $state['item'] : $state['target'];
 			$attrs['data-show'] = $state['show'];
 			$attrs['data-hide'] = $state['hide'];
+		} */
+		return $attrs;
+	}
+
+	public function render_layout_attributes( $attrs, $layout ) {
+		if ( array_key_exists( 'attrs', $layout ) ) {
+			$attrs = array_merge( $attrs, $layout['attrs'] );
 		}
 		return $attrs;
 	}
@@ -696,7 +709,7 @@ abstract class DynTaxMI_Form_Admin {
 	 * @todo needs add/delete/sort
 	 */
 	private function render_array( $data ) {
-		extract( $data );  //  Extracts 'ID', 'value', 'layout', and 'name'.
+		$layout = $data['layout'];
 		if ( ! array_key_exists( 'type', $layout ) ) $layout['type'] = 'text';
 		if ( in_array( $layout['type'], [ 'image' ] ) ) {
 			$this->render_image( $data );
@@ -714,9 +727,9 @@ abstract class DynTaxMI_Form_Admin {
 	private function render_checkbox( $data ) {
 		extract( $data );  //  Keys are 'ID', 'value', 'layout', 'name'
 		$attrs = array(
-			'type' => 'checkbox',
-			'id'   => $ID,
-			'name' => $name,
+			'type'  => 'checkbox',
+			'id'    => $ID,
+			'name'  => $name,
 			'value' => $value,
 			'onchange' => ( array_key_exists( 'change', $layout ) ) ? $layout['change'] : '',
 		);
@@ -973,6 +986,7 @@ abstract class DynTaxMI_Form_Admin {
 		if ( array_key_exists( 'change', $layout ) ) {
 			$attrs['onchange'] = $layout['change'];
 		}
+		$attrs = apply_filters( "dyntaxmi_form_layout_attributes_$ID", $attrs, $layout );
 		$this->tag( 'select', $attrs );
 			$source_func = $layout['source'];
 			if ( is_array( $source_func ) ) {
@@ -993,10 +1007,20 @@ abstract class DynTaxMI_Form_Admin {
 	 *  Render a field with multiple selects
 	 *
 	 * @since 20170228
-	 * @param array $data field information
+	 * @param array $data  Field information.
 	 */
 	private function render_select_multiple( $data ) {
-		$data['name'] .= '[]';
+		//  Insure the name has brackets for array values.
+		if ( ! strpos( $data['name'], '[]' ) ) $data['name'] .= '[]';
+		//  Add directions if none are provided
+		if ( ! array_key_exists( 'help', $data['layout'] ) ) {
+			//  Check for the attributes array.
+			if ( ! array_key_exists( 'attrs', $data['layout'] ) ) $data['layout']['attrs'] = array();
+			//  Add the directions unless something is already there.
+			if ( ! array_key_exists( 'title', $data['layout']['attrs'] ) ) {
+				$data['layout']['attrs']['title'] = __( "Utilize the 'ctrl+click' combo to choose multiple items.", 'dyntaxmi' );
+			}
+		}
 		$this->render_select( $data );
 	}
 
@@ -1017,6 +1041,7 @@ abstract class DynTaxMI_Form_Admin {
 			'value' => $value,
 		);
 		$attrs = array_merge( $attrs, $this->attributes_spinner( $layout ) );
+		$attrs = apply_filters( "dyntaxmi_form_layout_attributes_$ID", $attrs, $layout );
 		$this->element( 'input', $attrs );
 		if ( array_key_exists( 'postext', $layout ) ) {
 			$this->element( 'div', [], $layout['postext'] );
@@ -1037,9 +1062,6 @@ abstract class DynTaxMI_Form_Admin {
 #			'min'   => '1',
 			'step'  => '1',
 		);
-		if ( array_key_exists( 'attrs', $layout ) ) {
-			$attrs = array_merge( $attrs, array_intersect_key( $layout['attrs'], $attrs ) );
-		}
 		return $attrs;
 	}
 
@@ -1116,27 +1138,36 @@ abstract class DynTaxMI_Form_Admin {
 			$object = ( array_key_exists( 'title', $this->form ) ) ? $this->form['title'] : $this->form_test['submit']['object'];
 			$string = sprintf( $this->form_text['submit']['restore'], $object );
 			add_settings_error( $this->slug, 'restore_defaults', $string, 'updated fade' );
-			return $output;
-		}
-		foreach( $input as $ID => $data ) {
-			$item = $this->form['layout'][ $ID ];
-			$multiple = array( 'array', 'radio_multiple' );
-			if ( in_array( $item['render'], $multiple ) ) {
-				$item['render'] = ( array_key_exists( 'type', $item ) ) ? $item['type'] : 'text';
-				$vals = array();
-				foreach( $data as $key => $indiv ) {
-					$vals[ $key ] = $this->do_validate_function( $indiv, $item );
+		} else {
+			foreach( $input as $ID => $data ) {
+				$item = $this->form['layout'][ $ID ];
+				$multiple = array( 'array', 'radio_multiple' );
+				if ( in_array( $item['render'], $multiple ) ) {
+					$item['render'] = ( array_key_exists( 'type', $item ) ) ? $item['type'] : 'text';
+					$vals = array();
+					foreach( $data as $key => $indiv ) {
+						$vals[ $key ] = $this->do_validate_function( $indiv, $item );
+					}
+					$output[ $ID ] = $vals;
+				} else if ( in_array( $item['render'], [ 'checkbox' ] ) ) {
+					$output[ $ID ] = true;
+				} else {
+					$output[ $ID ] = $this->do_validate_function( $data, $item );
 				}
-				$output[ $ID ] = $vals;
-			} else {
-				$output[ $ID ] = $this->do_validate_function( $data, $item );
 			}
-		}
-		// check for required fields FIXME: notify user
-		foreach( $this->form['layout'] as $ID => $item ) {
-			if ( is_array( $item ) && array_key_exists( 'require', $item ) && $item['require'] ) {
-				if ( empty( $output[ $ID ] ) ) {
-					$output[ $ID ] = $item['default'];
+			// check for required fields FIXME: notify user
+			foreach( $this->form['layout'] as $ID => $item ) {
+				if ( is_array( $item ) && array_key_exists( 'require', $item ) && $item['require'] ) {
+					if ( empty( $output[ $ID ] ) ) {
+						$output[ $ID ] = $item['default'];
+					}
+				}
+			}
+			$diff = array_diff_key( $output, $input );
+			foreach( $diff as $key => $data ) {
+				$item = ( array_key_exists( $key, $this->form['layout'] ) ) ? $this->form['layout'][ $key ] : array();
+				if ( array_key_exists( 'render', $item ) && in_array( $item['render'], [ 'checkbox' ] ) ) {
+					$output[ $key ] = false;
 				}
 			}
 		}
@@ -1157,19 +1188,24 @@ abstract class DynTaxMI_Form_Admin {
 			$object = ( array_key_exists( 'title', $this->form[ $option ] ) ) ? $this->form[ $option ]['title'] : $this->form_test['submit']['object'];
 			$string = sprintf( $this->form_text['submit']['restore'], $object );
 			add_settings_error( $this->slug, 'restore_defaults', $string, 'updated fade' );
-			return $output;
-		}
-		foreach( $input as $key => $data ) {
-			$item = ( array_key_exists( $key, $this->form[ $option ]['layout'] ) ) ? $this->form[ $option ]['layout'][ $key ] : array();
-			if ( (array) $data === $data ) {
-				foreach( $data as $ID => $subdata ) {
-					$output[ $key ][ $ID ] = $this->do_validate_function( $subdata, $item );
+		} else {
+			foreach( $input as $key => $data ) {
+				$item = ( array_key_exists( $key, $this->form[ $option ]['layout'] ) ) ? $this->form[ $option ]['layout'][ $key ] : array();
+				if ( array_key_exists( 'render', $item ) && in_array( $item['render'], [ 'checkbox' ] ) ) {
+					$output[ $key ] = true;
+				} else {
+					$output[ $key ] = $this->do_validate_function( $data, $item );
 				}
-			} else {
-				$output[ $key ] = $this->do_validate_function( $data, $item );
+			}
+			$diff = array_diff_key( $output, $input );
+			foreach( $diff as $key => $data ) {
+				$item = ( array_key_exists( $key, $this->form[ $option ]['layout'] ) ) ? $this->form[ $option ]['layout'][ $key ] : array();
+				if ( array_key_exists( 'render', $item ) && in_array( $item['render'], [ 'checkbox' ] ) ) {
+					$output[ $key ] = false;
+				}
 			}
 		}
-		return apply_filters( $this->current . '_validate_settings', $output, $input );
+		return apply_filters( "{$this->current}_validate_settings", $output, $input );
 	}
 
 	/**

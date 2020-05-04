@@ -16,13 +16,8 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	 */
 	protected $base = 'dyntaxmi';
 	/**
-	 * @since 20200410
-	 * @var int  Maximum menu item count.
-	 */
-	private $max_count = 0;
-	/**
 	 * @since 20200408
-	 * @var int
+	 * @var int  Controls order on tabbed screen.
 	 */
 	protected $priority = 800;
 
@@ -34,7 +29,7 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	 * @return string
 	 */
 	protected function form_title() {
-		return __( 'Dynamic Taxonomy Menu Items', 'dyntaxmi' );
+		return __( 'Taxonomy', 'dyntaxmi' );
 	}
 
 	/**
@@ -60,28 +55,56 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	 *  Returns the layout for the settings screen.
 	 *
 	 * @since 20200409
-	 * @return array
+	 * @return array  Form layout.
 	 */
 	protected function options_layout() {
+		$terms = array(
+			'cats' => $this->get_terms('category'),
+			'tags' => $this->get_terms('post_tag'),
+			'form' => $this->get_terms('post_format'),
+		);
+		$sizes = array(
+			'cats' => min( count( $terms['cats'] ), 10 ),
+			'tags' => min( count( $terms['tags'] ), 10 ),
+			'form' => min( count( $terms['form'] ), 10 ),
+		);
 		return array(
+			'active' => array(
+				'default' => 0,
+				'label'   => __( 'Usage', 'dyntaxmi' ),
+				'text'    => __( 'Check here to activate the taxonomy submenu.', 'dyntaxmi' ),
+				'render'  => 'checkbox',
+			),
 			'menu' => array(
 				'default' => 'primary-menu',
 				'label'   => __( 'Menu', 'dyntaxmi' ),
 				'text'    => __( 'Choose the menu to add the sub-menu to, default is the Primary Menu.', 'dyntaxmi' ),
 				'render'  => 'select',
-				'source'  => $this->get_menus(),
+				'source'  => dyntaxmi()->get_menus(),
 			),
 			'type' => array(
 				'default' => 'category',
 				'label'   => __( 'Taxonomy', 'dyntaxmi' ),
-				'text'    => __( 'Choose the taxonomy to use, default is Categories.', 'dyntaxmi' ),
+				'text'    => __( 'Choose the taxonomy to use, default is Categories.  This is only guaranteed to work with Categories, Tags, and Formats.', 'dyntaxmi' ),
 				'render'  => 'select',
 				'source'  => $this->get_taxonomies(),
 				'divcss'  => 'dyntaxmi-type',
 				'showhide' => array(
-					'origin' => 'dyntaxmi-type',
-					'target' => 'dyntaxmi-exclude',
-					'show'   => 'category',
+					array(
+						'origin' => 'dyntaxmi-type',
+						'target' => 'dyntaxmi-exclude',
+						'show'   => 'category',
+					),
+					array(
+						'origin' => 'dyntaxmi-type',
+						'target' => 'exclude-tags',
+						'show'   => 'post_tag',
+					),
+					array(
+						'origin' => 'dyntaxmi-type',
+						'target' => 'exclude-formats',
+						'show'   => 'post_format',
+					),
 				),
 			),
 			'title' => array(
@@ -99,27 +122,21 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 				'render'  => 'spinner',
 				'attrs'   => array(
 					'min' => '0',
-					'max' => "{$this->max_count}", // TODO:  get a top level count. use js to match chosen menu.
+					'max' => dyntaxmi()->max_count, // TODO:  get a top level count. use js to match chosen menu.
 				),
 			),
-			'orderby' => array(
-				'default' => 'count',
-				'label'   => __( 'Order By', 'dyntaxmi' ),
-				'text'    => __( 'Control the order in which the sub-menu items are displayed.', 'dyntaxmi' ),
+			'ordering' => array(
+				'default' => 'count-desc',
+				'label'   => __( 'Item Order', 'dyntaxmi' ),
+				'text'    => __( 'Choose the order of the sub-menu items.', 'dyntaxmi' ),
 				'render'  => 'radio',
 				'source'  => array(
-					'count' => __( 'Post Count (default)', 'dyntaxmi' ),
-					'name'  => __( 'Term Name', 'dyntaxmi' ),
-					'term_taxonomy_id' => __( 'Term ID, although why?', 'dyntaxmi' ),
-				),
-			),
-			'order' => array(
-				'default' => 'desc',
-				'label'   => 'Order Direction',
-				'render'  => 'radio',
-				'source'  => array(
-					'desc' => __( 'Descending order, recommended for Post Count order. (default)', 'dyntaxmi' ),
-					'asc'  => __( 'Ascending order,  recommended for Term Name order.', 'dyntaxmi' ),
+					'count-desc' => __( 'Post Count, highest count first (default).', 'dyntaxmi' ),
+					'count-asc'  => __( 'Post Count, lowest count first.', 'dyntaxmi' ),
+					'name-asc'   => __( 'Term Name, alphabetical order', 'dyntaxmi' ),
+					'name-desc'  => __( 'Term Name, alphabetical, reversed.', 'dyntaxmi' ),
+					'term-asc'   => __( 'Term ID, oldest to newest, sort of.', 'dyntaxmi' ),
+					'term-desc'  => __( 'Term ID, newest to oldest, again - sort of.', 'dyntaxmi' ),
 				),
 			),
 			'maximum' => array(
@@ -139,8 +156,27 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 				'text'    => __( 'You can exclude category terms using this list.', 'dyntaxmi' ),
 				'help'    => __( "Utilize the 'ctrl+click' combo to choose multiple exclude terms.", 'dyntaxmi' ),
 				'render'  => 'select_multiple',
-				'source'  => $this->get_terms(), // TODO:  get terms from all taxes, use js to match chosen taxonomy.
+				'attrs'   => [ 'size' => "{$sizes['cats']}" ],
+				'source'  => $terms['cats'],
 				'divcss'  => 'dyntaxmi-exclude',
+			),
+			'exclude-tag' => array(
+				'default' => [],
+				'label'   => __( 'Exclude Tags', 'dyntaxmi' ),
+				'text'    => __( 'You can exclude tags using this list.', 'dyntaxmi' ),
+				'render'  => 'select_multiple',
+				'attrs'   => [ 'size' => "{$sizes['tags']}" ],
+				'source'  => $terms['tags'],
+				'divcss'  => 'exclude-tags',
+			),
+			'exclude-formats' => array(
+				'default' => [],
+				'label'   => __( 'Exclude Formats', 'dyntaxmi' ),
+				'text'    => __( 'You can exclude formats using this list.', 'dyntaxmi' ),
+				'render'  => 'select_multiple',
+				'attrs'   => [ 'size' => "{$sizes['form']}" ],
+				'source'  => $terms['form'],
+				'divcss'  => 'exclude-formats',
 			),
 			'count' => array(
 				'default' => true,
@@ -159,28 +195,19 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	}
 
 	/**
-	 *  Return an array of menus suitable for use with select.
-	 *
-	 * @since 20200410
-	 * @return array
-	 */
-	private function get_menus() {
-		$menus = wp_get_nav_menus( [ 'hide_empty' => true ] );
-		foreach( $menus as $key => $object ) {
-			$this->max_count = max( $this->max_count, $object->count );
-		}
-		return wp_list_pluck( $menus, 'name', 'slug' );
-	}
-
-	/**
 	 *  Returns an array of taxonomies suitable for use with select.
 	 *
 	 * @since 20200409
 	 * @return array
 	 */
 	private function get_taxonomies() {
+		$exclude = array(
+			'topic-tag' => 'placeholder',
+		);
 		$taxes = get_taxonomies( [ 'public' => true ], 'name' );
-		return wp_list_pluck( $taxes, 'label', 'name' );
+		$list  = wp_list_pluck( $taxes, 'label', 'name' );
+		$diff  = array_diff_key( $list, $exclude );
+		return apply_filters( 'dyntaxmi_get_taxonomies', $diff );
 	}
 
 	/**
@@ -189,9 +216,9 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	 * @since 20200414
 	 * @return array
 	 */
-	private function get_terms() {
+	private function get_terms( $taxonomy = 'category' ) {
 		$args = array(
-			'taxonomy' => 'category',
+			'taxonomy' => $taxonomy,
 			'order'    => 'ASC',
 			'orderby'  => 'name',
 		);

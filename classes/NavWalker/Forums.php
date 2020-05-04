@@ -15,6 +15,16 @@ defined( 'ABSPATH' ) || exit;
 class DynTaxMI_NavWalker_Forums extends DynTaxMI_NavWalker_Dynamic {
 
 	/**
+	 * @since 20200502
+	 * @var string  Default order that terms are retrieved in.
+	 */
+	protected $order = 'DESC';
+	/**
+	 * @since 20200502
+	 * @var string  Default field used to order terms.
+	 */
+	protected $orderby = 'topic_count';
+	/**
 	 *  string used as postfix for css selector.
 	 *
 	 * @since 20180905
@@ -38,7 +48,7 @@ class DynTaxMI_NavWalker_Forums extends DynTaxMI_NavWalker_Dynamic {
 		if ( ! is_callable( 'bbpress' ) ) { return; }
 		$this->link .= $this->bbp_get_form_option( '_bbp_root_slug', 'forum', true );
 		$forums = $this->get_forums();
-		$counts = $this->get_forum_counts( $forums );
+		$this->get_forum_counts( $forums );
 		$this->add_forums( $forums );
 		$this->check_queried_object();
 	}
@@ -52,10 +62,10 @@ class DynTaxMI_NavWalker_Forums extends DynTaxMI_NavWalker_Dynamic {
 	 */
 	protected function get_forums() {
 		$args = array(
+			'numberposts'         => -1,
 			'post_type'           => bbp_get_forum_post_type(),
 			'post_status'         => bbp_get_public_status_id(),
 			'ignore_sticky_posts' => true,
-			'orderby'             => 'menu_order title',
 			'hide_empty'          => false,
 		);
 		return get_posts( $args );
@@ -69,7 +79,7 @@ class DynTaxMI_NavWalker_Forums extends DynTaxMI_NavWalker_Dynamic {
 	 * @uses bbp_get_forum_topic_count()
 	 * @return array Array of WP_Post objects with a topic_count property added.
 	 */
-	protected function get_forum_counts( $forums ) {
+	protected function get_forum_counts( &$forums ) {
 		foreach( $forums as &$forum ) {
 			$forum->topic_count = bbp_get_forum_topic_count( $forum->ID );
 		}
@@ -90,6 +100,7 @@ class DynTaxMI_NavWalker_Forums extends DynTaxMI_NavWalker_Dynamic {
 		$pattern = apply_filters( "dyntaxmi_{$this->type}_format", $pattern, $forums );
 		$order   = 1;
 		$this->add_menu_item( $title );
+		usort( $forums, [ $this, 'sort_forums' ] );
 		foreach( $forums as $forum ) {
 			$name = sprintf( $pattern, $forum->post_title, $forum->topic_count );
 			$path = bbp_get_forum_permalink( $forum->ID );
@@ -108,6 +119,28 @@ class DynTaxMI_NavWalker_Forums extends DynTaxMI_NavWalker_Dynamic {
 	protected function get_forums_title() {
 		$labels = bbp_get_forum_post_type_labels();
 		return $labels['menu_name'];
+	}
+
+	/**
+	 *  Sort the forums.
+	 *
+	 * @since 20200502
+	 * @param WP_Post $a  First object to sort.
+	 * @param WP_Post $b  Second object to sort.
+	 * @return int        Relative ranking.
+	 */
+	public function sort_forums( $a, $b ) {
+		$value = 0;
+		switch( $this->orderby ) {
+			case 'post_title':
+				$value = strcasecmp( $a->post_title, $b->post_title );
+				break;
+			case 'topic_count':
+			default:
+				$value = $a->topic_count - $b->topic_count;
+		}
+		$value = ( strtolower( $this->order ) === 'desc' ) ? -$value : $value;
+		return $value;
 	}
 
 	protected function check_queried_object() {
