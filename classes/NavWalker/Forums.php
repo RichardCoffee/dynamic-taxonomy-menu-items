@@ -7,6 +7,7 @@
  * @since 20180905
  * @author Richard Coffee <richard.coffee@rtcenterprises.net>
  * @copyright Copyright (c) 2018, Richard Coffee
+ * @link https://github.com/RichardCoffee/dynamic-taxonomy-menu-items/blob/master/classes/NavWalker/Forums.php
  * @link https://github.com/RichardCoffee/fluidity-theme/blob/master/classes/NavWalker/Forums.php
  */
 defined( 'ABSPATH' ) || exit;
