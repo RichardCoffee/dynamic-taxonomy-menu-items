@@ -1,7 +1,6 @@
 
 # Dynamic Taxonomy Menu Items
 
-
        Contributors: richard.coffee
                Tags: menu, dynamic menu, menubar, taxonomy, dynamic taxonomy
          Stable tag: 1.1.0
@@ -15,8 +14,10 @@ Add a dynamic submenu to your WordPress menu.  Works with categories, tags, and 
 
 ## Description
 
-This is a lightweight plugin to add dynamic submenus to a WordPress menu.  It is known to work with [Nav Menu Roles](https://www.kathyisawesome.com/nav-menu-roles/).
-Caution is indicated if trying to use it with a theme, menu plugin, or anything that makes significant changes to how the WordPress menu is handled.  It can insert taxonomies, such as catagories or tags, and will also work with bbPress forums.
+This is a lightweight plugin to add a dynamic sub-menu to a WordPress menu.  It is known to work with [Nav Menu Roles](https://www.kathyisawesome.com/nav-menu-roles/).
+Caution is indicated if trying to use it with a theme, menu plugin, or anything that makes significant changes to how the WordPress menu is handled. It can insert a
+single sub-menu using any public taxonomy, such as catagories, tags, as well as woocommerce product categories or tags.  A seperate sub-menu for bbPress forums is
+available.
 
 ## Installation
 

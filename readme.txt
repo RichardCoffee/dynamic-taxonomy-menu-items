@@ -14,8 +14,10 @@ Add a dynamic taxonomy list to your WordPress menus.
 
 == Description ==
 
-This is a lightweight plugin to add a dynamic submenus to a WordPress menu.  It is known to work with [Nav Menu Roles](https://wordpress.org/plugins/nav-menu-roles/).
-Caution is indicated if trying to use it with a theme, or menu plugin, that makes significant changes to how WordPress menu is handled.  It can insert taxonomies, such as catagories or tags, and will also work with bbPress forums.
+This is a lightweight plugin to add a dynamic sub-menu to a WordPress menu.  It is known to work with [Nav Menu Roles](https://wordpress.org/plugins/nav-menu-roles/).
+Caution is indicated if trying to use it with a theme, menu plugin, or anything that makes significant changes to how the WordPress menu is handled. It can insert a
+single sub-menu using any public taxonomy, such as catagories, tags, as well as woocommerce product categories or tags.  A seperate sub-menu for bbPress forums is
+available.
 
 == Installation ==
 
@@ -68,10 +70,10 @@ Adding WooCommerce support is on the todo list.  Any help with this would be gre
 == Changelog ==
 
 = 1.1.0 =
-* Certify:  Works with WordPress 5.4.1
+* Certify:      Works with WordPress 5.4.1
 * Enhancement:  Add bbPress forums.
 * Enhancement:  Combined options 'Order By' and 'Order Direction' into new option 'Item Order'.
-* Upgrade:  Updated core files.
+* Upgrade:      Updated core files.
 
 = 1.0.2 =
 * Bugfix:  Settings screen spinners were not working properly.
