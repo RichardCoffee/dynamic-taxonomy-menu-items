@@ -45,8 +45,8 @@ class DynTaxMI_NavWalker_Forums extends DynTaxMI_NavWalker_Dynamic {
 	 * @uses home_url()
 	 */
 	public function __construct( $args = array() ) {
+		if ( ! is_callable( 'bbpress' ) ) return;
 		parent::__construct( $args );
-		if ( ! is_callable( 'bbpress' ) ) { return; }
 		$this->link .= $this->bbp_get_form_option( '_bbp_root_slug', 'forum', true );
 		$forums = $this->get_forums();
 		if ( $forums ) {
