@@ -69,6 +69,10 @@ Adding WooCommerce support is on the <kbd>todo</kbd> list.  Any help with this w
 
 ## Changelog
 
+### Next Release
+* Certify:  Works with WooCommerce product categories and tags.
+* Upgrade:  Updated core files.
+
 ### 1.1.0
 * Certify:      Works with WordPress 5.4.1
 * Enhancement:  Add bbPress Forums.
