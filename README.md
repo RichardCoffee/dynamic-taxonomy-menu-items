@@ -2,14 +2,14 @@
 # Dynamic Taxonomy Menu Items
 
 
-      Contributors: richard.coffee
-              Tags: menu, dynamic menu, menubar, taxonomy, dynamic taxonomy
-        Stable tag: 1.1.0
- Requires at least: 4.7.0
-      Tested up to: 5.4.1
-      Requires PHP: 5.3.6
-           License: GPLv3
-       License URI: http://www.gnu.org/licenses/gpl-3.0.html
+       Contributors: richard.coffee
+               Tags: menu, dynamic menu, menubar, taxonomy, dynamic taxonomy
+         Stable tag: 1.1.0
+  Requires at least: 4.7.0
+       Tested up to: 5.4.1
+       Requires PHP: 5.3.6
+            License: GPLv3
+        License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Add a dynamic submenu to your WordPress menu.  Works with categories, tags, and bbPress forums.
 
