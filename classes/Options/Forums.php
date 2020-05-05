@@ -24,7 +24,7 @@ class DynTaxMI_Options_Forums extends DynTaxMI_Options_Options {
 	 * @since 20200408
 	 * @var int  Controls order on tabbed screen.
 	 */
-	protected $priority = 810;
+	protected $priority = 160;
 
 
 	/**

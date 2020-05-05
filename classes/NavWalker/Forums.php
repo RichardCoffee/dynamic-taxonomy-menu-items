@@ -7,6 +7,7 @@
  * @since 20180905
  * @author Richard Coffee <richard.coffee@rtcenterprises.net>
  * @copyright Copyright (c) 2018, Richard Coffee
+ * @link https://github.com/RichardCoffee/dynamic-taxonomy-menu-items/blob/master/classes/NavWalker/Forums.php
  * @link https://github.com/RichardCoffee/fluidity-theme/blob/master/classes/NavWalker/Forums.php
  */
 defined( 'ABSPATH' ) || exit;
@@ -44,13 +45,15 @@ class DynTaxMI_NavWalker_Forums extends DynTaxMI_NavWalker_Dynamic {
 	 * @uses home_url()
 	 */
 	public function __construct( $args = array() ) {
+		if ( ! is_callable( 'bbpress' ) ) return;
 		parent::__construct( $args );
-		if ( ! is_callable( 'bbpress' ) ) { return; }
 		$this->link .= $this->bbp_get_form_option( '_bbp_root_slug', 'forum', true );
 		$forums = $this->get_forums();
-		$this->get_forum_counts( $forums );
-		$this->add_forums( $forums );
-		$this->check_queried_object();
+		if ( $forums ) {
+			$this->get_forum_counts( $forums );
+			$this->add_forums( $forums );
+			$this->check_queried_object();
+		}
 	}
 
 	/**
