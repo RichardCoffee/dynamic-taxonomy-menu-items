@@ -3,7 +3,7 @@
 
 Contributors: richard.coffee
 Tags: menu, dynamic, taxonomy, bbpress, woocommerce
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 Requires at least: 4.7.0
 Tested up to: 5.4.1
 Requires PHP: 5.3.6
@@ -67,7 +67,7 @@ If you wish to contribute, development is done on [Github](https://github.com/Ri
 
 == Changelog ==
 
-= Next Release =
+= 1.1.1 =
 * Certify:  Works with WooCommerce product categories and tags.
 * Upgrade:  Updated core files.
 
