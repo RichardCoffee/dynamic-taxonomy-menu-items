@@ -2,7 +2,7 @@
 === Dynamic Taxonomy Menu Items ===
 
 Contributors: richard.coffee
-Tags: menu, dynamic menu, menubar, taxonomy, dynamic taxonomy
+Tags: menu, dynamic, taxonomy, bbpress, woocommerce
 Stable tag: 1.1.0
 Requires at least: 4.7.0
 Tested up to: 5.4.1
@@ -64,8 +64,6 @@ The plugin also allows you to show bbPress forums, although those options are li
 If you have an issue or question, the author can contacted on the [WordPress support forum](https://wordpress.org/support/plugin/dynamic-taxonomy-menu-items/) or via [opening an issue on GitHub](https://github.com/RichardCoffee/dynamic-taxonomy-menu-items/issues).
 
 If you wish to contribute, development is done on [Github](https://github.com/RichardCoffee/dynamic-taxonomy-menu-items).
-
-Adding WooCommerce support is on the todo list.  Any help with this would be greatly appreciated.
 
 == Changelog ==
 
