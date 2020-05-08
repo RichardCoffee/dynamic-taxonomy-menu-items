@@ -1,0 +1,71 @@
+<?php
+/**
+ *  Show listing for dynamic menu items.
+ *
+ * @package DynTaxMI
+ * @subpackage Form
+ * @since 20200505
+ * @author Richard Coffee <richard.coffee@rtcenterprises.net>
+ * @copyright Copyright (c) 2020, Richard Coffee
+ * @link https://github.com/RichardCoffee/custom-post-type/blob/master/classes/Form/ListTax.php
+ */
+defined( 'ABSPATH' ) || exit;
+
+
+class DynTaxMI_Form_Taxonomy {
+
+
+	/**
+	 * @since 20200505
+	 * @var string  User capability required.
+	 */
+	protected $capability = 'manage_options';
+	/**
+	 * @since 20200505
+	 * @var string  Value returned by function adding the menu option.
+	 */
+	protected $hook_suffix;
+	/**
+	 * @since 20200507
+	 * @var DynTaxMI_Form_BaseList
+	 */
+	protected $listing;
+
+
+	/**
+	 *  Constructor method.
+	 *
+	 * @since 20200505
+	 */
+	public function __construct( array $args = array() ) {
+		parent::__construct( $args );
+		add_action( 'admin_menu', [ $this, 'add_menu_option' ] );
+	}
+
+	/**
+	 *  Add the menu option.
+	 *
+	 * @since 20200505
+	 */
+	public function add_menu_option() {
+		if ( current_user_can( $this->capability ) ) {
+			$text = __( 'Dynamic Menu', 'dyntaxmi' );
+			$menu = __( 'Dynamic Menu', 'dyntaxmi' );
+			$this->hook_suffix = add_theme_page( $text, $text, $this->capability, 'dtmi_listing', [ $this, 'listing' ] );
+		}
+	}
+
+	/**
+	 *  Show the listing page
+	 *
+	 * @since 20200506
+	 */
+	public function listing() {
+		if ( ! class_exists( 'WP_List_Table' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+		}
+		$this->listing = new DynTaxMI_Form_BaseList();
+	}
+
+
+}

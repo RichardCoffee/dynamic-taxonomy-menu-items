@@ -50,6 +50,7 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 		$this->add_filters();
 		if ( is_admin() ) {
 			new DynTaxMI_Form_DynTaxMI();
+			new DynTaxMI_Form_Taxonomy();
 		}
 	}
 

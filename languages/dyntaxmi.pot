@@ -1,0 +1,332 @@
+# Copyright (C) 2020 Richard Coffee
+# This file is distributed under the same license as the Dynamic Taxonomy Menu Items plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Dynamic Taxonomy Menu Items 1.1.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/dynamic-taxonomy-menu-items\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-05-06T13:58:09-04:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: dyntaxmi\n"
+
+#. Plugin Name of the plugin
+#: classes/Form/DynTaxMI.php:98
+msgid "Dynamic Taxonomy Menu Items"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://github.com/RichardCoffee/dynamic-taxonomy-menu-items"
+msgstr ""
+
+#. Description of the plugin
+msgid "Inserts dynamic submenus of taxonomy items into WordPress menus."
+msgstr ""
+
+#. Author of the plugin
+msgid "Richard Coffee"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://rtcenterprises.net"
+msgstr ""
+
+#: classes/Form/Admin.php:245
+msgctxt "string - a function name"
+msgid "ERROR: Unable to locate function %s"
+msgstr ""
+
+#: classes/Form/Admin.php:246
+msgctxt "placeholder will be an ASCII character string"
+msgid "ERROR: Not able to locate form data subscript:  %s"
+msgstr ""
+
+#: classes/Form/Admin.php:249
+msgid "Save Changes"
+msgstr ""
+
+#: classes/Form/Admin.php:250
+#: classes/Form/Admin.php:252
+msgid "Form"
+msgstr ""
+
+#: classes/Form/Admin.php:251
+msgctxt "placeholder is a noun, may be plural"
+msgid "Reset %s"
+msgstr ""
+
+#: classes/Form/Admin.php:253
+msgctxt "placeholder is a noun, probably singular"
+msgid "Default %s options restored."
+msgstr ""
+
+#: classes/Form/Admin.php:256
+msgid "Assign/Upload Image"
+msgstr ""
+
+#: classes/Form/Admin.php:257
+msgid "Assign Image"
+msgstr ""
+
+#: classes/Form/Admin.php:258
+msgid "Unassign Image"
+msgstr ""
+
+#: classes/Form/Admin.php:922
+msgid "Yes"
+msgstr ""
+
+#: classes/Form/Admin.php:924
+msgid "No"
+msgstr ""
+
+#: classes/Form/Admin.php:1014
+msgid "Utilize the 'ctrl+click' combo to choose multiple items."
+msgstr ""
+
+#: classes/Form/DynTaxMI.php:54
+#: classes/Form/DynTaxMI.php:55
+msgid "Dynamic Taxonomy"
+msgstr ""
+
+#: classes/Form/DynTaxMI.php:111
+#: classes/Form/DynTaxMI.php:112
+msgid "Dynamic"
+msgstr ""
+
+#: classes/Form/ListTax.php:46
+#: classes/Form/ListTax.php:47
+msgid "Dynamic Menu"
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:32
+#: classes/Options/DynTaxMI.php:87
+msgid "Taxonomy"
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:51
+msgid "These options control the settings for the chosen taxonomy."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:74
+#: classes/Options/Forums.php:69
+msgid "Usage"
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:75
+msgid "Check here to activate the taxonomy submenu."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:80
+#: classes/Options/Forums.php:75
+msgid "Menu"
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:81
+#: classes/Options/Forums.php:76
+msgid "Choose the menu to add the sub-menu to, default is the Primary Menu."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:88
+msgid "Choose the taxonomy to use, default is Categories.  This is only guaranteed to work with Categories, Tags, and Formats."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:111
+#: classes/Plugin/DynTaxMI.php:132
+msgid "Articles"
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:112
+#: classes/Options/DynTaxMI.php:113
+#: classes/Options/Forums.php:82
+#: classes/Options/Forums.php:83
+msgid "Sub-Menu Title"
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:114
+msgid "This will be the text, for the taxonomy, that appears on the menu."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:119
+#: classes/Options/Forums.php:89
+msgid "Position"
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:120
+#: classes/Options/Forums.php:90
+msgid "Position in the menu. Starts at 0, defaults to 1."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:121
+#: classes/Options/Forums.php:91
+msgid "You may need to experiment with this number to get the sub-menu show up where you want it to."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:130
+#: classes/Options/Forums.php:100
+msgid "Item Order"
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:131
+#: classes/Options/Forums.php:101
+msgid "Choose the order of the sub-menu items."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:134
+msgid "Post Count, highest count first (default)."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:135
+msgid "Post Count, lowest count first."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:136
+msgid "Term Name, alphabetical order"
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:137
+msgid "Term Name, alphabetical, reversed."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:138
+msgid "Term ID, oldest to newest, sort of."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:139
+msgid "Term ID, newest to oldest, again - sort of."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:144
+msgid "Maximum Items"
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:145
+msgid "Set the maximum number of items to appear on the sub-menu, default is 7."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:155
+msgid "Exclude Terms"
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:156
+msgid "You can exclude category terms using this list."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:157
+msgid "Utilize the 'ctrl+click' combo to choose multiple exclude terms."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:165
+msgid "Exclude Tags"
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:166
+msgid "You can exclude tags using this list."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:174
+msgid "Exclude Formats"
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:175
+msgid "You can exclude formats using this list."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:183
+msgid "Show Count"
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:184
+msgid "Show the post count on sub-menu items, default is yes."
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:189
+msgid "Count Limit"
+msgstr ""
+
+#: classes/Options/DynTaxMI.php:190
+msgid "Set this if you wish to filter the sub-menu items by post count, default is 0, which does not impose any limits."
+msgstr ""
+
+#: classes/Options/Forums.php:37
+#: classes/Options/Forums.php:81
+#: classes/Options/Forums.php:121
+#: classes/Options/Forums.php:122
+#: classes/Plugin/DynTaxMI.php:164
+msgid "Forums"
+msgstr ""
+
+#: classes/Options/Forums.php:56
+msgid "These options control settings for a bbPress forums sub-menu."
+msgstr ""
+
+#: classes/Options/Forums.php:70
+msgid "Check here to activate the sub-menu."
+msgstr ""
+
+#: classes/Options/Forums.php:84
+msgid "This will be the text that appears on the main menu option."
+msgstr ""
+
+#: classes/Options/Forums.php:104
+msgid "Topic Count, highest count first (default)."
+msgstr ""
+
+#: classes/Options/Forums.php:105
+msgid "Topic Count, lowest count first."
+msgstr ""
+
+#: classes/Options/Forums.php:106
+msgid "Forum Name, alphabetical order"
+msgstr ""
+
+#: classes/Options/Forums.php:107
+msgid "Forum Name, alphabetical, reversed."
+msgstr ""
+
+#: classes/Plugin/Plugin.php:269
+msgid "Settings"
+msgstr ""
+
+#: classes/Register/Plugin.php:93
+msgid "Plugin Name"
+msgstr ""
+
+#: classes/Register/Register.php:122
+msgid "You are running an unsupported version of PHP."
+msgstr ""
+
+#: classes/Register/Register.php:135
+msgctxt "1: Plugin name   2: php version required  3: php version detected"
+msgid "%1$s requires PHP version %2$s, version %3$s detected.  Please upgrade your PHP before attempting to use this plugin. "
+msgstr ""
+
+#: classes/Register/Register.php:180
+msgid "You are running an unsupported version of WordPress."
+msgstr ""
+
+#: classes/Register/Register.php:194
+msgctxt "1: Plugin name  2: Required version of WordPress  3: Current version of WordPress"
+msgid "%1$s requires WordPress %2$s or later and has detected you are running %3$s. Upgrade your WordPress install before using this plugin."
+msgstr ""
+
+#: classes/Register/Register.php:219
+msgctxt "Plugin title"
+msgid "%s can not be activated."
+msgstr ""
+
+#: classes/Trait/Singleton.php:71
+msgid "This class can not be cloned."
+msgstr ""
+
+#: classes/Trait/Singleton.php:82
+msgid "This class can not be serialized."
+msgstr ""
+
+#: classes/Trait/Singleton.php:93
+msgid "This class can not be unserialized."
+msgstr ""
