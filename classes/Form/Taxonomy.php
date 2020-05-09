@@ -37,8 +37,7 @@ class DynTaxMI_Form_Taxonomy {
 	 *
 	 * @since 20200505
 	 */
-	public function __construct( array $args = array() ) {
-		parent::__construct( $args );
+	public function __construct() {
 		add_action( 'admin_menu', [ $this, 'add_menu_option' ] );
 	}
 
