@@ -6,7 +6,6 @@
  * @subpackage Form
  * @since 20200507
  * @link https://www.sitepoint.com/using-wp_list_table-to-create-wordpress-admin-tables/
- * @link https://premium.wpmudev.org/blog/wordpress-admin-tables/
  * @link https://premiumcoding.com/wordpress-tutorial-how-to-extend-wp-list-table/
  */
 defined( 'ABSPATH' ) || exit;

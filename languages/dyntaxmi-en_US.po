@@ -10,8 +10,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-05-09T01:02:44-04:00\n"
-"PO-Revision-Date: 2020-05-09T01:02:44-04:00\n"
+"POT-Creation-Date: 2020-05-09T12:27:26-04:00\n"
+"PO-Revision-Date: 2020-05-09T12:27:26-04:00\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: dyntaxmi\n"
 "Language: en_US\n"
@@ -90,15 +90,15 @@ msgstr "No"
 msgid "Utilize the 'ctrl+click' combo to choose multiple items."
 msgstr "Utilize the 'ctrl+click' combo to choose multiple items."
 
-#: classes/Form/BaseList.php:32
+#: classes/Form/BaseList.php:31
 msgid "Item"
 msgstr "Item"
 
-#: classes/Form/BaseList.php:33
+#: classes/Form/BaseList.php:32
 msgid "Items"
 msgstr "Items"
 
-#: classes/Form/BaseList.php:51
+#: classes/Form/BaseList.php:50
 msgctxt "placeholder is plural"
 msgid "No %s found"
 msgstr "No %s found"
@@ -111,8 +111,8 @@ msgstr "Dynamic Taxonomy"
 msgid "Dynamic"
 msgstr "Dynamic"
 
-#: classes/Form/List.php:17 classes/Options/DynTaxMI.php:32
-#: classes/Options/DynTaxMI.php:87
+#: classes/Form/List.php:17 classes/Form/List.php:28
+#: classes/Options/DynTaxMI.php:32 classes/Options/DynTaxMI.php:87
 msgid "Taxonomy"
 msgstr "Taxonomy"
 
@@ -120,9 +120,31 @@ msgstr "Taxonomy"
 msgid "Taxonomies"
 msgstr "Taxonomies"
 
+#: classes/Form/List.php:26
+msgid "Name"
+msgstr "Name"
+
+#: classes/Form/List.php:27
+msgid "Active"
+msgstr "Active"
+
+#: classes/Form/List.php:29 classes/Options/DynTaxMI.php:80
+#: classes/Options/Forums.php:75
+msgid "Menu"
+msgstr "Menu"
+
+#: classes/Form/List.php:30 classes/Options/DynTaxMI.php:119
+#: classes/Options/Forums.php:89
+msgid "Position"
+msgstr "Position"
+
 #: classes/Form/Taxonomy.php:51 classes/Form/Taxonomy.php:52
 msgid "Dynamic Menu"
 msgstr "Dynamic Menu"
+
+#: classes/Form/Taxonomy.php:64
+msgid "Taxonomies per page"
+msgstr "Taxonomies per page"
 
 #: classes/Options/DynTaxMI.php:51
 msgid "These options control the settings for the chosen taxonomy."
@@ -135,10 +157,6 @@ msgstr "Usage"
 #: classes/Options/DynTaxMI.php:75
 msgid "Check here to activate the taxonomy submenu."
 msgstr "Check here to activate the taxonomy submenu."
-
-#: classes/Options/DynTaxMI.php:80 classes/Options/Forums.php:75
-msgid "Menu"
-msgstr "Menu"
 
 #: classes/Options/DynTaxMI.php:81 classes/Options/Forums.php:76
 msgid "Choose the menu to add the sub-menu to, default is the Primary Menu."
@@ -164,10 +182,6 @@ msgstr "Sub-Menu Title"
 #: classes/Options/DynTaxMI.php:114
 msgid "This will be the text, for the taxonomy, that appears on the menu."
 msgstr "This will be the text, for the taxonomy, that appears on the menu."
-
-#: classes/Options/DynTaxMI.php:119 classes/Options/Forums.php:89
-msgid "Position"
-msgstr "Position"
 
 #: classes/Options/DynTaxMI.php:120 classes/Options/Forums.php:90
 msgid "Position in the menu. Starts at 0, defaults to 1."
