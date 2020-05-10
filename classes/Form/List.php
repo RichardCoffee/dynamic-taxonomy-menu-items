@@ -9,7 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 
 
-class DynTaxMI_Form_Listing extends DynTaxMI_Form_BaseList {
+class DynTaxMI_Form_List extends DynTaxMI_Form_BaseList {
 
 
 	public function __construct( array $args = array() ) {
