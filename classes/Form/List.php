@@ -14,8 +14,8 @@ class DynTaxMI_Form_List extends DynTaxMI_Form_BaseList {
 
 	public function __construct( array $args = array() ) {
 		$list = array(
-			'singular' => __( 'Taxonomy',   'dyntaxmi' ),
-			'plural'   => __( 'Taxonomies', 'dyntaxmi' ),
+			'singular' => __( 'sub-menu',   'dyntaxmi' ),
+			'plural'   => __( 'sub-menus', 'dyntaxmi' ),
 		);
 		$list = array_merge( $list, $args );
 		parent::__construct( $list );

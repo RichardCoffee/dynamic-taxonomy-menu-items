@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-05-09T21:50:38-04:00\n"
+"POT-Creation-Date: 2020-05-09T23:31:51-04:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: dyntaxmi\n"
@@ -90,20 +90,20 @@ msgstr ""
 msgid "Utilize the 'ctrl+click' combo to choose multiple items."
 msgstr ""
 
-#: classes/Form/BaseList.php:31
+#: classes/Form/BaseList.php:32
 msgid "Item"
 msgstr ""
 
-#: classes/Form/BaseList.php:32
+#: classes/Form/BaseList.php:33
 msgid "Items"
 msgstr ""
 
-#: classes/Form/BaseList.php:50
+#: classes/Form/BaseList.php:51
 msgctxt "placeholder is plural"
 msgid "No %s found"
 msgstr ""
 
-#: classes/Form/BaseList.php:61
+#: classes/Form/BaseList.php:62
 msgid "Title"
 msgstr ""
 
@@ -118,14 +118,11 @@ msgid "Dynamic"
 msgstr ""
 
 #: classes/Form/List.php:17
-#: classes/Form/List.php:44
-#: classes/Options/DynTaxMI.php:32
-#: classes/Options/DynTaxMI.php:87
-msgid "Taxonomy"
+msgid "sub-menu"
 msgstr ""
 
 #: classes/Form/List.php:18
-msgid "Taxonomies"
+msgid "sub-menus"
 msgstr ""
 
 #: classes/Form/List.php:42
@@ -134,6 +131,12 @@ msgstr ""
 
 #: classes/Form/List.php:43
 msgid "Active"
+msgstr ""
+
+#: classes/Form/List.php:44
+#: classes/Options/DynTaxMI.php:32
+#: classes/Options/DynTaxMI.php:87
+msgid "Taxonomy"
 msgstr ""
 
 #: classes/Form/List.php:45
