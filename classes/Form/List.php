@@ -21,6 +21,22 @@ class DynTaxMI_Form_List extends DynTaxMI_Form_BaseList {
 		parent::__construct( $list );
 	}
 
+	public function prepare_items() {
+		$this->prepare_columns();
+		$this->items = array();
+	}
+
+
+	/**  Column functions  **/
+
+	protected function prepare_columns() {
+		$columns  = $this->get_columns();
+		$hidden   = $this->get_hidden_columns();
+		$sortable = $this->get_sortable_columns();
+		$this->_column_headers = array( $columns, $hidden, $sortable );
+	}
+
+
 	public function get_columns() {
 		return array(
 			'title'    => __( 'Name', 'dyntaxmi' ),
@@ -44,11 +60,6 @@ class DynTaxMI_Form_List extends DynTaxMI_Form_BaseList {
 				return print_r( $item, true ) ; // Show the whole array for troubleshooting purposes
 		}
 	}
-
-	public function prepare_items() {
-		$this->items = array();
-	}
-
 
 
 }

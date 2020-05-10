@@ -38,7 +38,7 @@ class DynTaxMI_Form_BaseList extends WP_List_Table {
 		parent::__construct( $wplt );
 		$safe = $this->pre_existing();
 		$diff = array_diff_key( $args, $defaults, $safe );
-		$this->parse_args( $args );
+		if ( $diff ) $this->parse_args( $diff );
 	}
 
 	/**
@@ -48,6 +48,38 @@ class DynTaxMI_Form_BaseList extends WP_List_Table {
 	 */
 	public function no_items() {
 		echo esc_html( sprintf( _x( 'No %s found', 'placeholder is plural', 'dyntaxmi' ), $this->_args['plural'] ) );
+	}
+
+	/**
+	 *  Default value for visible columns.
+	 *
+	 * @since 20200509
+	 * @return array
+	 */
+	public function get_columns() {
+		return array(
+			'title' => __( 'Title', 'dyntaxmi' ),
+		);
+	}
+
+	/**
+	 *  Default value for hidden columns.
+	 *
+	 * @since 20200509
+	 * @return array
+	 */
+	public function get_hidden_columns() {
+		return array();
+	}
+
+	/**
+	 *  Default value for sortable columns.
+	 *
+	 * @since 20200509
+	 * @return array
+	 */
+	public function get_sortable_columns() {
+		return array();
 	}
 
 	/**

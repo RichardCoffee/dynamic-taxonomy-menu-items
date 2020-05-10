@@ -10,8 +10,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-05-09T21:14:42-04:00\n"
-"PO-Revision-Date: 2020-05-09T21:14:42-04:00\n"
+"POT-Creation-Date: 2020-05-09T21:50:38-04:00\n"
+"PO-Revision-Date: 2020-05-09T21:50:38-04:00\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: dyntaxmi\n"
 "Language: en_US\n"
@@ -78,11 +78,11 @@ msgstr "Assign Image"
 msgid "Unassign Image"
 msgstr "Unassign Image"
 
-#: classes/Form/Admin.php:922 classes/Form/List.php:37
+#: classes/Form/Admin.php:922 classes/Form/List.php:53
 msgid "Yes"
 msgstr "Yes"
 
-#: classes/Form/Admin.php:924 classes/Form/List.php:37
+#: classes/Form/Admin.php:924 classes/Form/List.php:53
 msgid "No"
 msgstr "No"
 
@@ -103,6 +103,10 @@ msgctxt "placeholder is plural"
 msgid "No %s found"
 msgstr "No %s found"
 
+#: classes/Form/BaseList.php:61
+msgid "Title"
+msgstr "Title"
+
 #: classes/Form/DynTaxMI.php:54 classes/Form/DynTaxMI.php:55
 msgid "Dynamic Taxonomy"
 msgstr "Dynamic Taxonomy"
@@ -111,7 +115,7 @@ msgstr "Dynamic Taxonomy"
 msgid "Dynamic"
 msgstr "Dynamic"
 
-#: classes/Form/List.php:17 classes/Form/List.php:28
+#: classes/Form/List.php:17 classes/Form/List.php:44
 #: classes/Options/DynTaxMI.php:32 classes/Options/DynTaxMI.php:87
 msgid "Taxonomy"
 msgstr "Taxonomy"
@@ -120,20 +124,20 @@ msgstr "Taxonomy"
 msgid "Taxonomies"
 msgstr "Taxonomies"
 
-#: classes/Form/List.php:26
+#: classes/Form/List.php:42
 msgid "Name"
 msgstr "Name"
 
-#: classes/Form/List.php:27
+#: classes/Form/List.php:43
 msgid "Active"
 msgstr "Active"
 
-#: classes/Form/List.php:29 classes/Options/DynTaxMI.php:80
+#: classes/Form/List.php:45 classes/Options/DynTaxMI.php:80
 #: classes/Options/Forums.php:75
 msgid "Menu"
 msgstr "Menu"
 
-#: classes/Form/List.php:30 classes/Options/DynTaxMI.php:119
+#: classes/Form/List.php:46 classes/Options/DynTaxMI.php:119
 #: classes/Options/Forums.php:89
 msgid "Position"
 msgstr "Position"
@@ -145,6 +149,10 @@ msgstr "Dynamic Menu"
 #: classes/Form/Taxonomy.php:64
 msgid "Taxonomies per page"
 msgstr "Taxonomies per page"
+
+#: classes/Form/Taxonomy.php:76
+msgid "Dynamic Taxonomy Sub-Menus"
+msgstr "Dynamic Taxonomy Sub-Menus"
 
 #: classes/Options/DynTaxMI.php:51
 msgid "These options control the settings for the chosen taxonomy."
