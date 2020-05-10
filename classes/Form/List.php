@@ -31,8 +31,22 @@ class DynTaxMI_Form_Listing extends DynTaxMI_Form_BaseList {
 		);
 	}
 
+	public function column_default( $item, $column_name ) {
+		switch( $column_name ) {
+			case 'active':
+				return ( $item[ $column_name ] ) ? __( 'Yes', 'dyntaxmi' ) : __( 'No', 'dyntaxmi' );
+			case 'title':
+			case 'type':
+			case 'menu':
+			case 'position':
+				return $item[ $column_name ];
+			default:
+				return print_r( $item, true ) ; // Show the whole array for troubleshooting purposes
+		}
+	}
+
 	public function prepare_items() {
-#		$this->items = array();
+		$this->items = array();
 	}
 
 
