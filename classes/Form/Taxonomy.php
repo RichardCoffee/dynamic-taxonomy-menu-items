@@ -39,7 +39,7 @@ class DynTaxMI_Form_Taxonomy {
 	 * @since 20200511
 	 * @var int  Taxonomies per page.
 	 */
-	protected $per_page = 5;
+	protected $per_page = 6;
 
 
 	/**
