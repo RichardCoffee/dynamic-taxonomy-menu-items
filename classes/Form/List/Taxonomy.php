@@ -24,7 +24,19 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 	public function prepare_items() {
 		$this->prepare_columns();
 		$this->items = array();
+		$this->sort_items();
 		$this->set_paging();
+	}
+
+	protected function sort_items() {
+		if ( $this->items ) {
+			usort(
+				$this->items,
+				function( $a, $b ) {
+					return strcasecmp( $a['title'], $b['title'] );
+				}
+			);
+		}
 	}
 
 
@@ -60,6 +72,19 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 			default:
 				return print_r( $item, true ) ; // Show the whole array for troubleshooting purposes
 		}
+	}
+
+	/**
+	 *  Render the bulk edit checkbox.
+	 *
+	 * @since 20200511
+	 * @param array $item
+	 * @return string
+	 */
+	function column_cb( $item ) {
+		return sprintf(
+			'<input type="checkbox" name="bulk-delete[]" value="%s" />', $item['title']
+		);
 	}
 
 
