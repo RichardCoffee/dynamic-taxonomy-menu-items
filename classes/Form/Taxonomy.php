@@ -69,7 +69,7 @@ class DynTaxMI_Form_Taxonomy {
 		if ( ! class_exists( 'WP_List_Table' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 		}
-		$listing = new DynTaxMI_Form_List();
+		$listing = new DynTaxMI_Form_List_Taxonomy();
 		$listing->prepare_items();
 		dyntaxmi()->tag( 'div', [ 'class' => 'wrap' ] );
 			dyntaxmi()->element( 'div', [ 'id' => 'icon-users', 'class' => 'icon32' ] );

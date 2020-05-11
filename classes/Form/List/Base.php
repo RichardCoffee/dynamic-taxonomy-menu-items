@@ -12,7 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 
 
-class DynTaxMI_Form_BaseList extends WP_List_Table {
+class DynTaxMI_Form_List_Base extends WP_List_Table {
 
 
 	/**
