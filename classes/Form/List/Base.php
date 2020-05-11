@@ -16,6 +16,13 @@ class DynTaxMI_Form_List_Base extends WP_List_Table {
 
 
 	/**
+	 * @since 20200510
+	 * @var int  Items per page.
+	 */
+	protected $per_page = 5;
+
+
+	/**
 	 * @since 20200507
 	 * @link https://premiumcoding.com/wordpress-tutorial-how-to-extend-wp-list-table/
 	 */
@@ -89,10 +96,10 @@ class DynTaxMI_Form_List_Base extends WP_List_Table {
 	 * @since 20200510
 	 * @param array $args  Pagination data.
 	 */
-	protected function set_paging( $args ) {
+	protected function set_paging( array $args = array() ) {
 		$default = array(
 			'total_items' => count( $this->items ),
-			'per_page'    => 5,
+			'per_page'    => $this->per_page,
 		);
 		$args = array_merge( $default, $args );
 		$args['total_pages'] = ceil( $args['total_items'] / $args['per_page'] );
