@@ -18,9 +18,12 @@ defined( 'ABSPATH' ) || exit;
  */
 class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 
-
 	/**
-	 *
+	 * @since 20200509
+	 * @var int
+	 */
+	protected $dbvers = 0;
+	/**
 	 * @since 20200410
 	 * @var string  Path to plugin options page, used on the WP Dashboard Plugins page
 	 * @todo:  Is there a way to derive this value instead of having to set it manually?
@@ -51,6 +54,9 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 		if ( is_admin() ) {
 			new DynTaxMI_Form_DynTaxMI();
 			new DynTaxMI_Form_Taxonomy();
+#			if ( is_callable( 'bbpress' ) ) {
+#				new DynTaxMI_Form_Forums();
+#			}
 		}
 	}
 
@@ -83,9 +89,6 @@ class DynTaxMI_Plugin_DynTaxMI extends DynTaxMI_Plugin_Plugin {
 		$this->add_taxonomy();
 		if ( is_callable( 'bbpress' ) ) {
 			$this->add_forums();
-			if ( bbp_allow_topic_tags() ) {
-#				$this->add_topic_tags();
-			}
 		}
 		$this->add_custom_css();
 	}
