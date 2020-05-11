@@ -84,7 +84,7 @@ class DynTaxMI_Form_Taxonomy {
 	 *
 	 * @since 20200511
 	 */
-	public function screen_options() {
+	public function add_screen_options() {
 		$opts = array(
 			'label'   => __( 'Taxonomies per page', 'dyntaxmi' ),
 			'default' => $this->per_page,
