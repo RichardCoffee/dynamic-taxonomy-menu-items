@@ -23,6 +23,7 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 
 	public function prepare_items() {
 		$this->prepare_columns();
+		$this->process_bulk_action();
 		$this->items = array();
 		$this->sort_items();
 		$this->set_paging();
@@ -52,11 +53,25 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 
 	public function get_columns() {
 		return array(
+			'cb'       => '<input type="checkbox" />',
 			'title'    => __( 'Name', 'dyntaxmi' ),
 			'active'   => __( 'Active', 'dyntaxmi' ),
 			'type'     => __( 'Taxonomy', 'dyntaxmi' ),
 			'menu'     => __( 'Menu', 'dyntaxmi' ),
 			'position' => __( 'Position', 'dyntaxmi' ),
+		);
+	}
+
+	/**
+	 *  Columns to make sortable.
+	 *
+	 * @since 20200511
+	 * @return array
+	 */
+	public function get_sortable_columns() {
+		return array(
+			'title' => array( 'title', false ),
+			'menu'  => array( 'menu', false )
 		);
 	}
 
@@ -74,6 +89,9 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 		}
 	}
 
+
+	/**  Bulk actions  **/
+
 	/**
 	 *  Render the bulk edit checkbox.
 	 *
@@ -87,5 +105,44 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 		);
 	}
 
+	/**
+	 * Returns an associative array containing the bulk action.
+	 *
+	 * @since 20200511
+	 * @return array
+	 */
+	public function get_bulk_actions() {
+		return array(
+			'bulk-delete' => 'Delete',
+		);
+	}
+
+	/**
+	 *  Process actions.
+	 *
+	 * @since 20200511
+	 */
+	public function process_bulk_action() {
+		//  Verify nonce.
+		$nonce = esc_attr( $_REQUEST['_wpnonce'] );
+		if ( ! wp_verify_nonce( $nonce, 'sp_delete_customer' ) ) {
+			wp_die( __( 'Unable to process request.', 'dyntaxmi' ) );
+		}
+		//  Single delete requested.
+		if ( 'delete' ===  $this->current_action() ) {
+			# TODO: delete record here
+			wp_redirect( esc_url( add_query_arg() ) );
+			exit;
+		}
+		// Check for bulk action.
+		if ( ( array_key_exists( 'action', $_POST ) && ( $_POST['action'] === 'bulk-delete' ) ) || ( array_key_exists( 'action2', $_POST ) && ( $_POST['action2'] === 'bulk-delete' ) ) ) {
+			$deletes = esc_sql( $_POST['bulk-delete'] );
+			foreach( $deletes as $title ) {
+				# TODO: delete record here
+			}
+			wp_redirect( esc_url( add_query_arg() ) );
+			exit;
+		}
+	}
 
 }

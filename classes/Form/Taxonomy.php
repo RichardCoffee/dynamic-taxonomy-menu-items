@@ -16,6 +16,11 @@ class DynTaxMI_Form_Taxonomy {
 
 
 	/**
+	 * @since 20200511
+	 * @var string  Link to add new sub-menu.
+	 */
+	protected $add_new = '';
+	/**
 	 * @since 20200505
 	 * @var string  User capability required.
 	 */
@@ -24,12 +29,17 @@ class DynTaxMI_Form_Taxonomy {
 	 * @since 20200505
 	 * @var string  Value returned by function adding the menu option.
 	 */
-	protected $hook_suffix;
+	protected $hook;
 	/**
 	 * @since 20200507
-	 * @var DynTaxMI_Form_BaseList
+	 * @var DynTaxMI_Form_List_Taxonomy
 	 */
 	protected $listing;
+	/**
+	 * @since 20200511
+	 * @var int  Taxonomies per page.
+	 */
+	protected $per_page = 5;
 
 
 	/**
@@ -38,7 +48,21 @@ class DynTaxMI_Form_Taxonomy {
 	 * @since 20200505
 	 */
 	public function __construct() {
+		add_filter( 'set-screen-option', [ $this, 'set_screen_option' ], 10, 3 );
 		add_action( 'admin_menu', [ $this, 'add_menu_option' ] );
+		$this->add_new = site_url();
+	}
+
+	/**
+	 *  Activate the screen option.
+	 *
+	 * @since 20200511
+	 * @param bool     $keep   Whether to save or skip saving the screen option value. Default false.
+	 * @param string   $option The option name.
+	 * @param int      $value  The number of rows to use.
+	 */
+	public function set_screen_option( $keep, $option, $value ) {
+		return $value;
 	}
 
 	/**
@@ -50,8 +74,30 @@ class DynTaxMI_Form_Taxonomy {
 		if ( current_user_can( $this->capability ) ) {
 			$text = __( 'Dynamic Menu', 'dyntaxmi' );
 			$menu = __( 'Dynamic Menu', 'dyntaxmi' );
-			$this->hook_suffix = add_theme_page( $text, $text, $this->capability, 'dtmi_listing', [ $this, 'listing' ] );
+			$this->hook = add_theme_page( $text, $text, $this->capability, 'dtmi_listing', [ $this, 'listing' ] );
+			add_action( "load-{$this->hook}", [ $this, 'add_screen_options' ] );
 		}
+	}
+
+	/**
+	 *  Add screen options.
+	 *
+	 * @since 20200511
+	 */
+	public function screen_options() {
+		$opts = array(
+			'label'   => __( 'Taxonomies per page', 'dyntaxmi' ),
+			'default' => $this->per_page,
+			'option'  => 'taxes_per_page'
+		);
+		add_screen_option( 'per_page', $opts );
+		if ( ! class_exists( 'WP_List_Table' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+		}
+		$args = array(
+			'per_page' => $this->per_page,
+		);
+		$this->listing = new DynTaxMI_Form_List_Taxonomy( $args );
 	}
 
 	/**
@@ -60,21 +106,14 @@ class DynTaxMI_Form_Taxonomy {
 	 * @since 20200506
 	 */
 	public function listing() {
-/*		$args = array(
-			'label'   => __( 'Taxonomies per page', 'dyntaxmi' ),
-			'default' => 5,
-			'option'  => 'taxes_per_page'
-		);
-		add_screen_option( 'per_page', $args ); */
-		if ( ! class_exists( 'WP_List_Table' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
-		}
-		$listing = new DynTaxMI_Form_List_Taxonomy();
-		$listing->prepare_items();
 		dyntaxmi()->tag( 'div', [ 'class' => 'wrap' ] );
 			dyntaxmi()->element( 'div', [ 'id' => 'icon-users', 'class' => 'icon32' ] );
-			dyntaxmi()->element( 'h2', [], __( 'Dynamic Taxonomy Sub-Menus', 'dyntaxmi' ) );
-			$listing->display();
+			dyntaxmi()->element( 'h1', [ 'class' => 'wp-heading-inline' ], __( 'Dynamic Taxonomy Sub-Menus', 'dyntaxmi' ) );
+			dyntaxmi()->element( 'a', [ 'class' => 'page-title-action', 'href' => $this->add_new ], __( 'Add New' ) );
+			dyntaxmi()->tag( 'form', [ 'id' => 'posts-filter', 'method' => 'post' ] );
+				$this->listing->prepare_items();
+				$this->listing->display();
+			echo '</form>';
 		echo '</div>';
 	}
 
