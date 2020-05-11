@@ -123,6 +123,10 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 	 * @since 20200511
 	 */
 	public function process_bulk_action() {
+		//  Check for nonce
+		if ( ! array_key_exists( '_wpnonce', $_REQUEST ) ) {
+			return;
+		}
 		//  Verify nonce.
 		$nonce = esc_attr( $_REQUEST['_wpnonce'] );
 		if ( ! wp_verify_nonce( $nonce, 'sp_delete_customer' ) ) {
