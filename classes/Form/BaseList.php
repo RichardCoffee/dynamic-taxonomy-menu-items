@@ -84,6 +84,22 @@ class DynTaxMI_Form_BaseList extends WP_List_Table {
 	}
 
 	/**
+	 *  Set pagination parameters.
+	 *
+	 * @since 20200510
+	 * @param array $args  Pagination data.
+	 */
+	protected function set_paging( $args ) {
+		$default = array(
+			'total_items' => count( $this->items ),
+			'per_page'    => 5,
+		);
+		$args = array_merge( $default, $args );
+		$args['total_pages'] = ceil( $args['total_items'] / $args['per_page'] );
+		$this->set_pagination_args( $args );
+	}
+
+	/**
 	 *  Array of properties used in base class.
 	 *
 	 * @since 20200507

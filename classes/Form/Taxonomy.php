@@ -60,12 +60,12 @@ class DynTaxMI_Form_Taxonomy {
 	 * @since 20200506
 	 */
 	public function listing() {
-		$args = array(
+/*		$args = array(
 			'label'   => __( 'Taxonomies per page', 'dyntaxmi' ),
 			'default' => 5,
 			'option'  => 'taxes_per_page'
 		);
-		add_screen_option( 'per_page', $args );
+		add_screen_option( 'per_page', $args ); */
 		if ( ! class_exists( 'WP_List_Table' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 		}

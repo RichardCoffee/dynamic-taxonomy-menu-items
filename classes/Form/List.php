@@ -24,6 +24,7 @@ class DynTaxMI_Form_List extends DynTaxMI_Form_BaseList {
 	public function prepare_items() {
 		$this->prepare_columns();
 		$this->items = array();
+		$this->set_paging();
 	}
 
 
