@@ -8,6 +8,7 @@
  * @link https://gist.github.com/paulund/7659452
  * @link https://www.sitepoint.com/using-wp_list_table-to-create-wordpress-admin-tables/
  * @link https://premiumcoding.com/wordpress-tutorial-how-to-extend-wp-list-table/
+ * @link https://www.smashingmagazine.com/2011/11/native-admin-tables-wordpress/
  */
 defined( 'ABSPATH' ) || exit;
 
@@ -104,6 +105,25 @@ class DynTaxMI_Form_List_Base extends WP_List_Table {
 		$args = array_merge( $default, $args );
 		$args['total_pages'] = ceil( $args['total_items'] / $args['per_page'] );
 		$this->set_pagination_args( $args );
+	}
+
+	/**
+	 *  Add extra markup in the toolbars before or after the list.
+	 *
+	 * @since 20200511
+	 * @param string $which  Add the markup after (bottom) or before (top) the list.
+	 */
+	protected function extra_tablenav( $which ) {
+		if ( $which === "top" ) {
+			if ( method_exists( $this, 'before_table' ) ) {
+				$this->before_table();
+			}
+		}
+		if ( $which === "bottom" ) {
+			if ( method_exists( $this, 'after_table' ) ) {
+				$this->after_table();
+			}
+		}
 	}
 
 	/**
