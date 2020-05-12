@@ -57,7 +57,7 @@ class DynTaxMI_Options_DynTaxMI extends DynTaxMI_Options_Options {
 	 * @since 20200409
 	 * @return array  Form layout.
 	 */
-	protected function options_layout() {
+	public function options_layout() {
 		$terms = array(
 			'cats' => $this->get_terms('category'),
 			'tags' => $this->get_terms('post_tag'),

@@ -12,6 +12,18 @@ defined( 'ABSPATH' ) || exit;
 class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 
 
+	/**
+	 * @since 20200511
+	 * @var array  Available menus.
+	 */
+	protected $menus = array();
+	/**
+	 * @since 20200511
+	 * @var DynTaxMI_Options_DynTaxMI
+	 */
+	protected $options;
+
+
 	public function __construct( array $args = array() ) {
 		$list = array(
 			'singular' => __( 'sub-menu',   'dyntaxmi' ),
@@ -19,24 +31,50 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 		);
 		$list = array_merge( $list, $args );
 		parent::__construct( $list );
+		$this->menus   = dyntaxmi()->get_menus();
+		$this->options = new DynTaxMI_Options_DynTaxMI();
 	}
 
 	public function prepare_items() {
 		$this->prepare_columns();
 		$this->process_bulk_action();
-		$this->items = array();
+		$this->get_items();
 		$this->sort_items();
 		$this->set_paging();
 	}
 
+	/**
+	 *  Retrieve the sub-menu list.
+	 *
+	 * @since 20200511
+	 * @return array
+	 */
+	protected function get_items() {
+		$menus = get_option( 'dyntaxmi_menus', array() );
+		if ( $menus ) {
+			$defs = $this->options->get_default_options();
+			foreach( $menus as $key => $item ) {
+				$menus[ $key ] = array_merge( $defs, $item );
+			}
+		}
+		$this->items = $menus;
+	}
+
 	protected function sort_items() {
 		if ( $this->items ) {
-			usort(
-				$this->items,
-				function( $a, $b ) {
-					return strcasecmp( $a['title'], $b['title'] );
-				}
-			);
+			// If no sort, default to title
+			$orderby = ( array_key_exists( 'orderby', $_GET ) ) ? sanitize_key( $_GET['orderby'] ) : 'title';
+			// If no order, default to asc
+			$order = ( array_key_exists( 'order', $_GET ) ) ? sanitize_key( $_GET['order'] ) : 'asc';
+			if ( array_key_exists( $orderby, $this->items ) ) {
+				usort(
+					$this->items,
+					function( $a, $b ) use ( $orderby, $order ) {
+						$cmp = strcasecmp( $a[ $orderby ], $b[ $order ] );
+						return ( $order === 'asc' ) ? $cmp : -$cmp;
+					}
+				);
+			}
 		}
 	}
 
@@ -52,13 +90,14 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 
 
 	public function get_columns() {
+		$options = $this->options->options_layout();
 		return array(
 			'cb'       => '<input type="checkbox" />',
-			'title'    => __( 'Name', 'dyntaxmi' ),
-			'active'   => __( 'Active', 'dyntaxmi' ),
-			'type'     => __( 'Taxonomy', 'dyntaxmi' ),
-			'menu'     => __( 'Menu', 'dyntaxmi' ),
-			'position' => __( 'Position', 'dyntaxmi' ),
+			'title'    => $options['title']['label'],
+			'active'   => $options['active']['label'],
+			'type'     => $options['type']['label'],
+			'menu'     => $options['menu']['label'],
+			'position' => $options['position']['label'],
 		);
 	}
 
@@ -78,11 +117,12 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 	public function column_default( $item, $column_name ) {
 		switch( $column_name ) {
 			case 'active':
-				return ( $item[ $column_name ] ) ? __( 'Yes', 'dyntaxmi' ) : __( 'No', 'dyntaxmi' );
+				return ( $item['active'] ) ? __( 'Yes', 'dyntaxmi' ) : __( 'No', 'dyntaxmi' );
+			case 'menu':
+				return $this->menus[ $items['menu'] ];
+			case 'position':
 			case 'title':
 			case 'type':
-			case 'menu':
-			case 'position':
 				return $item[ $column_name ];
 			default:
 				return print_r( $item, true ) ; // Show the whole array for troubleshooting purposes
