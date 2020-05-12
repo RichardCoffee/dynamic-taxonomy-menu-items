@@ -75,7 +75,7 @@ class DynTaxMI_Form_Taxonomy {
 			$text = __( 'Dynamic Menu', 'dyntaxmi' );
 			$menu = __( 'Dynamic Menu', 'dyntaxmi' );
 			$this->hook = add_theme_page( $text, $text, $this->capability, 'dtmi_listing', [ $this, 'listing' ] );
-			add_action( "load-{$this->hook}", [ $this, 'add_screen_options' ] );
+			add_action( "load-{$this->hook}", [ $this, 'load_list_class' ] );
 		}
 	}
 
@@ -84,7 +84,7 @@ class DynTaxMI_Form_Taxonomy {
 	 *
 	 * @since 20200511
 	 */
-	public function add_screen_options() {
+	public function load_list_class() {
 		if ( ! class_exists( 'WP_List_Table' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 		}
