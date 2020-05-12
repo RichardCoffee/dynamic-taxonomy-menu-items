@@ -24,6 +24,12 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 	protected $options;
 
 
+	/**
+	 *  Constructor method.
+	 *
+	 * @since 20200507
+	 * @param array $args
+	 */
 	public function __construct( array $args = array() ) {
 		$list = array(
 			'singular' => __( 'sub-menu',   'dyntaxmi' ),
@@ -35,6 +41,11 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 		$this->options = new DynTaxMI_Options_DynTaxMI();
 	}
 
+	/**
+	 *  Preparations for display.
+	 *
+	 * @since 20200507
+	 */
 	public function prepare_items() {
 		$this->prepare_columns();
 		$this->process_bulk_action();
@@ -60,6 +71,11 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 		$this->items = $menus;
 	}
 
+	/**
+	 *  Sort the sub-menu list.
+	 *
+	 * @since 20200507
+	 */
 	protected function sort_items() {
 		if ( $this->items ) {
 			// If no sort, default to title
@@ -81,6 +97,11 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 
 	/**  Column functions  **/
 
+	/**
+	 *  Establish column definitions.
+	 *
+	 * @since 20200507
+	 */
 	protected function prepare_columns() {
 		$columns  = $this->get_columns();
 		$hidden   = $this->get_hidden_columns();
@@ -88,7 +109,12 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 		$this->_column_headers = array( $columns, $hidden, $sortable );
 	}
 
-
+	/**
+	 *  Define the columns.
+	 *
+	 * @since 20200507
+	 * @return array  Column definitions.
+	 */
 	public function get_columns() {
 		$options = $this->options->options_layout();
 		return array(
@@ -114,6 +140,14 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 		);
 	}
 
+	/**
+	 *  Process column values.
+	 *
+	 * @since 20200507
+	 * @param array  $item
+	 * @param string $column_name
+	 * @return mixed
+	 */
 	public function column_default( $item, $column_name ) {
 		switch( $column_name ) {
 			case 'active':
