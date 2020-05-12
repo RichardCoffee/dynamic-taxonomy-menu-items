@@ -104,7 +104,10 @@ class DynTaxMI_Form_Taxonomy {
 		dyntaxmi()->tag( 'div', [ 'class' => 'wrap' ] );
 			dyntaxmi()->element( 'div', [ 'id' => 'icon-users', 'class' => 'icon32' ] );
 			dyntaxmi()->element( 'h1', [ 'class' => 'wp-heading-inline' ], __( 'Dynamic Taxonomy Sub-Menus', 'dyntaxmi' ) );
-			dyntaxmi()->element( 'a', [ 'class' => 'page-title-action', 'href' => $this->add_new ], __( 'Add New' ) );
+			dyntaxmi()->element( 'a', [ 'class' => 'page-title-action', 'href' => $this->add_new ], __( 'Add New Taxonomy' ) );
+			if ( is_callable( 'bbpress' ) ) {
+				dyntaxmi()->element( 'a', [ 'class' => 'page-title-action', 'href' => $this->add_new ], __( 'Add New Forum' ) );
+			}
 			dyntaxmi()->tag( 'form', [ 'id' => 'posts-filter', 'method' => 'post' ] );
 				$this->listing->prepare_items();
 				$this->listing->display();
