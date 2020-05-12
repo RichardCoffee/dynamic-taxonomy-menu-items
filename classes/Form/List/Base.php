@@ -109,7 +109,7 @@ class DynTaxMI_Form_List_Base extends WP_List_Table {
 	 */
 	protected function screen_per_page() {
 		$opts = array(
-			'label'   => sprintf( _x( '%s per page', 'placeholder is plural', 'dyntaxmi' ), mb_convert_case( $string, MB_CASE_TITLE ) ),
+			'label'   => sprintf( _x( '%s per page', 'placeholder is plural', 'dyntaxmi' ), mb_convert_case( $this->_args['plural'], MB_CASE_TITLE ) ),
 			'default' => $this->per_page,
 			'option'  => $this->per_option,
 		);
