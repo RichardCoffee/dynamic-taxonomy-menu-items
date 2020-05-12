@@ -49,6 +49,8 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 	public function prepare_items() {
 		$this->prepare_columns();
 		$this->process_bulk_action();
+		$this->per_page = $this->get_items_per_page( $this->per_option, $this->per_page );
+		$this->current  = $this->get_pagenum();
 		$this->get_items();
 		$this->sort_items();
 		$this->set_paging();
@@ -58,17 +60,23 @@ class DynTaxMI_Form_List_Taxonomy extends DynTaxMI_Form_List_Base {
 	 *  Retrieve the sub-menu list.
 	 *
 	 * @since 20200511
+	 * @param int $page  Current page number.
 	 * @return array
 	 */
-	protected function get_items() {
+	protected function get_items( $page = 1 ) {
 		$menus = get_option( 'dyntaxmi_menus', array() );
+		$paged = array();
 		if ( $menus ) {
-			$defs = $this->options->get_default_options();
+			$start = ( $page - 1 ) * $this->per_page;
+			$end   = $start + $this->per_page - 1;
+			$defs  = $this->options->get_default_options();
 			foreach( $menus as $key => $item ) {
-				$menus[ $key ] = array_merge( $defs, $item );
+				if ( $key < $start ) continue;
+				if ( $key > $end )   continue;
+				$paged[] = array_merge( $defs, $item );
 			}
 		}
-		$this->items = $menus;
+		$this->items = $paged;
 	}
 
 	/**

@@ -17,6 +17,16 @@ class DynTaxMI_Form_List_Base extends WP_List_Table {
 
 
 	/**
+	 * @since 20200511
+	 * @var int  Current page number.
+	 */
+	protected $current = 1;
+	/**
+	 * @since 20200511
+	 * @var string  Slug for per page screen option.
+	 */
+	protected $per_option = 'items_per_page';
+	/**
 	 * @since 20200510
 	 * @var int  Items per page.
 	 */
@@ -48,6 +58,7 @@ class DynTaxMI_Form_List_Base extends WP_List_Table {
 		$safe = $this->pre_existing();
 		$diff = array_diff_key( $args, $defaults, $safe );
 		if ( $diff ) $this->parse_args( $diff );
+		$this->screen_per_page();
 	}
 
 	/**
@@ -89,6 +100,20 @@ class DynTaxMI_Form_List_Base extends WP_List_Table {
 	 */
 	public function get_sortable_columns() {
 		return array();
+	}
+
+	/**
+	 *  Set the screen per page option.
+	 *
+	 * @since 20200511
+	 */
+	protected function screen_per_page() {
+		$opts = array(
+			'label'   => sprintf( _x( '%s per page', 'placeholder is plural', 'dyntaxmi' ), mb_convert_case( $string, MB_CASE_TITLE ) ),
+			'default' => $this->per_page,
+			'option'  => $this->per_option,
+		);
+		add_screen_option( 'per_page', $opts );
 	}
 
 	/**

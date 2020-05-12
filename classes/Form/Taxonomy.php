@@ -85,17 +85,18 @@ class DynTaxMI_Form_Taxonomy {
 	 * @since 20200511
 	 */
 	public function add_screen_options() {
-		$opts = array(
+/*		$opts = array(
 			'label'   => __( 'Taxonomies per page', 'dyntaxmi' ),
 			'default' => $this->per_page,
 			'option'  => 'taxes_per_page'
 		);
-		add_screen_option( 'per_page', $opts );
+		add_screen_option( 'per_page', $opts );*/
 		if ( ! class_exists( 'WP_List_Table' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 		}
 		$args = array(
-			'per_page' => $this->per_page,
+			'per_page'   => $this->per_page,
+			'per_option' => 'taxes_per_page',
 		);
 		$this->listing = new DynTaxMI_Form_List_Taxonomy( $args );
 	}
