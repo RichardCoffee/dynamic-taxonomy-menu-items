@@ -40,6 +40,11 @@ class DynTaxMI_Form_Taxonomy {
 	 * @var int  Taxonomies per page.
 	 */
 	protected $per_page = 6;
+	/**
+	 * @since 20200512
+	 * @var string  Screen option slug.
+	 */
+	protected $per_option = 'taxes_per_page';
 
 
 	/**
@@ -59,10 +64,13 @@ class DynTaxMI_Form_Taxonomy {
 	 * @since 20200511
 	 * @param bool     $keep   Whether to save or skip saving the screen option value. Default false.
 	 * @param string   $option The option name.
-	 * @param int      $value  The number of rows to use.
+	 * @param int      $value  Option value.
 	 */
 	public function set_screen_option( $keep, $option, $value ) {
-		return $value;
+		if ( $option === $this->per_option ) {
+			return true;
+		}
+		return $keep;
 	}
 
 	/**
@@ -74,7 +82,7 @@ class DynTaxMI_Form_Taxonomy {
 		if ( current_user_can( $this->capability ) ) {
 			$text = __( 'Dynamic Menu', 'dyntaxmi' );
 			$menu = __( 'Dynamic Menu', 'dyntaxmi' );
-			$this->hook = add_theme_page( $text, $text, $this->capability, 'dtmi_listing', [ $this, 'listing' ] );
+			$this->hook = add_theme_page( $text, $menu, $this->capability, 'dtmi_listing', [ $this, 'listing' ] );
 			add_action( "load-{$this->hook}", [ $this, 'load_list_class' ] );
 		}
 	}
@@ -90,7 +98,7 @@ class DynTaxMI_Form_Taxonomy {
 		}
 		$args = array(
 			'per_page'   => $this->per_page,
-			'per_option' => 'taxes_per_page',
+			'per_option' => $this->per_option,
 		);
 		$this->listing = new DynTaxMI_Form_List_Taxonomy( $args );
 	}
@@ -105,9 +113,6 @@ class DynTaxMI_Form_Taxonomy {
 			dyntaxmi()->element( 'div', [ 'id' => 'icon-users', 'class' => 'icon32' ] );
 			dyntaxmi()->element( 'h1', [ 'class' => 'wp-heading-inline' ], __( 'Dynamic Taxonomy Sub-Menus', 'dyntaxmi' ) );
 			dyntaxmi()->element( 'a', [ 'class' => 'page-title-action', 'href' => $this->add_new ], __( 'Add New Taxonomy' ) );
-			if ( is_callable( 'bbpress' ) ) {
-				dyntaxmi()->element( 'a', [ 'class' => 'page-title-action', 'href' => $this->add_new ], __( 'Add New Forum' ) );
-			}
 			dyntaxmi()->tag( 'form', [ 'id' => 'posts-filter', 'method' => 'post' ] );
 				$this->listing->prepare_items();
 				$this->listing->display();
