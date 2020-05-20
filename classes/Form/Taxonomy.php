@@ -9,6 +9,7 @@
  * @copyright Copyright (c) 2020, Richard Coffee
  * @link https://github.com/RichardCoffee/dynamic-taxonomy-menu-items/blob/master/classes/Form/Taxonomy.php
  * @link https://humanmade.com/2018/11/28/extend-and-create-screen-options-in-the-wordpress-admin/
+ * @link https://github.com/jazzsequence/WordPress-Screen-Options-Framework
  */
 defined( 'ABSPATH' ) || exit;
 
