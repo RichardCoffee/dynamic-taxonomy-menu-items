@@ -8,6 +8,7 @@
  * @author Richard Coffee <richard.coffee@rtcenterprises.net>
  * @copyright Copyright (c) 2020, Richard Coffee
  * @link https://github.com/RichardCoffee/dynamic-taxonomy-menu-items/blob/master/classes/Form/Taxonomy.php
+ * @link https://humanmade.com/2018/11/28/extend-and-create-screen-options-in-the-wordpress-admin/
  */
 defined( 'ABSPATH' ) || exit;
 
@@ -59,7 +60,7 @@ class DynTaxMI_Form_Taxonomy {
 	}
 
 	/**
-	 *  Activate the screen option.
+	 *  Save the screen option.
 	 *
 	 * @since 20200511
 	 * @param bool     $keep   Whether to save or skip saving the screen option value. Default false.
@@ -67,8 +68,13 @@ class DynTaxMI_Form_Taxonomy {
 	 * @param int      $value  Option value.
 	 */
 	public function set_screen_option( $keep, $option, $value ) {
-		if ( $option === $this->per_option ) {
-			return true;
+		if ( array_key_exists( 'wp_screen_options_nonce', $_POST ) ) {
+			$nonce = sanitize_text_field( wp_unslash( $_POST['wp_screen_options_nonce'] ) );
+			if ( wp_verify_nonce( $nonce, 'wp_screen_options_nonce' ) ) {
+				if ( $option === $this->per_option ) {
+					$keep = true;
+				}
+			}
 		}
 		return $keep;
 	}
