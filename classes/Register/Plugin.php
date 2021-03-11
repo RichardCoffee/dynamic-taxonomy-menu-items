@@ -19,7 +19,7 @@ class DynTaxMI_Register_Plugin extends DynTaxMI_Register_Register {
 	 * @since 20200204
 	 * @var string  Option slug.
 	 */
-	public static $option = 'plugin_option_slug';
+	public static $option = 'dynamic_taxonomy_menu';
 	/**
 	 * @since 20200406
 	 * @var string  Plugin class name.
@@ -29,7 +29,7 @@ class DynTaxMI_Register_Plugin extends DynTaxMI_Register_Register {
 	 * @since 20200406
 	 * @var string  Plugin name.
 	 */
-	protected static $title = 'Plugin Title';
+	protected static $title = 'Dynamic Taxonomy Menu';
 	/**
 	 * @since 20200204
 	 * @var array  Version information.
